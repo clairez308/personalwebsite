@@ -1,0 +1,355 @@
+<!-- <!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Personal Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li>
+          <a href="assets/resume.pdf" download class="resume-button">Resume</a>
+        </li>
+      </ul>
+    </nav>
+
+    <section id="about">
+      <h2>Claire Zhang</h2>
+      <p>
+        Hi! Welcome to my personal website ~
+      </p>
+      <p>
+        B.Sc Student @ UBC interesed in development, design, and management!
+      </p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="project-container">
+        <div class="project">
+          <h3>PREPAIRE</h3>
+          <h4>1st Place AI Stream; UBC UXathon 2025</h4>
+          <p>
+            Website leveraging AI to mock job interviews and provide live feedback
+          </p>
+          <p>Using UI/UX design principles to create a fully functioning prototype</p>
+        </div>
+        <div class="project">
+          <h3>MedEcho</h3>
+          <h4>nwHacks 2025</h4>
+          <p>
+            Developed a mobile application to allow photographs of prescription medications and provides notifications as
+            reminders
+          </p>
+          <p>Created working prototype using Figma, implemented frontend with React Native</p>
+        </div>
+        <div class="project">
+            <h3>RecipeHub</h3>
+            <h4>UBC CPSC 210</h4>
+          </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <h2>Experience</h2>
+      <div class="work-container">
+        <div class="work-item">
+          <h3>Workshop Facilitator</h3>
+          <p><strong>UBC GIRLsmarts4tech</strong></p>
+          <p>Organizing Computer Science workshops for underrepresented youth</p>
+        </div>
+        <div class="work-item">
+          <h3>Co-Executive Director</h3>
+          <p><strong>XdHacks Mini Vancouver</strong></p>
+          <p>
+            Leading an executive team to organize an in-person BC-wide high school hackathon event, SafeHacks
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/claire-zhang-985410301/" target="_blank">
+          <img src="assets/linkedin.svg" alt="LinkedIn" />
+        </a>
+        <a href="https://github.com/clairez308" target="_blank">
+          <img src="assets/github.svg" alt="GitHub" />
+        </a>
+        <a href="mailto:clairezhang838@gmail.com">
+          <img src="assets/mail.svg" alt="Email" />
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; <span id="year"></span> Claire Zhang</p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claire Zhang</title>
+    <link
+      rel="stylesheet"
+      href="styles.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#hobbies">Hobbies</a></li>
+        <li><a href="Claire Zhang's Resume.pdf" download class="resume-link">Resume</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="header">
+      <div class="container header-content">
+        <div class="header-left">
+          <img src="assets/claire.jpg" alt="Your Name" class="profile-pic" />
+        </div>
+        <div class="header-right">
+          <h1 id="typing-title"></h1>
+          <p>
+            BSc. student @ UBC interested in development, product management,
+            and design. Welcome!
+          </p>
+          <div id="contact">
+            <div class="contact-links">
+              <a
+                href="https://www.linkedin.com/in/claire-zhang-985410301/"
+                target="_blank"
+              >
+                <img src="assets/linkedin.svg" alt="LinkedIn" />
+              </a>
+              <a href="https://github.com/clairez308" target="_blank">
+                <img src="assets/github.svg" alt="GitHub" />
+              </a>
+              <a href="mailto:clairezhang838@gmail.com">
+                <img src="assets/mail.svg" alt="Email" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+      <div class="container">
+        <h2 class="scroll-animate">Projects</h2>
+        <div class="project-list">
+          <div class="project scroll-animate">
+            <h3>
+              <a href="https://devpost.com/software/prepaire" target="_blank"
+                >PREPAIRE</a
+              >
+            </h3>
+            <h4>1st Place AI Stream; UBC UXathon 2025</h4>
+            <p>
+              Website leveraging AI to mock job interviews and provide live
+              feedback
+            </p>
+            <p>
+              Using UI/UX design principles to create a fully functioning
+              prototype
+            </p>
+          </div>
+          <div class="project scroll-animate">
+            <h3>
+              <a href="https://devpost.com/software/medecho" target="_blank"
+                >MedEcho</a
+              >
+            </h3>
+            <h4>nwHacks 2025</h4>
+            <p>
+              Developed a mobile application to allow photographs of
+              prescription medications and provides notifications as reminders
+            </p>
+            <p>
+              Created working prototype using Figma, implemented frontend with
+              React Native
+            </p>
+          </div>
+          <div class="project scroll-animate">
+            <h3>
+              <a
+                >UBC CPSC 210 Project</a
+              >
+            </h3>
+            <h4>RecipeHub</h4>
+            <p>Java, JSwing, JSON</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+      <div class="container">
+        <h2 class="scroll-animate">Experience</h2>
+        <div class="experience-list">
+          <div class="experience-item scroll-animate">
+            <h3>Workshop Facilitator</h3>
+            <p><strong>UBC GIRLsmarts4tech</strong></p>
+            <p>
+              Organizing Computer Science workshops for underrepresented youth
+            </p>
+          </div>
+          <div class="experience-item scroll-animate">
+            <h3>Co-Executive Director</h3>
+            <p><strong>XdHacks Mini Vancouver</strong></p>
+            <p>
+              Leading an executive team to organize an in-person BC-wide high
+              school hackathon event, SafeHacks
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hobbies Section -->
+    <section id = "hobbies" class="hobbies">
+      <div class="hobbies-carousel">
+        <h2 class="scroll-animate">In my free time I love...</h2>
+        <div class="carousel-track">
+          <div class="carousel-item" data-hobby="Dance">
+            <span>Dancing</span>
+            <div class="popup">
+              <img src="assets/dance.jpg" alt="Dance" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Yoga">
+            <span>Yoga</span>
+            <div class="popup">
+              <img src="assets/yoga.jpg" alt="Yoga" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Pilates">
+            <span>Pilates</span>
+            <div class="popup">
+              <img src="assets/pilates.jpg" alt="Pilates" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Reading">
+            <span>Reading</span>
+            <div class="popup">
+              <img src="assets/reading.jpg" alt="Reading" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Volunteering">
+            <span>Volunteering</span>
+            <div class="popup">
+              <img src="assets/volunteering.jpg" alt="Volunteering" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Snowboarding">
+            <span>Snowboarding</span>
+            <div class="popup">
+              <img src="assets/snowboard.jpg" alt="Snowboarding" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Travelling">
+            <span>Travelling</span>
+            <div class="popup">
+              <img src="assets/travel.jpg" alt="Travelling" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Painting">
+            <span>Painting</span>
+            <div class="popup">
+              <img src="assets/paint.jpg" alt="Painting" />=
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Sunset">
+            <span>Chasing sunsets</span>
+          </div>
+
+          <!-- Duplicate Items for Loop -->
+          <div class="carousel-item" data-hobby="Dance">
+            <span>Dancing</span>
+            <div class="popup">
+              <img src="assets/dance.jpg" alt="Dance" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Yoga">
+            <span>Yoga</span>
+            <div class="popup">
+              <img src="assets/yoga.jpg" alt="Yoga" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Pilates">
+            <span>Pilates</span>
+            <div class="popup">
+              <img src="assets/pilates.jpg" alt="Pilates" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Reading">
+            <span>Reading</span>
+            <div class="popup">
+              <img src="assets/reading.jpg" alt="Reading" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Volunteering">
+            <span>Volunteering</span>
+            <div class="popup">
+              <img src="assets/volunteering.jpg" alt="Volunteering" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Snowboarding">
+            <span>Snowboarding</span>
+            <div class="popup">
+              <img src="assets/snowboard.jpg" alt="Snowboarding" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Travelling">
+            <span>Travelling</span>
+            <div class="popup">
+              <img src="assets/travel.jpg" alt="Travelling" />
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Painting">
+            <span>Painting</span>
+            <div class="popup">
+              <img src="assets/paint.jpg" alt="Painting" />=
+            </div>
+          </div>
+          <div class="carousel-item" data-hobby="Sunset">
+            <span>Chasing sunsets</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; <span id="year"></span> Claire Zhang</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+  </body>
+</html> 
