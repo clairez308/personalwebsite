@@ -40,3 +40,22 @@ carouselTrack.addEventListener("mouseenter", () => {
 carouselTrack.addEventListener("mouseleave", () => {
   carouselTrack.style.animationPlayState = "running";
 });
+
+document.querySelectorAll('.item[data-photo]').forEach(item => {
+  const src = item.dataset.photo;
+  const caption = item.dataset.caption || '';
+  const div = document.createElement('div');
+  div.className = 'item-photo-hover';
+  div.innerHTML = `<img src="${src}" alt="${caption}" /><div class="photo-caption">${caption}</div>`;
+  item.appendChild(div);
+});
+
+document.querySelectorAll('.item').forEach(item => {
+  const link = item.querySelector('h3 a');
+  if (!link) return;
+  item.style.cursor = 'pointer';
+  item.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') return; // let real links handle themselves
+    window.open(link.href, link.target || '_self');
+  });
+});
