@@ -3,6 +3,7 @@ title: "Shop-A-Sketch"
 url: "https://devpost.com/software/shop-a-sketch"
 period: "Jan 2026"
 order: 3
+image: "/assets/project-shop-a-sketch.jpg"
 result: "3rd overall · UofTHacks13 (161 projects)"
 bullets:
   - "Pitched the core idea: search by drawing instead of typing."

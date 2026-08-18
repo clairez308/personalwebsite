@@ -3,6 +3,7 @@ title: "PREPAIRE"
 url: "https://devpost.com/software/prepaire"
 period: "Jan 2025"
 order: 9
+image: "/assets/project-prepaire.jpg"
 result: "1st Place, AI Stream · UBC UXathon 2025"
 bullets:
   - "Designed an AI mock-interview platform that gives you live feedback while you talk."

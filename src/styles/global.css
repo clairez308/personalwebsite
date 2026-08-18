@@ -252,14 +252,80 @@ section {
    Hero
    ========================================================================== */
 .hero {
+  position: relative;
+  overflow: hidden;
   padding: calc(var(--space-9) + 56px) 0 var(--space-8);
 }
 
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero::before {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.55), transparent 70%);
+  top: -140px;
+  right: -100px;
+  animation: hero-drift-1 18s ease-in-out infinite;
+}
+
+.hero::after {
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, rgba(55, 48, 163, 0.4), transparent 70%);
+  bottom: -120px;
+  left: 8%;
+  animation: hero-drift-2 22s ease-in-out infinite;
+}
+
+@keyframes hero-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-30px, 25px) scale(1.08); }
+}
+
+@keyframes hero-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(25px, -20px) scale(1.05); }
+}
+
 .hero-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1.25fr 0.85fr;
   gap: var(--space-8);
   align-items: center;
+}
+
+/* staggered entrance for the hero copy, runs once on load */
+.hero-copy > * {
+  opacity: 0;
+  animation: hero-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+.hero-copy > *:nth-child(2) { animation-delay: 0.16s; }
+.hero-copy > *:nth-child(3) { animation-delay: 0.3s; }
+.hero-copy > *:nth-child(4) { animation-delay: 0.42s; }
+.hero-copy > *:nth-child(5) { animation-delay: 0.52s; }
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-eyebrow {
@@ -319,6 +385,26 @@ section {
   justify-self: end;
   width: 100%;
   max-width: 340px;
+  opacity: 0;
+  animation:
+    hero-photo-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    hero-photo-float 6s ease-in-out infinite 0.8s;
+}
+
+@keyframes hero-photo-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-photo-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
 .hero-photo {
@@ -430,15 +516,73 @@ section {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  overflow: hidden;
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .project-card:hover {
   border-color: var(--line-strong);
+}
+
+.project-banner-link {
+  display: block;
+}
+
+.project-banner {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.project-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-card:hover .project-banner img {
+  transform: scale(1.06);
+}
+
+.project-banner--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-banner-initial {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 4.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-card:hover .project-banner-initial {
+  transform: scale(1.1);
+}
+
+.project-banner--1 {
+  background: linear-gradient(135deg, #3730a3, #6366f1);
+}
+
+.project-banner--2 {
+  background: linear-gradient(135deg, #1e1b4b, #4338ca);
+}
+
+.project-banner--3 {
+  background: linear-gradient(135deg, #4c1d95, #3730a3);
+}
+
+.project-card-body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
 }
 
 .project-top {
@@ -573,26 +717,106 @@ section {
 }
 
 /* ==========================================================================
-   Beyond work
+   Hobbies carousel
    ========================================================================== */
-.beyond {
-  padding: var(--space-8) 0;
-}
-
-.beyond-inner {
+.hobbies {
+  padding: var(--space-9) 0 var(--space-8);
   border-top: 1px solid var(--line);
-  padding-top: var(--space-6);
+  overflow-x: clip;
+  overflow-y: visible;
+  position: relative;
 }
 
-.beyond p {
-  font-size: 1.05rem;
-  color: var(--ink-soft);
-  max-width: 68ch;
+.hobbies .section-head {
+  margin-bottom: var(--space-7);
 }
 
-.beyond strong {
-  color: var(--ink);
+.hobbies-carousel {
+  width: 100%;
+  overflow-x: clip;
+  overflow-y: visible;
+  position: relative;
+  padding: 40px 0 20px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: carousel-scroll 28s linear infinite;
+}
+
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes carousel-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.carousel-item {
+  position: relative;
+  flex: 0 0 auto;
+  padding: 12px 24px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
   font-weight: 600;
+  font-size: 1.05rem;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.carousel-item:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.popup {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 170px;
+  height: 200px;
+  padding: 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: 0 16px 34px rgba(20, 20, 26, 0.16);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 50;
+}
+
+.carousel-item:hover .popup {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-14px);
+}
+
+.popup img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .carousel-item {
+    padding: 10px 18px;
+    font-size: 0.92rem;
+  }
+
+  .popup {
+    width: 130px;
+    height: 155px;
+  }
 }
 
 /* ==========================================================================
@@ -1345,5 +1569,23 @@ footer.site-footer {
 
   .local-time::before {
     animation: none;
+  }
+
+  .hero::before,
+  .hero::after,
+  .hero-photo-wrap,
+  .carousel-track {
+    animation: none;
+  }
+
+  .hero-copy > * {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+
+  .hero-photo-wrap {
+    opacity: 1;
+    transform: none;
   }
 }

@@ -3,6 +3,7 @@ title: "SustainABite"
 url: "https://devpost.com/software/sustainabite-571y0a"
 period: "Mar 2025"
 order: 7
+image: "/assets/project-sustainabite.jpg"
 result: "1st Place, SAP Stream (Beginner) · youCode 2025"
 bullets:
   - "Built a mobile app that connects budgeting students to surplus food, so less of it goes to waste."

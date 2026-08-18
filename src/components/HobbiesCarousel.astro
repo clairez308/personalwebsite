@@ -1,0 +1,35 @@
+---
+const hobbies = [
+  { name: "Dancing", image: "/assets/hobby-dance.jpg" },
+  { name: "Yoga", image: "/assets/hobby-yoga.jpg" },
+  { name: "Volunteering", image: "/assets/hobby-volunteering.jpg" },
+  { name: "Snowboarding", image: "/assets/hobby-snow.jpg" },
+  { name: "Travelling", image: "/assets/hobby-travel.jpg" },
+  { name: "Painting", image: "/assets/hobby-paint.jpg" },
+];
+// duplicated once so the marquee can loop seamlessly at -50%
+const looped = [...hobbies, ...hobbies];
+---
+
+<section class="hobbies">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label">Beyond Work</span>
+      <h2>I also love&hellip;</h2>
+    </div>
+  </div>
+  <div class="hobbies-carousel">
+    <div class="carousel-track">
+      {
+        looped.map((hobby) => (
+          <div class="carousel-item">
+            <span>{hobby.name}</span>
+            <div class="popup">
+              <img src={hobby.image} alt={hobby.name} loading="lazy" />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

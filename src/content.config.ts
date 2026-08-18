@@ -8,6 +8,7 @@ const projects = defineCollection({
     url: z.string().url(),
     period: z.string(),
     result: z.string().optional(),
+    image: z.string().optional(),
     bullets: z.array(z.string()),
     stack: z.array(z.string()),
     // Lower sorts first. Collections don't preserve file order, and the

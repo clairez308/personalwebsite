@@ -3,6 +3,7 @@ title: "SOMA"
 url: "https://devpost.com/software/soma-4wzq57"
 period: "Apr 2026"
 order: 2
+image: "/assets/project-soma.jpg"
 result: "Best Use of Gemma 4 · BearHacks 2026"
 bullets:
   - "Won out of 32 teams. I led the pitch and made the case for why body literacy should feel visual and conversational instead of clinical."

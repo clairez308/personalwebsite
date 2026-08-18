@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import HobbiesCarousel from "../components/HobbiesCarousel.astro";
 
 const projects = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order
@@ -18,7 +19,7 @@ const [atlas] = await getCollection("caseStudies");
   <!-- Hero -->
   <header class="hero" id="top">
     <div class="container hero-grid">
-      <div>
+      <div class="hero-copy">
         <span class="hero-eyebrow">Claire Zhang · Computer Science, UBC</span>
         <h1>Product thinking, <em>shipped</em>.</h1>
         <p class="hero-lede">
@@ -84,7 +85,7 @@ const [atlas] = await getCollection("caseStudies");
       </div>
 
       <div class="project-grid">
-        {projects.map((project) => <ProjectCard project={project} />)}
+        {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
       </div>
     </div>
   </section>
@@ -162,15 +163,5 @@ const [atlas] = await getCollection("caseStudies");
   </section>
 
   <!-- Beyond work -->
-  <section class="beyond">
-    <div class="container">
-      <div class="beyond-inner reveal">
-        <p>
-          <strong>Outside of work:</strong> dance, yoga and pilates,
-          snowboarding, painting, and slowly making my way through
-          <em>When Nietzsche Wept</em>.
-        </p>
-      </div>
-    </div>
-  </section>
+  <HobbiesCarousel />
 </BaseLayout>
