@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atlas — Product Case Study | Claire Zhang</title>
+    <title>Atlas: Product Case Study | Claire Zhang</title>
     <meta
       name="description"
-      content="How I approached PM thinking, prioritization, and system design for Atlas, a VC operating system built for UBC PMC's Product Heist 2025 — placing 3rd overall."
+      content="How I approached PM thinking, prioritization, and system design for Atlas, a VC operating system built for UBC PMC's Product Heist 2025, placing 3rd overall."
     />
     <link
       rel="icon"
@@ -21,6 +21,9 @@
     />
   </head>
   <body>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="scroll-progress" aria-hidden="true"></div>
+
     <nav class="site-nav">
       <div class="container nav-inner">
         <a href="index.html" class="nav-mark">Claire Zhang</a>
@@ -28,13 +31,13 @@
           <a href="index.html#work">Work</a>
           <a href="index.html#experience">Experience</a>
           <a href="index.html">Home</a>
-          <a href="Claire_Zhang_Resume.pdf" download class="nav-resume">Résumé</a>
+          <a href="Claire_Zhang_Resume.pdf" download class="nav-resume magnetic">Résumé</a>
         </div>
       </div>
     </nav>
 
     <!-- Cover -->
-    <header class="cover">
+    <header class="cover spotlight">
       <div class="container cover-inner">
         <a href="index.html" class="nav-back">&larr; Back to portfolio</a>
         <span class="cover-eyebrow">Product Case Study</span>
@@ -67,35 +70,35 @@
     <!-- 01 The Brief -->
     <section class="case-section">
       <div class="container case-grid">
-        <span class="case-label">01 — The Brief</span>
+        <span class="case-label">01 / The Brief</span>
         <div class="case-body reveal">
           <h2>Build an operating system for venture capital</h2>
           <p>
-            Overdrive is an AI studio building tools for venture capital —
-            automating sourcing, research, and relationship intelligence for
-            funds working across a network of 45,000+ investors and 11,000
-            funds. For Product Heist 2025, they set student teams a single
-            brief: design a lightweight "operating system" that brings three
-            capabilities together into one coherent product — an agentic AI
-            assistant, a relationship-mapping system, and a startup-scoring
-            system.
+            Overdrive is an AI studio that builds tools for venture
+            capital, automating sourcing, research, and relationship
+            intelligence for funds across a network of 45,000+ investors
+            and 11,000 funds. For Product Heist 2025, they gave student
+            teams one brief: design a lightweight "operating system" that
+            brings three things together into one product, an agentic AI
+            assistant, a relationship-mapping system, and a
+            startup-scoring system.
           </p>
           <p>
-            Judging was weighted deliberately: 40% PM thinking, 30% UX
-            design, 30% pitch and deck — a signal that the brief cared less
-            about visual polish than about whether the reasoning behind the
-            product actually held up.
+            The judging was weighted on purpose: 40% PM thinking, 30% UX
+            design, 30% pitch and deck. That told me the brief cared less
+            about how polished the screens looked and more about whether
+            the thinking behind them actually held up.
           </p>
           <div class="stat-row">
-            <div class="stat-block">
+            <div class="stat-block tilt-card">
               <b>40%</b>
               <span>PM thinking</span>
             </div>
-            <div class="stat-block">
+            <div class="stat-block tilt-card">
               <b>30%</b>
               <span>UX design</span>
             </div>
-            <div class="stat-block">
+            <div class="stat-block tilt-card">
               <b>30%</b>
               <span>Pitch + deck</span>
             </div>
@@ -107,27 +110,29 @@
     <!-- 02 The Problem -->
     <section class="case-section">
       <div class="container case-grid">
-        <span class="case-label">02 — The Problem</span>
+        <span class="case-label">02 / The Problem</span>
         <div class="case-body reveal">
           <h2>VC funds are drowning in manual work</h2>
           <p>
-            Even data-driven funds are still operationally analog. Deal
-            information lives across emails, PDFs, meeting notes, and
-            spreadsheets with no single system connecting them — so analysts
-            spend more time hunting for the right document than evaluating
-            the company inside it.
+            Even the funds that call themselves data-driven are still
+            running on manual work behind the scenes. Deal information
+            lives across emails, PDFs, meeting notes, and spreadsheets
+            with nothing tying it together, so analysts spend more time
+            hunting for the right document than actually evaluating the
+            company in it.
           </p>
           <p>
-            Relationship data is just as scattered. Knowing who's worked with
-            whom, which investors are already circling a deal, or who could
-            make a warm introduction means piecing together email threads,
-            LinkedIn, and institutional memory. And even when strong signals
-            exist — revenue growth, user traction, funding from respected
-            co-investors — they're rarely tracked consistently enough to
+            Relationship data is just as scattered. Knowing who's worked
+            with whom, which investors are already circling a deal, or
+            who could make a warm intro means piecing together email
+            threads, LinkedIn, and whatever someone happens to remember.
+            And even when strong signals exist, things like revenue
+            growth, user traction, or funding from respected co-investors,
+            they're rarely tracked consistently enough to actually help
             prioritize a pipeline of thousands of startups.
           </p>
           <div class="stat-row">
-            <div class="stat-block">
+            <div class="stat-block tilt-card">
               <b>~20 hrs</b>
               <span>spent by a VC analyst per potential investment (Forbes, 2017)</span>
             </div>
@@ -139,32 +144,32 @@
     <!-- 03 Users -->
     <section class="case-section">
       <div class="container case-grid">
-        <span class="case-label">03 — Users</span>
+        <span class="case-label">03 / Users</span>
         <div class="case-body reveal">
           <h2>Two people, two failure modes</h2>
           <p>
-            Framing the problem meant separating who actually uses a VC
-            operating system day to day — an analyst under deadline
-            pressure, and a partner who needs to trust the output without
-            redoing the work themselves.
+            Framing the problem meant figuring out who actually uses a VC
+            operating system day to day. That's an analyst working under
+            deadline pressure, and a partner who needs to trust the
+            output without redoing the work themselves.
           </p>
           <div class="persona-grid">
-            <div class="persona-card">
+            <div class="persona-card tilt-card">
               <span class="persona-name">Alex</span>
               <span class="persona-role">26 &middot; Analyst</span>
               <ul>
-                <li>47 new pitch decks can land in one morning, each in a different format — metrics get pulled out by hand.</li>
+                <li>47 new pitch decks can land in one morning, all in different formats, and the metrics still have to get pulled out by hand.</li>
                 <li>Spends more time sifting through documents than actually analyzing them.</li>
                 <li>Writing a single investment memo from scratch takes 4+ hours.</li>
                 <li>Never knows if the fund has a prior connection to a founder.</li>
               </ul>
             </div>
-            <div class="persona-card">
+            <div class="persona-card tilt-card">
               <span class="persona-name">James</span>
               <span class="persona-role">42 &middot; Partner</span>
               <ul>
                 <li>Manages LP and founder relationships while making fast, high-conviction calls.</li>
-                <li>Information scattered across email, drives, and message threads — no visibility into warm intro paths.</li>
+                <li>Information is scattered across email, drives, and message threads, with no visibility into warm intro paths.</li>
                 <li>Shows up to calls without full context because summaries are inconsistent.</li>
               </ul>
             </div>
@@ -176,15 +181,15 @@
     <!-- 04 Signals -->
     <section class="case-section">
       <div class="container case-grid">
-        <span class="case-label">04 — Prioritization</span>
+        <span class="case-label">04 / Prioritization</span>
         <div class="case-body reveal">
           <h2>Not every data point is worth tracking</h2>
           <p>
             The brief asked us to help VCs score startups systematically.
-            Rather than build a scoring model on twenty loosely-justified
-            inputs, we narrowed to three signals we could defend
-            individually — each backed by outside research, not just
-            intuition.
+            Instead of building a model with twenty loosely justified
+            inputs, we narrowed it down to three signals we could actually
+            defend, each one backed by outside research instead of just a
+            gut feeling.
           </p>
           <div class="signal-row">
             <div class="signal-card">
@@ -199,7 +204,7 @@
             </div>
             <div class="signal-card">
               <h4>Founders' inter-relationships</h4>
-              <p>The network layer — credibility, access, and warm paths that often determine whether a company can scale.</p>
+              <p>The network layer: credibility, access, and warm paths that often determine whether a company can scale.</p>
               <cite>Sourced by Strategic Direction, Vol. 26</cite>
             </div>
           </div>
@@ -210,34 +215,34 @@
     <!-- 05 Solution -->
     <section class="case-section">
       <div class="container case-grid">
-        <span class="case-label">05 — Solution</span>
+        <span class="case-label">05 / Solution</span>
         <div class="case-body reveal">
           <h2>One system, three connected layers</h2>
           <p>
             Atlas ties the agentic AI assistant, the relationship map, and
             the scoring system into a single pipeline instead of three
-            disconnected tools — pulling from LinkedIn, GitHub, Google
+            disconnected tools. It pulls from LinkedIn, GitHub, Google
             Scholar, and pitch materials to keep every layer current.
           </p>
           <div class="system-row">
-            <div class="system-card">
+            <div class="system-card tilt-card">
               <span class="system-index">01</span>
               <h4>Agentic AI System</h4>
               <p>Automatically parses pitch decks, extracts metrics, and pre-fills investment memos so analysts start from a draft, not a blank page.</p>
             </div>
-            <div class="system-card">
+            <div class="system-card tilt-card">
               <span class="system-index">02</span>
               <h4>Relationship Mapping</h4>
               <p>A network view of who's worked together, who sits on which board, and which warm paths could help win a deal.</p>
             </div>
-            <div class="system-card">
+            <div class="system-card tilt-card">
               <span class="system-index">03</span>
               <h4>Startup Scoring</h4>
               <p>Ranks startups by revenue growth, user growth, and founder network strength, sorted into High / Median / Low potential.</p>
             </div>
           </div>
           <div class="view-split">
-            <div class="view-card">
+            <div class="view-card tilt-card">
               <div class="view-card-head"><span>From the desktop of an analyst</span></div>
               <div class="view-card-body">
                 <ul>
@@ -249,7 +254,7 @@
                 </ul>
               </div>
             </div>
-            <div class="view-card">
+            <div class="view-card tilt-card">
               <div class="view-card-head"><span>From the laptop of a partner</span></div>
               <div class="view-card-body">
                 <ul>
@@ -268,18 +273,18 @@
     <!-- 06 MVP -->
     <section class="case-section">
       <div class="container case-grid">
-        <span class="case-label">06 — Prioritization</span>
+        <span class="case-label">06 / Prioritization</span>
         <div class="case-body reveal">
           <h2>Choosing features intentionally</h2>
           <p>
             A system that tries to do everything on day one does nothing
-            well. We split the roadmap into what had to exist to prove the
-            concept, what could wait, and what depended on integrations we
-            hadn't earned the right to build yet.
+            well. We split the roadmap into what had to exist to prove
+            the concept, what could wait, and what depended on
+            integrations we hadn't earned the right to build yet.
           </p>
           <div class="mvp-columns">
             <div class="mvp-col core">
-              <h4>Must Have — MVP Core</h4>
+              <h4>Must Have / MVP Core</h4>
               <ol>
                 <li>Analyst dashboard</li>
                 <li>AI pitch-deck parser &amp; summarizer</li>
@@ -290,7 +295,7 @@
               </ol>
             </div>
             <div class="mvp-col phase2">
-              <h4>Phase 2 — Months 4–6</h4>
+              <h4>Phase 2 (Months 4 to 6)</h4>
               <ul>
                 <li>Email + calendar auto-import</li>
                 <li>LinkedIn integration for network data</li>
@@ -299,7 +304,7 @@
               </ul>
             </div>
             <div class="mvp-col future">
-              <h4>Future — Months 7–12</h4>
+              <h4>Future (Months 7 to 12)</h4>
               <ul>
                 <li>Portfolio company tracking</li>
                 <li>Full version history</li>
@@ -314,15 +319,15 @@
     <!-- 07 Positioning -->
     <section class="case-section">
       <div class="container case-grid">
-        <span class="case-label">07 — Positioning</span>
+        <span class="case-label">07 / Positioning</span>
         <div class="case-body reveal">
           <h2>Why an integrated system wins</h2>
           <p>
-            Point tools already exist for pieces of this problem —
-            relationship CRMs, deck parsers, scoring bots. What's missing is
-            the connective tissue: a system where a relationship signal
-            changes a score, and a score changes what an analyst sees first.
-            We benchmarked Atlas's approach against existing point solutions
+            Point tools already exist for pieces of this problem:
+            relationship CRMs, deck parsers, scoring bots. What's missing
+            is the connective tissue, a system where a relationship signal
+            changes a score, and a score changes what an analyst sees
+            first. We benchmarked Atlas against existing point solutions
             on that basis.
           </p>
           <div class="compare-table">
@@ -369,16 +374,16 @@
     <!-- 08 Impact -->
     <section class="case-section">
       <div class="container case-grid">
-        <span class="case-label">08 — Impact</span>
+        <span class="case-label">08 / Impact</span>
         <div class="case-body reveal">
           <h2>20 hours to 1, per startup</h2>
-          <p>None of this replaces analyst judgment — it removes the grunt work standing in front of it.</p>
+          <p>None of this replaces analyst judgment. It just removes the grunt work standing in front of it.</p>
           <div class="stat-row">
-            <div class="stat-block">
+            <div class="stat-block tilt-card">
               <b>20h → 1h</b>
               <span>projected time per startup evaluated</span>
             </div>
-            <div class="stat-block">
+            <div class="stat-block tilt-card">
               <b>3–4 → 50+</b>
               <span>projected investment reports per analyst, per week</span>
             </div>
@@ -389,28 +394,28 @@
 
     <div class="container">
       <div class="pullquote reveal">
-        <p>"Atlas doesn't replace analyst judgment — it amplifies it by removing the grunt work."</p>
+        <p>"Atlas doesn't replace analyst judgment. It amplifies it by removing the grunt work."</p>
       </div>
     </div>
 
     <!-- 09 Result -->
     <section class="case-section">
       <div class="container case-grid">
-        <span class="case-label">09 — Result</span>
+        <span class="case-label">09 / Result</span>
         <div class="case-body reveal">
           <h2>3rd overall, and a lesson in weighting</h2>
           <p>
-            Atlas placed 3rd overall at UBC PMC's Product Heist 2025, judged
-            across PM thinking, UX design, and pitch delivery.
+            Atlas placed 3rd overall at UBC PMC's Product Heist 2025,
+            judged across PM thinking, UX design, and pitch delivery.
           </p>
           <p>
             The rubric weighted PM thinking almost as heavily as UX and
-            pitch combined — a reminder that the strongest entry usually
-            isn't the one with the most polished screens, it's the one with
-            the clearest reasoning for why each screen exists. That's the
-            lens I carried out of the competition: prioritize ruthlessly, be
-            able to defend every feature, and let the interface follow the
-            decision — not the other way around.
+            pitch combined. That stuck with me. The strongest entry
+            usually isn't the one with the most polished screens, it's
+            the one with the clearest reasoning for why each screen
+            exists. Prioritize hard, be able to defend every feature, and
+            let the interface follow the decision instead of the other
+            way around.
           </p>
         </div>
       </div>
@@ -418,15 +423,15 @@
 
     <section>
       <div class="container">
-        <div class="case-cta reveal">
+        <div class="case-cta spotlight reveal">
           <h2>Curious how I'd approach your product problem?</h2>
           <p>
             I'm always happy to talk through product thinking, systems
             design, or where AI actually helps versus adds noise.
           </p>
           <div class="case-cta-actions">
-            <a href="mailto:clairezhang838@gmail.com" class="btn btn-primary">Get in touch</a>
-            <a href="index.html" class="btn btn-ghost">Back to portfolio</a>
+            <a href="mailto:clairezhang838@gmail.com" class="btn btn-primary magnetic">Get in touch</a>
+            <a href="index.html" class="btn btn-ghost magnetic">Back to portfolio</a>
           </div>
         </div>
       </div>
@@ -434,7 +439,10 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>&copy; <span id="year"></span> Claire Zhang</p>
+        <div>
+          <p>&copy; <span id="year"></span> Claire Zhang</p>
+          <p class="local-time" id="local-time"></p>
+        </div>
         <div class="footer-links">
           <a href="mailto:clairezhang838@gmail.com">Email</a>
           <a href="https://www.linkedin.com/in/claire-zhang-985410301/" target="_blank" rel="noopener">LinkedIn</a>

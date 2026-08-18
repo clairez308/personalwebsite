@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Claire Zhang — Product &amp; Technology</title>
+    <title>Claire Zhang, Product &amp; Technology</title>
     <meta
       name="description"
-      content="Claire Zhang — product-minded builder and CS student at UBC. Case work, hackathon builds, and production code across product management and technology consulting."
+      content="Claire Zhang, product-minded builder and CS student at UBC. Case work, hackathon builds, and production code across product management and technology consulting."
     />
     <link
       rel="icon"
@@ -21,6 +21,9 @@
     />
   </head>
   <body>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="scroll-progress" aria-hidden="true"></div>
+
     <nav class="site-nav">
       <div class="container nav-inner">
         <a href="#top" class="nav-mark">Claire Zhang</a>
@@ -28,7 +31,7 @@
           <a href="#work">Work</a>
           <a href="#experience">Experience</a>
           <a href="case-study-atlas.html">Case Study</a>
-          <a href="Claire_Zhang_Resume.pdf" download class="nav-resume">Résumé</a>
+          <a href="Claire_Zhang_Resume.pdf" download class="nav-resume magnetic">Résumé</a>
         </div>
       </div>
     </nav>
@@ -40,15 +43,15 @@
           <span class="hero-eyebrow">Claire Zhang · Computer Science, UBC</span>
           <h1>Product thinking, <em>shipped</em>.</h1>
           <p class="hero-lede">
-            I turn ambiguous problems into structured, working products — from
-            a venture-capital operating system that placed 3rd at UBC's
-            Product Heist, to dashboards built inside a Big Five bank. I gravitate
-            toward the parts of product work most people skip: framing the
-            problem, saying no to features, and shipping the thing.
+            I turn messy, half-formed problems into things that actually
+            ship. I built a venture capital operating system that placed
+            3rd at UBC's Product Heist, and dashboards that are now used
+            inside a Big Five bank. Give me the vague brief nobody wants to
+            touch and I'll figure out what it's actually asking for.
           </p>
           <div class="hero-actions">
-            <a href="case-study-atlas.html" class="btn btn-primary">Read the Atlas case study</a>
-            <a href="Claire_Zhang_Resume.pdf" download class="btn btn-ghost">Résumé</a>
+            <a href="case-study-atlas.html" class="btn btn-primary magnetic">Read the Atlas case study</a>
+            <a href="Claire_Zhang_Resume.pdf" download class="btn btn-ghost magnetic">Résumé</a>
           </div>
           <div class="hero-contact">
             <a href="https://www.linkedin.com/in/claire-zhang-985410301/" target="_blank" rel="noopener">LinkedIn</a>
@@ -65,16 +68,16 @@
     <!-- Featured case study -->
     <section>
       <div class="container">
-        <div class="featured reveal">
+        <div class="featured spotlight reveal">
           <div class="featured-inner">
             <div>
               <span class="featured-tag">Featured Case Study</span>
-              <h3>Atlas — an operating system for venture capital</h3>
+              <h3>Atlas, my take on an operating system for venture capital</h3>
               <p class="featured-desc">
-                At UBC PMC's Product Heist 2025, I led product thinking on a
-                system that unifies AI research, relationship mapping, and
-                startup scoring for VC teams — from problem framing through a
-                clickable prototype.
+                At UBC PMC's Product Heist 2025, my team built a system
+                that pulls together AI research, relationship mapping, and
+                startup scoring for VC teams. I led the product thinking,
+                from framing the problem to the clickable prototype.
               </p>
               <div class="featured-stats">
                 <div class="stat">
@@ -91,7 +94,7 @@
                 </div>
               </div>
             </div>
-            <a href="case-study-atlas.html" class="featured-cta">Read the case study →</a>
+            <a href="case-study-atlas.html" class="featured-cta magnetic">Read the case study →</a>
           </div>
         </div>
       </div>
@@ -105,21 +108,21 @@
           <h2>Projects I've shipped</h2>
           <p>
             A mix of product case work, hackathon builds, and independent
-            projects — spanning problem framing, prototyping, and production
-            code.
+            projects. Some I built alone at 2am, some with a team on a
+            36-hour clock.
           </p>
         </div>
 
         <div class="project-grid">
-          <div class="project-card reveal">
+          <div class="project-card tilt-card reveal">
             <div class="project-top">
               <h3><a href="https://github.com/clairez308/sustainability-emission-project" target="_blank" rel="noopener">Emissions &amp; Pollution Prevention Analytics</a></h3>
               <span class="project-period">Aug 2026</span>
             </div>
             <ul>
-              <li>Joined two public Government of Canada datasets across 2,843 facilities into one pipeline to surface pollution-prevention compliance gaps among top industrial emitters.</li>
-              <li>Caught a facility-identity deduplication bug that had inflated the headline metric by 8 points — corrected a false 89% to a hand-verified 79.1% through manual spot-checks against source data.</li>
-              <li>Delivered a governed reporting layer: a git-versioned Power BI dashboard and a parameterized SSRS report, built for stakeholders who'd never touch the raw data.</li>
+              <li>Joined two public Government of Canada datasets across 2,843 facilities to find pollution-prevention compliance gaps among the biggest industrial emitters.</li>
+              <li>Found a deduplication bug that had quietly inflated the headline metric by 8 points. Spot-checked it by hand and corrected a false 89% down to 79.1%.</li>
+              <li>Built a Power BI dashboard (git-versioned) and a parameterized SSRS report, so people who'd never open the raw data could still use it.</li>
             </ul>
             <div class="project-stack">
               <span class="tag">Azure SQL</span>
@@ -129,16 +132,16 @@
             </div>
           </div>
 
-          <div class="project-card reveal">
+          <div class="project-card tilt-card reveal">
             <div class="project-top">
               <h3><a href="https://devpost.com/software/soma-4wzq57" target="_blank" rel="noopener">SOMA</a></h3>
               <span class="project-period">Apr 2026</span>
             </div>
             <span class="project-result">Best Use of Gemma 4 · BearHacks 2026</span>
             <ul>
-              <li>Won out of 32 submissions by leading the pitch and framing SOMA's value prop: making body literacy visual, conversational, and jargon-free.</li>
-              <li>Designed and built the entire frontend in React and Three.js, turning a fuzzy "make anatomy less intimidating" brief into a concrete interactive product.</li>
-              <li>Scoped the ElevenLabs voice integration for hands-free, real-time muscle-group explanations within the hackathon's time limit.</li>
+              <li>Won out of 32 teams. I led the pitch and made the case for why body literacy should feel visual and conversational instead of clinical.</li>
+              <li>Built the whole frontend in React and Three.js. The brief was basically "make anatomy less scary," so I turned that into something you could actually click around in.</li>
+              <li>Scoped the ElevenLabs voice integration so you could ask about a muscle group and just hear the answer, hands free.</li>
             </ul>
             <div class="project-stack">
               <span class="tag">React</span>
@@ -148,16 +151,16 @@
             </div>
           </div>
 
-          <div class="project-card reveal">
+          <div class="project-card tilt-card reveal">
             <div class="project-top">
               <h3><a href="https://devpost.com/software/shop-a-sketch" target="_blank" rel="noopener">Shop-A-Sketch</a></h3>
               <span class="project-period">Jan 2026</span>
             </div>
             <span class="project-result">3rd overall · UofTHacks13 (161 projects)</span>
             <ul>
-              <li>Spearheaded the product vision, reframing e-commerce search around sketch-based discovery instead of keyword search.</li>
-              <li>Owned the core product loop — turning an AI-interpreted sketch into a ranked, purchasable set of results via the Google Shopping API.</li>
-              <li>Bridged UX and engineering: connected a React + Tailwind frontend to a Python/Node.js backend and shipped a working drawing canvas in 36 hours.</li>
+              <li>Pitched the core idea: search by drawing instead of typing.</li>
+              <li>Owned the main product loop, turning a sketch into a ranked set of real, purchasable results through the Google Shopping API.</li>
+              <li>Connected a React and Tailwind frontend to a Python and Node backend, and got a working drawing canvas shipped in 36 hours.</li>
             </ul>
             <div class="project-stack">
               <span class="tag">React</span>
@@ -167,15 +170,15 @@
             </div>
           </div>
 
-          <div class="project-card reveal">
+          <div class="project-card tilt-card reveal">
             <div class="project-top">
               <h3><a href="https://ubcpilates.club" target="_blank" rel="noopener">UBC Pilates Club Website</a></h3>
               <span class="project-period">Jun 2025 – Present</span>
             </div>
             <ul>
-              <li>Own the club's web presence end-to-end as Webmaster, built from scratch in TypeScript and Tailwind CSS.</li>
-              <li>Grew SEO engagement 59% (800+ impressions) by treating the rebuild as a product problem, not just a build — information architecture and page speed as design inputs.</li>
-              <li>Built an end-to-end Cypress test suite, cutting user-flow instability 30% and giving the club a regression-safe base for ongoing changes.</li>
+              <li>Built and still run the club's website from scratch in TypeScript and Tailwind.</li>
+              <li>Treated it like an actual product, not just a build. Rethought the information architecture and page speed, and grew SEO engagement 59% (800+ impressions).</li>
+              <li>Wrote a full Cypress test suite, which cut user-flow instability by 30% and means I can change things without breaking the site.</li>
             </ul>
             <div class="project-stack">
               <span class="tag">TypeScript</span>
@@ -185,14 +188,14 @@
             </div>
           </div>
 
-          <div class="project-card reveal">
+          <div class="project-card tilt-card reveal">
             <div class="project-top">
               <h3><a href="https://github.com/clairez308/RecipeHub" target="_blank" rel="noopener">RecipeHub</a></h3>
               <span class="project-period">Apr 2025</span>
             </div>
             <ul>
-              <li>Built a desktop Java app for organizing and discovering recipes, with JSON-based persistence and a JSwing interface.</li>
-              <li>Backed it with 95% JUnit test coverage, cutting runtime errors 50% during integration — prioritizing reliability over feature breadth under a fixed deadline.</li>
+              <li>Built a desktop Java app for organizing and discovering recipes, with JSON persistence and a JSwing interface.</li>
+              <li>Hit 95% test coverage with JUnit, which cut runtime errors in half during integration. Given the deadline, I cared more about it working than about doing everything.</li>
             </ul>
             <div class="project-stack">
               <span class="tag">Java</span>
@@ -202,14 +205,14 @@
             </div>
           </div>
 
-          <div class="project-card reveal">
+          <div class="project-card tilt-card reveal">
             <div class="project-top">
               <h3><a href="https://github.com/clairez308/dsci-100-2024-5-w2-group-005-32" target="_blank" rel="noopener">Gaming Behaviour Prediction</a></h3>
               <span class="project-period">Apr 2025</span>
             </div>
             <ul>
-              <li>Designed a predictive analytics pipeline in R on the PLAI dataset to model player engagement patterns.</li>
-              <li>Tuned KNN classification models (5-fold cross-validation) to 73.47% accuracy, then translated the output into a stakeholder-readable KPI dashboard.</li>
+              <li>Built a predictive analytics pipeline in R on the PLAI dataset to model how players actually engage.</li>
+              <li>Tuned KNN models with 5-fold cross-validation to 73.47% accuracy, then turned the output into a KPI dashboard someone outside the project could actually read.</li>
             </ul>
             <div class="project-stack">
               <span class="tag">R</span>
@@ -217,15 +220,15 @@
             </div>
           </div>
 
-          <div class="project-card reveal">
+          <div class="project-card tilt-card reveal">
             <div class="project-top">
               <h3><a href="https://devpost.com/software/sustainabite-571y0a" target="_blank" rel="noopener">SustainABite</a></h3>
               <span class="project-period">Mar 2025</span>
             </div>
             <span class="project-result">1st Place, SAP Stream (Beginner) · youCode 2025</span>
             <ul>
-              <li>Built a mobile app that reduces food waste by connecting budgeting students to surplus food.</li>
-              <li>Spearheaded the React Native + Expo frontend, then extended the project past the hackathon into a working system with Firebase Auth and Firestore — proving the concept could hold up past a demo.</li>
+              <li>Built a mobile app that connects budgeting students to surplus food, so less of it goes to waste.</li>
+              <li>Led the React Native and Expo frontend, then kept building after the hackathon ended, adding Firebase Auth and Firestore to prove it could work as more than a demo.</li>
             </ul>
             <div class="project-stack">
               <span class="tag">React Native</span>
@@ -234,14 +237,14 @@
             </div>
           </div>
 
-          <div class="project-card reveal">
+          <div class="project-card tilt-card reveal">
             <div class="project-top">
               <h3><a href="https://devpost.com/software/medecho" target="_blank" rel="noopener">MedEcho</a></h3>
               <span class="project-period">Jan 2025</span>
             </div>
             <ul>
-              <li>Designed a mobile app that lets patients photograph prescriptions and get automatic medication reminders, prototyped in Figma before writing code.</li>
-              <li>Built the React Native frontend and used OpenCV/Python to cut medication-logging time 70% versus manual entry.</li>
+              <li>Designed a mobile app where you photograph a prescription and get automatic medication reminders. Prototyped it in Figma before writing a line of code.</li>
+              <li>Built the React Native frontend and used OpenCV and Python to cut medication logging time by 70% compared to typing it in by hand.</li>
             </ul>
             <div class="project-stack">
               <span class="tag">React Native</span>
@@ -251,15 +254,15 @@
             </div>
           </div>
 
-          <div class="project-card reveal">
+          <div class="project-card tilt-card reveal">
             <div class="project-top">
               <h3><a href="https://devpost.com/software/prepaire" target="_blank" rel="noopener">PREPAIRE</a></h3>
               <span class="project-period">Jan 2025</span>
             </div>
             <span class="project-result">1st Place, AI Stream · UBC UXathon 2025</span>
             <ul>
-              <li>Designed an AI-powered mock-interview platform with live feedback.</li>
-              <li>Coordinated project deliverables end-to-end and applied UI/UX principles to take the concept from idea to a fully functional prototype within the hackathon.</li>
+              <li>Designed an AI mock-interview platform that gives you live feedback while you talk.</li>
+              <li>Coordinated the whole project and used UI/UX principles to take it from an idea to a working prototype inside one hackathon.</li>
             </ul>
             <div class="project-stack">
               <span class="tag">Figma</span>
@@ -284,10 +287,11 @@
             <div class="timeline-role">
               <h3>Business Systems Analyst</h3>
               <p>
-                Validated SRRs and PCRs with DXC Cloud Networks; reviewed
-                vendor contracts and T&amp;Cs for vendor management and risk
-                mitigation. Built a Power BI dashboard from scratch to
-                represent historical contractual data.
+                Validated SRRs and PCRs with DXC Cloud Networks, and
+                reviewed vendor contracts and T&amp;Cs for vendor
+                management and risk mitigation. Also built a Power BI
+                dashboard from scratch to make sense of years of
+                contractual data.
               </p>
             </div>
           </div>
@@ -298,10 +302,10 @@
               <h3>Associate Vice President, Communications</h3>
               <p>
                 Own communications portfolio management, including web
-                development. Led organization of SUS's first-ever hackathon,
-                Hack the Coast, with 183 hackers — building an event for an
-                underserved community making up 25%+ of the faculty's 10,000
-                students.
+                development. Led organization of SUS's first-ever
+                hackathon, Hack the Coast, with 183 hackers. It's a
+                community that makes up over 25% of the faculty's 10,000
+                students but rarely gets events built for it.
               </p>
             </div>
           </div>
@@ -334,7 +338,7 @@
             <div class="timeline-org"><a href="https://littlemountainmdv.com/" target="_blank" rel="noopener">Little Mountain</a></div>
             <div class="timeline-role">
               <h3>Retail Shift Supervisor</h3>
-              <p>Provide customer service and oversee shift operations in a retail setting.</p>
+              <p>Run shifts and handle customer service on the retail floor.</p>
             </div>
           </div>
         </div>
@@ -346,7 +350,7 @@
       <div class="container">
         <div class="beyond-inner reveal">
           <p>
-            <strong>Outside of work</strong> — dance, yoga, and pilates,
+            <strong>Outside of work:</strong> dance, yoga and pilates,
             snowboarding, painting, and slowly making my way through
             <em>When Nietzsche Wept</em>.
           </p>
@@ -356,7 +360,10 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>&copy; <span id="year"></span> Claire Zhang</p>
+        <div>
+          <p>&copy; <span id="year"></span> Claire Zhang</p>
+          <p class="local-time" id="local-time"></p>
+        </div>
         <div class="footer-links">
           <a href="mailto:clairezhang838@gmail.com">Email</a>
           <a href="https://www.linkedin.com/in/claire-zhang-985410301/" target="_blank" rel="noopener">LinkedIn</a>
