@@ -25,14 +25,16 @@ const [atlas] = await getCollection("caseStudies");
     </div>
     <div class="container hero-grid">
       <div class="hero-copy">
-        <span class="hero-eyebrow">Claire Zhang · Computer Science, UBC</span>
-        <h1>Product thinking, <em>shipped</em>.</h1>
+        <span class="hero-eyebrow">Computer Science @ UBC</span>
+        <h1 class="hero-type">
+          <span id="hero-typed">Hi, I'm Claire.</span><span class="hero-cursor" aria-hidden="true"></span>
+        </h1>
         <p class="hero-lede">
-          I turn messy, half-formed problems into things that actually
-          ship. I built a venture capital operating system that placed
-          3rd at UBC's Product Heist, and dashboards that are now used
-          inside a Big Five bank. Give me the vague brief nobody wants to
-          touch and I'll figure out what it's actually asking for.
+          I'm a CS student at UBC who likes building things, then
+          figuring out if they were worth building in the first place.
+          Lately that's meant a VC tool that placed 3rd at a case comp,
+          dashboards I built during a co-op at a bank, and more
+          hackathons than I can count.
         </p>
         <div class="hero-actions">
           <a href="/case-studies/atlas" class="btn btn-primary magnetic">Read the Atlas case study</a>
@@ -87,11 +89,11 @@ const [atlas] = await getCollection("caseStudies");
         <p>
           A mix of product case work, hackathon builds, and independent
           projects. Some I built alone at 2am, some with a team on a
-          36-hour clock.
+          36-hour clock. Hover a tile for the details.
         </p>
       </div>
 
-      <div class="project-grid">
+      <div class="project-masonry">
         {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
       </div>
     </div>

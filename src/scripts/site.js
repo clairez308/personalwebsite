@@ -17,6 +17,21 @@ if (timeEl) {
   setInterval(updateTime, 30000);
 }
 
+// Type out the hero greeting. The full text is already in the markup so it
+// reads fine with JS off or on first paint; this just clears and retypes it.
+const typedEl = document.getElementById("hero-typed");
+if (typedEl && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const fullText = typedEl.textContent;
+  typedEl.textContent = "";
+  let i = 0;
+  const typeNext = () => {
+    typedEl.textContent = fullText.slice(0, i);
+    i++;
+    if (i <= fullText.length) setTimeout(typeNext, 55);
+  };
+  setTimeout(typeNext, 300);
+}
+
 // Scroll-reveal
 const revealEls = document.querySelectorAll(".reveal");
 
