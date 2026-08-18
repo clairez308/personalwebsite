@@ -1,0 +1,24 @@
+---
+interface Props {
+  activePage?: "home" | "case-study";
+}
+const { activePage = "home" } = Astro.props;
+---
+
+<nav class="site-nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-mark">Claire Zhang</a>
+    <div class="nav-links">
+      <a href="/#work">Work</a>
+      <a href="/#experience">Experience</a>
+      {
+        activePage === "home" ? (
+          <a href="/case-studies/atlas">Case Study</a>
+        ) : (
+          <a href="/">Home</a>
+        )
+      }
+      <a href="/Claire_Zhang_Resume.pdf" download class="nav-resume magnetic">Résumé</a>
+    </div>
+  </div>
+</nav>

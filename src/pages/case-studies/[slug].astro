@@ -1,0 +1,76 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Section from "../../components/case-study/Section.astro";
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection("caseStudies");
+  return caseStudies.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const {
+  title,
+  subtitle,
+  competition,
+  hostedBy,
+  deliverables,
+  result,
+  description,
+  sections,
+} = entry.data;
+---
+
+<BaseLayout
+  title={`${title}: Product Case Study | Claire Zhang`}
+  description={description}
+  activePage="case-study"
+>
+  <header class="cover spotlight">
+    <div class="container cover-inner">
+      <a href="/" class="nav-back">&larr; Back to portfolio</a>
+      <span class="cover-eyebrow">Product Case Study</span>
+      <h1>{title}</h1>
+      <p class="cover-sub">{subtitle}</p>
+      <div class="cover-meta">
+        <div class="meta-item">
+          <span>Competition</span>
+          <b>{competition}</b>
+        </div>
+        <div class="meta-item">
+          <span>Hosted by</span>
+          <b>{hostedBy}</b>
+        </div>
+        <div class="meta-item">
+          <span>Deliverables</span>
+          <b>{deliverables}</b>
+        </div>
+        <div class="meta-item">
+          <span>Result</span>
+          <b>{result}</b>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {sections.map((section) => <Section section={section} />)}
+
+  <section>
+    <div class="container">
+      <div class="case-cta spotlight reveal">
+        <h2>Curious how I'd approach your product problem?</h2>
+        <p>
+          I'm always happy to talk through product thinking, systems
+          design, or where AI actually helps versus adds noise.
+        </p>
+        <div class="case-cta-actions">
+          <a href="mailto:clairezhang838@gmail.com" class="btn btn-primary magnetic">Get in touch</a>
+          <a href="/" class="btn btn-ghost magnetic">Back to portfolio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,188 @@
+---
+import type { CollectionEntry } from "astro:content";
+import MarkCell from "./MarkCell.astro";
+
+type CaseStudySection = CollectionEntry<"caseStudies">["data"]["sections"][number];
+
+interface Props {
+  section: CaseStudySection;
+}
+
+const { section } = Astro.props;
+---
+
+<section class="case-section">
+  <div class="container case-grid">
+    <span class="case-label">{section.label}</span>
+    <div class="case-body reveal">
+      <h2>{section.heading}</h2>
+
+      {
+        section.type === "text" && (
+          <>
+            {section.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+            {section.stats && (
+              <div class="stat-row">
+                {section.stats.map((stat) => (
+                  <div class="stat-block tilt-card">
+                    <b>{stat.value}</b>
+                    <span>{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )
+      }
+
+      {
+        section.type === "personas" && (
+          <>
+            <p>{section.intro}</p>
+            <div class="persona-grid">
+              {section.personas.map((persona) => (
+                <div class="persona-card tilt-card">
+                  <span class="persona-name">{persona.name}</span>
+                  <span class="persona-role">{persona.role}</span>
+                  <ul>
+                    {persona.points.map((point) => (
+                      <li>{point}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </>
+        )
+      }
+
+      {
+        section.type === "signals" && (
+          <>
+            <p>{section.intro}</p>
+            <div class="signal-row">
+              {section.items.map((item) => (
+                <div class="signal-card">
+                  <h4>{item.title}</h4>
+                  <p>{item.description}</p>
+                  <cite>{item.source}</cite>
+                </div>
+              ))}
+            </div>
+          </>
+        )
+      }
+
+      {
+        section.type === "solution" && (
+          <>
+            <p>{section.intro}</p>
+            <div class="system-row">
+              {section.systems.map((system, i) => (
+                <div class="system-card tilt-card">
+                  <span class="system-index">{String(i + 1).padStart(2, "0")}</span>
+                  <h4>{system.title}</h4>
+                  <p>{system.description}</p>
+                </div>
+              ))}
+            </div>
+            <div class="view-split">
+              {section.views.map((view) => (
+                <div class="view-card tilt-card">
+                  <div class="view-card-head">
+                    <span>{view.heading}</span>
+                  </div>
+                  <div class="view-card-body">
+                    <ul>
+                      {view.items.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )
+      }
+
+      {
+        section.type === "roadmap" && (
+          <>
+            <p>{section.intro}</p>
+            <div class="mvp-columns">
+              <div class="mvp-col core">
+                <h4>{section.core.heading}</h4>
+                <ol>
+                  {section.core.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ol>
+              </div>
+              {section.later.map((col, i) => (
+                <div class={`mvp-col ${i === section.later.length - 1 ? "future" : "phase2"}`}>
+                  <h4>{col.heading}</h4>
+                  <ul>
+                    {col.items.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </>
+        )
+      }
+
+      {
+        section.type === "compare" && (
+          <>
+            <p>{section.intro}</p>
+            <div class="compare-table">
+              <div class="compare-row head">
+                <span>Capability</span>
+                <span class="mark">{section.columns[0]}</span>
+                <span class="mark">{section.columns[1]}</span>
+              </div>
+              {section.rows.map((row) => (
+                <div class="compare-row">
+                  <span>{row.capability}</span>
+                  <MarkCell value={row.left} />
+                  <MarkCell value={row.right} />
+                </div>
+              ))}
+            </div>
+          </>
+        )
+      }
+
+      {
+        section.type === "stats" && (
+          <>
+            {section.intro && <p>{section.intro}</p>}
+            <div class="stat-row">
+              {section.stats.map((stat) => (
+                <div class="stat-block tilt-card">
+                  <b>{stat.value}</b>
+                  <span>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+{
+  section.type === "stats" && section.quote && (
+    <div class="container">
+      <div class="pullquote reveal">
+        <p>"{section.quote}"</p>
+      </div>
+    </div>
+  )
+}

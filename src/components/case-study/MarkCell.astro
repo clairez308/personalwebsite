@@ -1,0 +1,12 @@
+---
+interface Props {
+  value: "yes" | "partial" | "no";
+}
+
+const { value } = Astro.props;
+
+const symbol = { yes: "✓", partial: "◐", no: "✗" }[value];
+const cssClass = { yes: "yes", partial: "partial", no: "no" }[value];
+---
+
+<span class={`mark ${cssClass}`}>{symbol}</span>
