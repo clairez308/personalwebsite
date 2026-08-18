@@ -58,6 +58,16 @@ if (progressEl) {
   updateProgress();
 }
 
+// Nav picks up a background and shadow once you've actually scrolled past it
+const navEl = document.querySelector(".site-nav");
+if (navEl) {
+  const updateNav = () => {
+    navEl.classList.toggle("scrolled", window.scrollY > 8);
+  };
+  window.addEventListener("scroll", updateNav, { passive: true });
+  updateNav();
+}
+
 // Everything below is cursor-driven, so it only makes sense on a device
 // with an actual pointer and someone who isn't asking for less motion.
 const wantsMotion =
@@ -123,6 +133,25 @@ if (wantsMotion) {
       rect = null;
     });
   });
+
+  // Hero parallax: the blobs drift opposite the cursor, the photo drifts
+  // toward it, so the two layers read as sitting at different depths.
+  const heroEl = document.querySelector(".hero");
+  const heroBlobs = document.querySelector(".hero-blobs");
+  const heroPhoto = document.querySelector(".hero-photo-parallax");
+  if (heroEl && (heroBlobs || heroPhoto)) {
+    heroEl.addEventListener("mousemove", (e) => {
+      const rect = heroEl.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      if (heroBlobs) heroBlobs.style.transform = `translate(${px * -50}px, ${py * -35}px)`;
+      if (heroPhoto) heroPhoto.style.transform = `translate(${px * 16}px, ${py * 12}px)`;
+    });
+    heroEl.addEventListener("mouseleave", () => {
+      if (heroBlobs) heroBlobs.style.transform = "translate(0, 0)";
+      if (heroPhoto) heroPhoto.style.transform = "translate(0, 0)";
+    });
+  }
 }
 
 // For anyone who checks the console before the About section

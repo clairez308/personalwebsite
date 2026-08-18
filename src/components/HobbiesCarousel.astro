@@ -22,12 +22,10 @@ const looped = [...hobbies, ...hobbies];
     <div class="carousel-track">
       {
         looped.map((hobby) => (
-          <div class="carousel-item">
-            <span>{hobby.name}</span>
-            <div class="popup">
-              <img src={hobby.image} alt={hobby.name} loading="lazy" />
-            </div>
-          </div>
+          <figure class="hobby-card">
+            <img src={hobby.image} alt={hobby.name} loading="lazy" />
+            <figcaption>{hobby.name}</figcaption>
+          </figure>
         ))
       }
     </div>

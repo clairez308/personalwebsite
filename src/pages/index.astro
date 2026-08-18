@@ -18,6 +18,11 @@ const [atlas] = await getCollection("caseStudies");
 >
   <!-- Hero -->
   <header class="hero" id="top">
+    <div class="hero-blobs" aria-hidden="true">
+      <div class="hero-blob hero-blob-1"></div>
+      <div class="hero-blob hero-blob-2"></div>
+      <div class="hero-blob hero-blob-3"></div>
+    </div>
     <div class="container hero-grid">
       <div class="hero-copy">
         <span class="hero-eyebrow">Claire Zhang · Computer Science, UBC</span>
@@ -39,8 +44,10 @@ const [atlas] = await getCollection("caseStudies");
           <a href="mailto:clairezhang838@gmail.com">Email</a>
         </div>
       </div>
-      <div class="hero-photo-wrap">
-        <img src="/assets/claire-headshot.jpg" alt="Claire Zhang" class="hero-photo" />
+      <div class="hero-photo-parallax">
+        <div class="hero-photo-wrap">
+          <img src="/assets/claire-headshot.jpg" alt="Claire Zhang" class="hero-photo" />
+        </div>
       </div>
     </div>
   </header>
