@@ -544,38 +544,12 @@ section {
 }
 
 /* ==========================================================================
-   Project bento grid
+   Project grid
    ========================================================================== */
-/* Tile sizes are assigned in index.astro (photos get "big"/"wide", text-only
-   tiles get "small"/"tall"). grid-auto-flow: dense lets the smaller tiles
-   fill in around the bigger ones so there's no empty gaps, which keeps the
-   mismatched sizing from ever reading as broken or random. */
-.project-bento {
+.project-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 215px;
-  grid-auto-flow: dense;
-  gap: 20px;
-}
-
-.project-tile--big {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.project-tile--wide {
-  grid-column: span 2;
-  grid-row: span 1;
-}
-
-.project-tile--tall {
-  grid-column: span 1;
-  grid-row: span 2;
-}
-
-.project-tile--small {
-  grid-column: span 1;
-  grid-row: span 1;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-5);
 }
 
 .project-tile {
@@ -587,8 +561,7 @@ section {
 }
 
 .project-tile-media {
-  position: absolute;
-  inset: 0;
+  aspect-ratio: 1 / 1;
 }
 
 .project-tile-media img {
@@ -780,27 +753,6 @@ section {
   border-radius: 999px;
 }
 
-@media (max-width: 900px) {
-  .project-bento {
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 170px;
-  }
-}
-
-@media (max-width: 600px) {
-  .project-bento {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 150px;
-    gap: 14px;
-  }
-}
-
-@media (max-width: 420px) {
-  .project-bento {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 220px;
-  }
-}
 
 /* ==========================================================================
    Experience timeline

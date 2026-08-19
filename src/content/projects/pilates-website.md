@@ -1,8 +1,9 @@
 ---
 title: "UBC Pilates Club Website"
-url: "https://ubcpilates.club"
+url: "https://ubcpilatesclub.vercel.app"
 period: "Jun 2025 – Present"
 order: 4
+image: "/assets/project-pilates.jpg"
 bullets:
   - "Built and still run the club's website from scratch in TypeScript and Tailwind."
   - "Treated it like an actual product, not just a build. Rethought the information architecture and page speed, and grew SEO engagement 59% (800+ impressions)."
