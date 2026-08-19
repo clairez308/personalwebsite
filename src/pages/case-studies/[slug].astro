@@ -46,7 +46,18 @@ const {
         </div>
         <div class="meta-item">
           <span>Deliverables</span>
-          <b>{deliverables}</b>
+          <b>
+            {deliverables.map((item, i) => (
+              <>
+                {i > 0 && " · "}
+                {item.url ? (
+                  <a href={item.url} target="_blank" rel="noopener">{item.label}</a>
+                ) : (
+                  item.label
+                )}
+              </>
+            ))}
+          </b>
         </div>
         <div class="meta-item">
           <span>Result</span>
@@ -60,16 +71,8 @@ const {
 
   <section>
     <div class="container">
-      <div class="case-cta spotlight reveal">
-        <h2>Curious how I'd approach your product problem?</h2>
-        <p>
-          I'm always happy to talk through product thinking, systems
-          design, or where AI actually helps versus adds noise.
-        </p>
-        <div class="case-cta-actions">
-          <a href="mailto:clairezhang838@gmail.com" class="btn btn-primary magnetic">Get in touch</a>
-          <a href="/" class="btn btn-ghost magnetic">Back to portfolio</a>
-        </div>
+      <div class="case-end reveal">
+        <a href="/" class="btn btn-ghost magnetic">&larr; Back to portfolio</a>
       </div>
     </div>
   </section>

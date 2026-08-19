@@ -33,6 +33,12 @@ const { section } = Astro.props;
                 ))}
               </div>
             )}
+            {section.image && (
+              <figure class="case-photo">
+                <img src={section.image.src} alt={section.image.alt} loading="lazy" />
+                {section.image.caption && <figcaption>{section.image.caption}</figcaption>}
+              </figure>
+            )}
           </>
         )
       }

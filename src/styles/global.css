@@ -1015,6 +1015,18 @@ footer.site-footer {
   font-size: 0.98rem;
 }
 
+.cover-meta .meta-item b a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(244, 243, 240, 0.4);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.cover-meta .meta-item b a:hover {
+  text-decoration-color: currentColor;
+}
+
 .case-section {
   padding: var(--space-9) 0;
   border-bottom: 1px solid var(--line);
@@ -1393,50 +1405,28 @@ footer.site-footer {
   line-height: 1.35;
 }
 
-.case-cta {
-  background: var(--cover-bg);
-  color: var(--cover-ink);
-  border-radius: var(--radius-md);
-  padding: var(--space-8) var(--space-7);
+.case-end {
   text-align: center;
+  padding: var(--space-6) 0 var(--space-8);
 }
 
-.case-cta h2 {
-  font-family: var(--font-display);
+.case-photo {
+  margin: var(--space-6) 0 0;
+  max-width: 360px;
+}
+
+.case-photo img {
+  width: 100%;
+  display: block;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+}
+
+.case-photo figcaption {
+  margin-top: var(--space-3);
+  font-size: 0.88rem;
+  color: var(--ink-faint);
   font-style: italic;
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-  margin-bottom: var(--space-4);
-}
-
-.case-cta p {
-  color: rgba(244, 243, 240, 0.7);
-  max-width: 50ch;
-  margin: 0 auto var(--space-6);
-}
-
-.case-cta .btn-primary {
-  background: var(--cover-ink);
-  color: var(--cover-bg);
-}
-
-.case-cta .btn-primary:hover {
-  background: #a5abf7;
-}
-
-.case-cta-actions {
-  display: flex;
-  gap: var(--space-4);
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.case-cta .btn-ghost {
-  border-color: rgba(244, 243, 240, 0.3);
-  color: var(--cover-ink);
-}
-
-.case-cta .btn-ghost:hover {
-  border-color: var(--cover-ink);
 }
 
 /* ==========================================================================
@@ -1520,6 +1510,50 @@ footer.site-footer {
   width: 0%;
   background: var(--accent);
   z-index: 1200;
+}
+
+/* quick way back up on the longer pages */
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 900;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: var(--ink);
+  color: #fff;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  box-shadow: 0 10px 24px rgba(20, 20, 26, 0.18);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--accent);
+}
+
+@media (max-width: 600px) {
+  .back-to-top {
+    bottom: 18px;
+    right: 18px;
+    width: 42px;
+    height: 42px;
+  }
 }
 
 /* underline that draws itself in on hover instead of a flat color swap */

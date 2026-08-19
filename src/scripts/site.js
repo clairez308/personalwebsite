@@ -83,6 +83,22 @@ if (navEl) {
   updateNav();
 }
 
+// Back-to-top button, shows up once you've scrolled far enough that
+// getting back to the nav links isn't a quick scroll anymore.
+const backToTopEl = document.getElementById("back-to-top");
+if (backToTopEl) {
+  const updateBackToTop = () => {
+    backToTopEl.classList.toggle("visible", window.scrollY > 600);
+  };
+  window.addEventListener("scroll", updateBackToTop, { passive: true });
+  updateBackToTop();
+
+  backToTopEl.addEventListener("click", () => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+}
+
 // Everything below is cursor-driven, so it only makes sense on a device
 // with an actual pointer and someone who isn't asking for less motion.
 const wantsMotion =

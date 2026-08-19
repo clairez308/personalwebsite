@@ -3,7 +3,11 @@ title: "Atlas"
 subtitle: "Designing an AI-native operating system for venture capital, for UBC PMC's Product Heist 2025."
 competition: "UBC PMC Product Heist 2025"
 hostedBy: "Overdrive"
-deliverables: "FigJam · Pitch Deck · Clickable Prototype"
+deliverables:
+  - label: "FigJam"
+  - label: "Pitch Deck"
+    url: "https://canva.link/t319sqjcimc54m1"
+  - label: "Clickable Prototype"
 result: "3rd overall"
 description: "At UBC PMC's Product Heist 2025, my team built a system that pulls together AI research, relationship mapping, and startup scoring for VC teams. I led the product thinking, from framing the problem to the clickable prototype."
 featuredStats:
@@ -166,4 +170,8 @@ sections:
     paragraphs:
       - "Atlas placed 3rd overall at UBC PMC's Product Heist 2025, judged across PM thinking, UX design, and pitch delivery."
       - "The rubric weighted PM thinking almost as heavily as UX and pitch combined. That stuck with me. The strongest entry usually isn't the one with the most polished screens, it's the one with the clearest reasoning for why each screen exists. Prioritize hard, be able to defend every feature, and let the interface follow the decision instead of the other way around."
+    image:
+      src: "/assets/atlas-team.jpg"
+      alt: "The Atlas team holding up Product Heist third place certificates"
+      caption: "Us right after finding out we placed 3rd."
 ---

@@ -36,6 +36,13 @@ const section = z.discriminatedUnion("type", [
     heading: z.string(),
     paragraphs: z.array(z.string()),
     stats: z.array(stat).optional(),
+    image: z
+      .object({
+        src: z.string(),
+        alt: z.string(),
+        caption: z.string().optional(),
+      })
+      .optional(),
   }),
   z.object({
     type: z.literal("personas"),
@@ -122,7 +129,12 @@ const caseStudies = defineCollection({
     subtitle: z.string(),
     competition: z.string(),
     hostedBy: z.string(),
-    deliverables: z.string(),
+    deliverables: z.array(
+      z.object({
+        label: z.string(),
+        url: z.string().url().optional(),
+      })
+    ),
     result: z.string(),
     description: z.string(),
     featuredStats: z.array(stat),
