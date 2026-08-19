@@ -8,6 +8,26 @@ const projects = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order
 );
 
+// Tile sizing for the bento layout: projects with a real photo get the
+// bigger slots (alternating "big" and "wide"), text-only ones stay modest
+// (mostly "small", with an occasional "tall" for rhythm). The rule is
+// simple enough to read at a glance, but the two size pools alternate
+// independently so it doesn't fall into a predictable row/column grid.
+const bigSizes = ["big", "wide"] as const;
+const smallSizes = ["small", "tall", "small"] as const;
+let bigCount = 0;
+let smallCount = 0;
+const sizedProjects = projects.map((project) => {
+  if (project.data.image) {
+    const size = bigSizes[bigCount % bigSizes.length];
+    bigCount++;
+    return { project, size };
+  }
+  const size = smallSizes[smallCount % smallSizes.length];
+  smallCount++;
+  return { project, size };
+});
+
 const [atlas] = await getCollection("caseStudies");
 ---
 
@@ -26,15 +46,15 @@ const [atlas] = await getCollection("caseStudies");
     <div class="container hero-grid">
       <div class="hero-copy">
         <span class="hero-eyebrow">Computer Science @ UBC</span>
-        <h1 class="hero-type">
+        <h1>
           <span id="hero-typed">Hi, I'm Claire.</span><span class="hero-cursor" aria-hidden="true"></span>
         </h1>
         <p class="hero-lede">
-          I'm a CS student at UBC who likes building things, then
-          figuring out if they were worth building in the first place.
-          Lately that's meant a VC tool that placed 3rd at a case comp,
-          dashboards I built during a co-op at a bank, and more
-          hackathons than I can count.
+          Welcome to my portfolio! I'm a CS student at UBC who likes
+          building things, then figuring out if they were worth
+          building in the first place. Lately that's meant a VC tool
+          that placed 3rd at a case comp, dashboards I built during a
+          co-op at a bank, and more hackathons than I can count.
         </p>
         <div class="hero-actions">
           <a href="/case-studies/atlas" class="btn btn-primary magnetic">Read the Atlas case study</a>
@@ -93,8 +113,10 @@ const [atlas] = await getCollection("caseStudies");
         </p>
       </div>
 
-      <div class="project-masonry">
-        {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+      <div class="project-bento">
+        {sizedProjects.map(({ project, size }, index) => (
+          <ProjectCard project={project} index={index} size={size} />
+        ))}
       </div>
     </div>
   </section>

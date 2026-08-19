@@ -4,16 +4,21 @@ import type { CollectionEntry } from "astro:content";
 interface Props {
   project: CollectionEntry<"projects">;
   index: number;
+  size: "big" | "wide" | "tall" | "small";
 }
 
-const { project, index } = Astro.props;
+const { project, index, size } = Astro.props;
 const { title, url, period, result, bullets, stack, image } = project.data;
 const colorVariant = (index % 3) + 1;
 const initial = title.trim().charAt(0);
-const aspectVariant = ["4 / 5", "1 / 1", "5 / 6"][index % 3];
+
+// Small tiles don't have room for the full write-up, so they get the
+// shortest, most concrete line rather than everything truncated at random.
+const bulletLimit = { small: 1, tall: 2, wide: bullets.length, big: bullets.length }[size];
+const visibleBullets = bullets.slice(0, bulletLimit);
 ---
 
-<div class="project-tile reveal" style={`--tile-aspect: ${aspectVariant}`}>
+<div class={`project-tile project-tile--${size} reveal`}>
   <div class="project-tile-media">
     {
       image ? (
@@ -40,7 +45,7 @@ const aspectVariant = ["4 / 5", "1 / 1", "5 / 6"][index % 3];
     </div>
     <div class="project-tile-overlay-body">
       <ul>
-        {bullets.map((bullet) => <li>{bullet}</li>)}
+        {visibleBullets.map((bullet) => <li>{bullet}</li>)}
       </ul>
       <div class="project-stack">
         {stack.map((tag) => <span class="tag">{tag}</span>)}
