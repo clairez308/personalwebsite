@@ -1,15 +1,21 @@
 ---
-const hobbies = [
-  { name: "Dancing", image: "/assets/hobby-dance.jpg" },
-  { name: "Yoga", image: "/assets/hobby-yoga.jpg" },
-  { name: "Volunteering", image: "/assets/hobby-volunteering.jpg" },
-  { name: "Snowboarding", image: "/assets/hobby-snow.jpg" },
-  { name: "Travelling", image: "/assets/hobby-travel.jpg" },
-  { name: "Painting", image: "/assets/hobby-paint.jpg" },
-];
+import fs from "node:fs";
+import path from "node:path";
+
+// Auto-discovers whatever's in public/assets/hobbies. To add a photo, just
+// drop a jpg/png/webp in that folder, no code or content file to touch.
+const hobbiesDir = path.join(process.cwd(), "public/assets/hobbies");
+const files = fs
+  .readdirSync(hobbiesDir)
+  .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
+  .sort();
+const images = files.map((f) => `/assets/hobbies/${f}`);
 // duplicated once so the marquee can loop seamlessly at -50%
-const looped = [...hobbies, ...hobbies];
-const moodList = hobbies.map((h) => `"${h.name.toLowerCase()}"`).join(", ");
+const looped = [...images, ...images];
+
+const moodList = ["dancing", "yoga", "volunteering", "snowboarding", "travelling", "painting"]
+  .map((m) => `"${m}"`)
+  .join(", ");
 ---
 
 <section class="hobbies">
@@ -26,11 +32,10 @@ const moodList = hobbies.map((h) => `"${h.name.toLowerCase()}"`).join(", ");
   <div class="hobbies-carousel">
     <div class="carousel-track">
       {
-        looped.map((hobby) => (
-          <figure class="hobby-card">
-            <img src={hobby.image} alt={hobby.name} loading="lazy" />
-            <figcaption>{hobby.name}</figcaption>
-          </figure>
+        looped.map((src) => (
+          <div class="hobby-card">
+            <img src={src} alt="" loading="lazy" />
+          </div>
         ))
       }
     </div>

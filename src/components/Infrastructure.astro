@@ -1,6 +1,8 @@
 ---
 interface Entry {
-  key: string;
+  scope: string;
+  name: string;
+  badge: string;
   description: string;
   url?: string;
   current?: boolean;
@@ -25,18 +27,21 @@ const { entries } = Astro.props;
     {
       entries.map((entry, i) => (
         <div class="infra-entry">
-          <p class="infra-line">
-            <span class="infra-key">
-              {entry.url ? (
-                <a href={entry.url} target="_blank" rel="noopener">"{entry.key}"</a>
-              ) : (
-                <>"{entry.key}"</>
-              )}
-            </span>
-            {i < entries.length - 1 && <span class="infra-punct">,</span>}
-            {entry.current && <span class="release-badge current">current</span>}
-          </p>
-          <p class="infra-comment">// {entry.description}</p>
+          <div class={`infra-badge infra-badge--${(i % 6) + 1}`}>{entry.badge}</div>
+          <div class="infra-entry-body">
+            <p class="infra-line">
+              <span class="infra-key">
+                {entry.url ? (
+                  <a href={entry.url} target="_blank" rel="noopener">"@{entry.scope}/{entry.name}"</a>
+                ) : (
+                  <>"@{entry.scope}/{entry.name}"</>
+                )}
+              </span>
+              {i < entries.length - 1 && <span class="infra-punct">,</span>}
+              {entry.current && <span class="release-badge current">current</span>}
+            </p>
+            <p class="infra-comment">// {entry.description}</p>
+          </div>
         </div>
       ))
     }
