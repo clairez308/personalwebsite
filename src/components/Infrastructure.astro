@@ -2,7 +2,7 @@
 interface Entry {
   scope: string;
   name: string;
-  badge: string;
+  logo: string;
   description: string;
   url?: string;
   current?: boolean;
@@ -27,7 +27,9 @@ const { entries } = Astro.props;
     {
       entries.map((entry, i) => (
         <div class="infra-entry">
-          <div class={`infra-badge infra-badge--${(i % 6) + 1}`}>{entry.badge}</div>
+          <div class="infra-badge">
+            <img src={entry.logo} alt="" loading="lazy" />
+          </div>
           <div class="infra-entry-body">
             <p class="infra-line">
               <span class="infra-key">

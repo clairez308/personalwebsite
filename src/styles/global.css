@@ -987,25 +987,22 @@ section {
 
 .infra-badge {
   flex: none;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 8px;
+  padding: 6px;
+  box-sizing: border-box;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: rgba(11, 11, 20, 0.82);
 }
 
-.infra-badge--1 { background: #a5abf7; }
-.infra-badge--2 { background: #5eead4; }
-.infra-badge--3 { background: #fdba74; }
-.infra-badge--4 { background: #f9a8d4; }
-.infra-badge--5 { background: #bef264; }
-.infra-badge--6 { background: #7dd3fc; }
+.infra-badge img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
 
 .infra-entry-body {
   flex: 1;
