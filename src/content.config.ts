@@ -1,6 +1,20 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
+// A changelog line: tagged like a commit (what kind of change this was),
+// with an optional before/after pair for the rare bullet that's a literal
+// diff (a metric that got corrected, not just improved).
+const bullet = z.object({
+  tag: z.enum(["shipped", "fixed", "improved", "skill"]).default("shipped"),
+  text: z.string(),
+  diff: z
+    .object({
+      from: z.string(),
+      to: z.string(),
+    })
+    .optional(),
+});
+
 const projects = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
   schema: z.object({
@@ -13,7 +27,7 @@ const projects = defineCollection({
     period: z.string(),
     result: z.string().optional(),
     image: z.string().optional(),
-    bullets: z.array(z.string()),
+    bullets: z.array(bullet),
     stack: z.array(z.string()),
   }),
 });

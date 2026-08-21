@@ -1,0 +1,45 @@
+---
+interface Entry {
+  key: string;
+  description: string;
+  url?: string;
+  current?: boolean;
+}
+
+interface Props {
+  entries: Entry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="infra-file reveal">
+  <div class="infra-file-bar">
+    <span class="infra-dot infra-dot--a"></span>
+    <span class="infra-dot infra-dot--b"></span>
+    <span class="infra-dot infra-dot--c"></span>
+    <span class="infra-filename">dependencies.json</span>
+  </div>
+  <div class="infra-body">
+    <p class="infra-punct">{"{"}</p>
+    {
+      entries.map((entry, i) => (
+        <div class="infra-entry">
+          <p class="infra-line">
+            <span class="infra-key">
+              {entry.url ? (
+                <a href={entry.url} target="_blank" rel="noopener">"{entry.key}"</a>
+              ) : (
+                <>"{entry.key}"</>
+              )}
+            </span>
+            {i < entries.length - 1 && <span class="infra-punct">,</span>}
+            {entry.current && <span class="release-badge current">current</span>}
+          </p>
+          <p class="infra-comment">// {entry.description}</p>
+        </div>
+      ))
+    }
+    <p class="infra-punct">{"}"}</p>
+  </div>
+</div>

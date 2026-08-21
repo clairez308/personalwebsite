@@ -9,6 +9,7 @@ const hobbies = [
 ];
 // duplicated once so the marquee can loop seamlessly at -50%
 const looped = [...hobbies, ...hobbies];
+const moodList = hobbies.map((h) => `"${h.name.toLowerCase()}"`).join(", ");
 ---
 
 <section class="hobbies">
@@ -16,6 +17,10 @@ const looped = [...hobbies, ...hobbies];
     <div class="section-head reveal">
       <span class="section-label">Beyond Work</span>
       <h2>I also love&hellip;</h2>
+      <p class="hobbies-config">
+        <span class="hobbies-config-comment">// beyond-work.config</span>
+        <span class="hobbies-config-line">mood: [{moodList}]</span>
+      </p>
     </div>
   </div>
   <div class="hobbies-carousel">

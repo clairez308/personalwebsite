@@ -15,6 +15,14 @@
   --accent-contrast: #ffffff;
   --diff-add: #15803d;
   --diff-add-soft: #ecf6ee;
+  --diff-fix: #b45309;
+  --diff-fix-soft: #fdf3e7;
+  --diff-improve: #1d4ed8;
+  --diff-improve-soft: #eaf1fd;
+  --diff-skill: #58585f;
+  --diff-skill-soft: #eeede8;
+  --breaking: #b91c1c;
+  --breaking-soft: #fdecec;
 
   --cover-bg: #0b0b14;
   --cover-ink: #f4f3f0;
@@ -761,16 +769,53 @@ section {
 }
 
 .release-changes li {
-  color: var(--ink-soft);
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
   font-size: 0.95rem;
   line-height: 1.55;
-  padding-left: 4px;
 }
 
-.diff-plus {
+.bullet-tag {
+  flex: none;
   font-family: var(--font-mono);
+  font-size: 0.72rem;
   font-weight: 700;
-  color: var(--diff-add);
+  padding: 1px 2px;
+}
+
+.bullet-text {
+  color: var(--ink-soft);
+}
+
+.bullet-shipped .bullet-tag { color: var(--diff-add); }
+.bullet-fixed .bullet-tag { color: var(--diff-fix); }
+.bullet-improved .bullet-tag { color: var(--diff-improve); }
+.bullet-skill .bullet-tag { color: var(--diff-skill); }
+
+.bullet-diff {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  margin-left: 6px;
+}
+
+.bullet-diff del {
+  color: var(--ink-faint);
+  text-decoration: line-through;
+  text-decoration-color: var(--breaking);
+}
+
+.bullet-diff ins {
+  color: var(--diff-fix);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bullet-diff-arrow {
+  color: var(--ink-faint);
 }
 
 .release-stack {
@@ -840,51 +885,143 @@ section {
   }
 }
 
+/* the one moment the changelog format breaks on purpose */
+.breaking-change {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: var(--space-8) max(var(--space-6), calc((100vw - 1080px) / 2 + var(--space-6)));
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-3);
+  background: var(--breaking-soft);
+  border-top: 1px solid rgba(185, 28, 28, 0.25);
+  border-bottom: 1px solid rgba(185, 28, 28, 0.25);
+}
+
+.breaking-change-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--breaking);
+  margin-bottom: var(--space-3);
+}
+
+.breaking-change p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+  color: var(--ink);
+  line-height: 1.4;
+  max-width: 42ch;
+}
+
+@media (max-width: 700px) {
+  .breaking-change {
+    padding: var(--space-6) var(--space-5);
+  }
+}
+
 
 /* ==========================================================================
-   Experience timeline
+   Infrastructure (dependency-file styling, deliberately unlike a release card)
    ========================================================================== */
-.timeline {
+.infra-file {
+  background: var(--cover-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(244, 243, 240, 0.1);
+}
+
+.infra-file-bar {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px var(--space-5);
+  background: rgba(244, 243, 240, 0.04);
+  border-bottom: 1px solid rgba(244, 243, 240, 0.1);
 }
 
-.timeline-item {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: var(--space-6);
-  padding: var(--space-5) 0;
-  border-top: 1px solid var(--line);
+.infra-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
-.timeline-item:last-child {
-  border-bottom: 1px solid var(--line);
+.infra-dot--a { background: #e0605a; }
+.infra-dot--b { background: #dfb350; }
+.infra-dot--c { background: #5fb56a; }
+
+.infra-filename {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: rgba(244, 243, 240, 0.45);
+  margin-left: 6px;
 }
 
-.timeline-org {
-  color: var(--ink-faint);
+.infra-body {
+  padding: var(--space-6) var(--space-6) var(--space-7);
+  font-family: var(--font-mono);
+}
+
+.infra-punct {
+  color: rgba(244, 243, 240, 0.35);
   font-size: 0.9rem;
+  margin: 0;
 }
 
-.timeline-org a {
-  color: var(--ink-faint);
+.infra-entry {
+  padding: var(--space-4) 0 var(--space-4) var(--space-5);
+}
+
+.infra-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 6px;
+}
+
+.infra-key {
+  font-size: 0.92rem;
+  color: #a5abf7;
+}
+
+.infra-key a {
+  color: #a5abf7;
   text-decoration: none;
-  border-bottom: 1px solid var(--line-strong);
+  border-bottom: 1px solid rgba(165, 171, 247, 0.35);
 }
 
-.timeline-org a:hover {
-  color: var(--ink);
+.infra-key a:hover {
+  border-bottom-color: #a5abf7;
 }
 
-.timeline-role h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 6px;
+.infra-comment {
+  font-size: 0.86rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: rgba(244, 243, 240, 0.5);
+  max-width: 68ch;
+  margin: 0;
 }
 
-.timeline-role p {
-  color: var(--ink-soft);
-  font-size: 0.95rem;
+@media (max-width: 700px) {
+  .infra-body {
+    padding: var(--space-5) var(--space-4) var(--space-6);
+  }
+
+  .infra-entry {
+    padding-left: var(--space-3);
+  }
 }
 
 /* ==========================================================================
@@ -898,6 +1035,24 @@ section {
 
 .hobbies .section-head {
   margin-bottom: var(--space-7);
+}
+
+.hobbies-config {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+}
+
+.hobbies-config-comment {
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+.hobbies-config-line {
+  color: var(--ink-soft);
 }
 
 .hobbies-carousel {

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ReleaseEntry from "../components/ReleaseEntry.astro";
+import Infrastructure from "../components/Infrastructure.astro";
 import HobbiesCarousel from "../components/HobbiesCarousel.astro";
 import { getReleases } from "../lib/releases";
 
@@ -11,6 +12,42 @@ const flagship = releases.find((r) => r.isFlagship)!;
 const current = releases.find((r) => r.isCurrent)!;
 
 let projectCount = 0;
+
+const infraEntries = [
+  {
+    key: "vp-events@ubc-pmc",
+    description:
+      "Spearheading 4 flagship events and launching 2 brand-new, smaller-scale ones for the largest product management club in Canada.",
+    current: true,
+  },
+  {
+    key: "business-systems-analyst@cibc",
+    description:
+      "Validated SRRs and PCRs with DXC Cloud Networks, and reviewed vendor contracts and T&Cs for vendor management and risk mitigation. Also built a Power BI dashboard from scratch to make sense of years of contractual data.",
+  },
+  {
+    key: "avp-communications@ubc-sus",
+    url: "https://www.susubc.ca/",
+    description:
+      "Own communications portfolio management, including web development. Led organization of SUS's first-ever hackathon, Hack the Coast, with 183 hackers. It's a community that makes up over 25% of the faculty's 10,000 students but rarely gets events built for it.",
+  },
+  {
+    key: "workshop-facilitator@girlsmarts4tech",
+    url: "https://www.cs.ubc.ca/girlsmarts4tech/home",
+    description: "Organize Computer Science workshops for underrepresented youth.",
+  },
+  {
+    key: "logistics-coordinator@youcode-2026",
+    url: "https://ubcyoucode.com/",
+    description:
+      "Spearheading logistics for the WICS x WIDS 24-hour hackathon for underrepresented genders in tech.",
+  },
+  {
+    key: "co-executive-director@xdhacks",
+    url: "https://xdhacks.org/vancouver/safehacks",
+    description: "Lead an executive team organizing SafeHacks, a BC-wide in-person high school hackathon.",
+  },
+];
 ---
 
 <BaseLayout
@@ -95,7 +132,21 @@ let projectCount = 0;
         {
           releasesNewestFirst.map((release) => {
             if (release.kind === "project") projectCount++;
-            return <ReleaseEntry release={release} colorVariant={(projectCount % 3) + 1} />;
+            return (
+              <>
+                {release.isFlagship && (
+                  <div class="breaking-change reveal">
+                    <span class="breaking-change-label">&#9888; Breaking change</span>
+                    <p>
+                      Engineering-first became product-first. Everything
+                      after this still ships code, I just started leading
+                      with the problem instead of the stack.
+                    </p>
+                  </div>
+                )}
+                <ReleaseEntry release={release} colorVariant={(projectCount % 3) + 1} />
+              </>
+            );
           })
         }
       </div>
@@ -111,71 +162,7 @@ let projectCount = 0;
         <p>None of the releases above ship in a vacuum. This is what's kept them running.</p>
       </div>
 
-      <div class="timeline">
-        <div class="timeline-item reveal">
-          <div class="timeline-org">UBC Product Management Club</div>
-          <div class="timeline-role">
-            <h3>VP Events</h3>
-            <p>
-              Spearheading 4 flagship events and launching 2 brand-new,
-              smaller-scale ones for the largest product management
-              club in Canada.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-org">CIBC</div>
-          <div class="timeline-role">
-            <h3>Business Systems Analyst</h3>
-            <p>
-              Validated SRRs and PCRs with DXC Cloud Networks, and
-              reviewed vendor contracts and T&amp;Cs for vendor
-              management and risk mitigation. Also built a Power BI
-              dashboard from scratch to make sense of years of
-              contractual data.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-org"><a href="https://www.susubc.ca/" target="_blank" rel="noopener">UBC Science Undergraduate Society</a></div>
-          <div class="timeline-role">
-            <h3>Associate Vice President, Communications</h3>
-            <p>
-              Own communications portfolio management, including web
-              development. Led organization of SUS's first-ever
-              hackathon, Hack the Coast, with 183 hackers. It's a
-              community that makes up over 25% of the faculty's 10,000
-              students but rarely gets events built for it.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-org"><a href="https://www.cs.ubc.ca/girlsmarts4tech/home" target="_blank" rel="noopener">UBC GIRLsmarts4tech</a></div>
-          <div class="timeline-role">
-            <h3>Workshop Facilitator</h3>
-            <p>Organize Computer Science workshops for underrepresented youth.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-org"><a href="https://ubcyoucode.com/" target="_blank" rel="noopener">UBC Women in Data Science</a></div>
-          <div class="timeline-role">
-            <h3>youCode 2026 Logistics Coordinator</h3>
-            <p>Spearheading logistics for the WICS x WIDS 24-hour hackathon for underrepresented genders in tech.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-org"><a href="https://xdhacks.org/vancouver/safehacks" target="_blank" rel="noopener">XdHacks Mini Vancouver</a></div>
-          <div class="timeline-role">
-            <h3>Co-Executive Director</h3>
-            <p>Lead an executive team organizing SafeHacks, a BC-wide in-person high school hackathon.</p>
-          </div>
-        </div>
-      </div>
+      <Infrastructure entries={infraEntries} />
     </div>
   </section>
 

@@ -48,8 +48,18 @@ const initial = release.title.trim().charAt(0);
             {project.result && <span class="release-result">{project.result}</span>}
             <ul class="release-changes">
               {project.bullets.map((bullet) => (
-                <li>
-                  <span class="diff-plus">+</span> {bullet}
+                <li class={`bullet-${bullet.tag}`}>
+                  <span class="bullet-tag">[{bullet.tag}]</span>
+                  <span class="bullet-text">
+                    {bullet.text}
+                    {bullet.diff && (
+                      <span class="bullet-diff">
+                        <del>{bullet.diff.from}</del>
+                        <span class="bullet-diff-arrow">&rarr;</span>
+                        <ins>{bullet.diff.to}</ins>
+                      </span>
+                    )}
+                  </span>
                 </li>
               ))}
             </ul>

@@ -5,7 +5,9 @@ date: "2025-04-01"
 period: "Apr 2025"
 image: "/assets/project-gaming.jpg"
 bullets:
-  - "Built a predictive analytics pipeline in R on the PLAI dataset to model how players actually engage."
-  - "Tuned KNN models with 5-fold cross-validation to 73.47% accuracy, then turned the output into a KPI dashboard someone outside the project could actually read."
+  - tag: "shipped"
+    text: "Built a predictive analytics pipeline in R on the PLAI dataset to model how players actually engage."
+  - tag: "improved"
+    text: "Tuned KNN models with 5-fold cross-validation to 73.47% accuracy, then turned the output into a KPI dashboard someone outside the project could actually read."
 stack: ["R", "Statistical Modeling"]
 ---
