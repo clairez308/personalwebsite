@@ -1,6 +1,8 @@
 ---
 title: "Atlas"
 subtitle: "Designing an AI-native operating system for venture capital, for UBC PMC's Product Heist 2025."
+date: "2025-11-01"
+period: "Nov 2025"
 competition: "UBC PMC Product Heist 2025"
 hostedBy: "Overdrive"
 deliverables:

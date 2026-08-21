@@ -1,8 +1,8 @@
 ---
 title: "UBC Pilates Club Website"
 url: "https://ubcpilatesclub.vercel.app"
+date: "2025-06-01"
 period: "Jun 2025 – Present"
-order: 4
 image: "/assets/project-pilates.jpg"
 bullets:
   - "Built and still run the club's website from scratch in TypeScript and Tailwind."

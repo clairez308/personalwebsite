@@ -6,15 +6,15 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     url: z.string().url(),
+    // Real, sortable date this shipped (its "release date") — drives both
+    // display order and the version number assigned in index.astro.
+    date: z.coerce.date(),
+    // Free-text display version of the same date ("Jun 2025 – Present").
     period: z.string(),
     result: z.string().optional(),
     image: z.string().optional(),
     bullets: z.array(z.string()),
     stack: z.array(z.string()),
-    // Lower sorts first. Collections don't preserve file order, and the
-    // periods are free text ("Jun 2025 – Present"), not real dates, so this
-    // is the simplest honest way to control display order.
-    order: z.number(),
   }),
 });
 
@@ -127,6 +127,8 @@ const caseStudies = defineCollection({
   schema: z.object({
     title: z.string(),
     subtitle: z.string(),
+    date: z.coerce.date(),
+    period: z.string(),
     competition: z.string(),
     hostedBy: z.string(),
     deliverables: z.array(

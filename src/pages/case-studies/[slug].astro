@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Section from "../../components/case-study/Section.astro";
+import { getReleases } from "../../lib/releases";
 
 export async function getStaticPaths() {
   const caseStudies = await getCollection("caseStudies");
@@ -15,6 +16,7 @@ const { entry } = Astro.props;
 const {
   title,
   subtitle,
+  period,
   competition,
   hostedBy,
   deliverables,
@@ -22,6 +24,9 @@ const {
   description,
   sections,
 } = entry.data;
+
+const releases = await getReleases();
+const release = releases.find((r) => r.caseStudy?.id === entry.id)!;
 ---
 
 <BaseLayout
@@ -32,10 +37,14 @@ const {
   <header class="cover spotlight">
     <div class="container cover-inner">
       <a href="/" class="nav-back">&larr; Back to portfolio</a>
-      <span class="cover-eyebrow">Product Case Study</span>
+      <span class="cover-eyebrow">{release.version} &middot; Flagship Release</span>
       <h1>{title}</h1>
       <p class="cover-sub">{subtitle}</p>
       <div class="cover-meta">
+        <div class="meta-item">
+          <span>Released</span>
+          <b>{period}</b>
+        </div>
         <div class="meta-item">
           <span>Competition</span>
           <b>{competition}</b>

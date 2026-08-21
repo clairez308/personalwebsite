@@ -1,8 +1,8 @@
 ---
 title: "Emissions & Pollution Prevention Analytics"
 url: "https://github.com/clairez308/sustainability-emission-project"
+date: "2026-08-01"
 period: "Aug 2026"
-order: 1
 image: "/assets/project-emissions.jpg"
 bullets:
   - "Joined two public Government of Canada datasets across 2,843 facilities to find pollution-prevention compliance gaps among the biggest industrial emitters."

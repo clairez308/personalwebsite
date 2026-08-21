@@ -1,19 +1,21 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ProjectCard from "../components/ProjectCard.astro";
+import ReleaseEntry from "../components/ReleaseEntry.astro";
 import HobbiesCarousel from "../components/HobbiesCarousel.astro";
+import { getReleases } from "../lib/releases";
 
-const projects = (await getCollection("projects")).sort(
-  (a, b) => a.data.order - b.data.order
-);
+const releases = await getReleases();
+const releasesNewestFirst = [...releases].reverse();
 
-const [atlas] = await getCollection("caseStudies");
+const flagship = releases.find((r) => r.isFlagship)!;
+const current = releases.find((r) => r.isCurrent)!;
+
+let projectCount = 0;
 ---
 
 <BaseLayout
-  title="Claire Zhang, Product & Technology"
-  description="Claire Zhang, product-minded builder and CS student at UBC. Case work, hackathon builds, and production code across product management and technology consulting."
+  title="Claire Zhang"
+  description="Claire Zhang"
   activePage="home"
 >
   <!-- Hero -->
@@ -27,14 +29,10 @@ const [atlas] = await getCollection("caseStudies");
       <div class="hero-copy">
         <span class="hero-eyebrow">Computer Science @ UBC</span>
         <h1>
-          <span id="hero-typed">Hi, I'm Claire.</span><span class="hero-cursor" aria-hidden="true"></span>
+          <span id="hero-typed">Hi, I'm Claire!</span><span class="hero-cursor" aria-hidden="true"></span>
         </h1>
         <p class="hero-lede">
-          Welcome to my portfolio! I'm a CS student at UBC who likes
-          building things, then figuring out if they were worth
-          building in the first place. Lately that's meant a VC tool
-          that placed 3rd at a case comp, dashboards I built during a
-          co-op at a bank, and more hackathons than I can count.
+          Welcome to my portfolio! I'm a CS student @ UBC interested in product management, tech consulting, and data.
         </p>
         <div class="hero-actions">
           <a href="/case-studies/atlas" class="btn btn-primary magnetic">Read the Atlas case study</a>
@@ -60,12 +58,12 @@ const [atlas] = await getCollection("caseStudies");
       <div class="featured spotlight reveal">
         <div class="featured-inner">
           <div>
-            <span class="featured-tag">Featured Case Study</span>
-            <h3>{atlas.data.title}, my take on an operating system for venture capital</h3>
-            <p class="featured-desc">{atlas.data.description}</p>
+            <span class="featured-tag">{flagship.version} &middot; Flagship Release</span>
+            <h3>{flagship.title}, my take on an operating system for venture capital</h3>
+            <p class="featured-desc">{flagship.caseStudy!.data.description}</p>
             <div class="featured-stats">
               {
-                atlas.data.featuredStats.map((stat) => (
+                flagship.caseStudy!.data.featuredStats.map((stat) => (
                   <div class="stat">
                     <b>{stat.value}</b>
                     <span>{stat.label}</span>
@@ -74,42 +72,58 @@ const [atlas] = await getCollection("caseStudies");
               }
             </div>
           </div>
-          <a href="/case-studies/atlas" class="featured-cta magnetic">Read the case study →</a>
+          <a href={flagship.href} class="featured-cta magnetic">Read the case study →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Selected Work -->
+  <!-- Release History -->
   <section id="work">
     <div class="container">
       <div class="section-head reveal">
-        <span class="section-label">Selected Work</span>
-        <h2>Projects I've shipped</h2>
+        <span class="section-label">Release History</span>
+        <h2>Everything I've shipped</h2>
         <p>
-          A mix of product case work, hackathon builds, and independent
-          projects. Some I built alone at 2am, some with a team on a
-          36-hour clock. Hover a tile for the details.
+          Every project here, dated and versioned the way I'd log any
+          other release. {current.version} is what's currently live,
+          {" "}{flagship.version} is the flagship.
         </p>
       </div>
 
-      <div class="project-grid">
-        {projects.map((project, index) => (
-          <ProjectCard project={project} index={index} />
-        ))}
+      <div class="release-timeline">
+        {
+          releasesNewestFirst.map((release) => {
+            if (release.kind === "project") projectCount++;
+            return <ReleaseEntry release={release} colorVariant={(projectCount % 3) + 1} />;
+          })
+        }
       </div>
     </div>
   </section>
 
-  <!-- Experience -->
-  <section id="experience">
+  <!-- Infrastructure (Experience) -->
+  <section id="infrastructure">
     <div class="container">
       <div class="section-head reveal">
-        <span class="section-label">Experience</span>
-        <h2>Where I've worked</h2>
+        <span class="section-label">Infrastructure</span>
+        <h2>What's running underneath</h2>
+        <p>None of the releases above ship in a vacuum. This is what's kept them running.</p>
       </div>
 
       <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-org">UBC Product Management Club</div>
+          <div class="timeline-role">
+            <h3>VP Events</h3>
+            <p>
+              Spearheading 4 flagship events and launching 2 brand-new,
+              smaller-scale ones for the largest product management
+              club in Canada.
+            </p>
+          </div>
+        </div>
+
         <div class="timeline-item reveal">
           <div class="timeline-org">CIBC</div>
           <div class="timeline-role">
@@ -159,14 +173,6 @@ const [atlas] = await getCollection("caseStudies");
           <div class="timeline-role">
             <h3>Co-Executive Director</h3>
             <p>Lead an executive team organizing SafeHacks, a BC-wide in-person high school hackathon.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-org"><a href="https://littlemountainmdv.com/" target="_blank" rel="noopener">Little Mountain</a></div>
-          <div class="timeline-role">
-            <h3>Retail Shift Supervisor</h3>
-            <p>Run shifts and handle customer service on the retail floor.</p>
           </div>
         </div>
       </div>

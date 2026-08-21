@@ -1,8 +1,8 @@
 ---
 title: "Shop-A-Sketch"
 url: "https://devpost.com/software/shop-a-sketch"
+date: "2026-01-01"
 period: "Jan 2026"
-order: 3
 image: "/assets/project-shop-a-sketch.jpg"
 result: "3rd overall · UofTHacks13 (161 projects)"
 bullets:

@@ -1,0 +1,88 @@
+---
+import type { Release } from "../lib/releases";
+
+interface Props {
+  release: Release;
+  colorVariant: number;
+}
+
+const { release, colorVariant } = Astro.props;
+const { version, period, isFlagship, isCurrent, anchor } = release;
+const project = release.project?.data;
+const caseStudy = release.caseStudy?.data;
+const initial = release.title.trim().charAt(0);
+---
+
+<article class={`release-entry ${isFlagship ? "release-entry--flagship" : ""}`} id={anchor}>
+  <div class="release-marker">
+    <span class="release-version">{version}</span>
+    <span class="release-date">{period}</span>
+  </div>
+
+  <div class="release-content">
+    {
+      (isFlagship || isCurrent) && (
+        <div class="release-badges">
+          {isFlagship && <span class="release-badge flagship">Flagship release</span>}
+          {isCurrent && <span class="release-badge current">Current</span>}
+        </div>
+      )
+    }
+
+    {
+      project && (
+        <div class="release-main">
+          <div class="release-thumb">
+            {project.image ? (
+              <img src={project.image} alt="" loading="lazy" />
+            ) : (
+              <div class={`release-thumb-placeholder release-thumb-placeholder--${colorVariant}`}>
+                <span>{initial}</span>
+              </div>
+            )}
+          </div>
+          <div class="release-details">
+            <h3>
+              <a href={project.url} target="_blank" rel="noopener">{project.title}</a>
+            </h3>
+            {project.result && <span class="release-result">{project.result}</span>}
+            <ul class="release-changes">
+              {project.bullets.map((bullet) => (
+                <li>
+                  <span class="diff-plus">+</span> {bullet}
+                </li>
+              ))}
+            </ul>
+            <div class="release-stack">
+              {project.stack.map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    {
+      caseStudy && release.caseStudy && (
+        <div class="release-main release-main--flagship">
+          <div class="release-details">
+            <h3>
+              <a href={`/case-studies/${release.caseStudy.id}`}>{caseStudy.title}</a>
+            </h3>
+            <p class="release-flagship-desc">{caseStudy.description}</p>
+            <div class="release-flagship-stats">
+              {caseStudy.featuredStats.map((stat) => (
+                <div class="stat">
+                  <b>{stat.value}</b>
+                  <span>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+            <a href={`/case-studies/${release.caseStudy.id}`} class="text-link">
+              Read the full case study →
+            </a>
+          </div>
+        </div>
+      )
+    }
+  </div>
+</article>

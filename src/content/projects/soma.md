@@ -1,8 +1,8 @@
 ---
 title: "SOMA"
 url: "https://devpost.com/software/soma-4wzq57"
+date: "2026-04-01"
 period: "Apr 2026"
-order: 2
 image: "/assets/project-soma.jpg"
 result: "Best Use of Gemma 4 · BearHacks 2026"
 bullets:
