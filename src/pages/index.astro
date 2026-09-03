@@ -15,10 +15,20 @@ let projectCount = 0;
 
 const infraEntries = [
   {
+    scope: "ubc-wids",
+    name: "social-media-manager",
+    logo: "/assets/logos/youcode.png",
+    url: "https://ubcyoucode.com/",
+    date: "2026.06–present",
+    description: "Managing social media for UBC's Women In Data Science chapter.",
+    current: true,
+  },
+  {
     scope: "ubc-pmc",
     name: "vp-events",
     logo: "/assets/logos/pmc.png",
     url: "https://ubcpmc.com/",
+    date: "2026.05–present",
     description:
       "Spearheading 4 flagship events and launching 2 brand-new, smaller-scale ones for the largest product management club in Canada.",
     current: true,
@@ -27,38 +37,71 @@ const infraEntries = [
     scope: "cibc",
     name: "business-systems-analyst",
     logo: "/assets/logos/cibc.png",
+    date: "2026.01–2026.08",
     description:
       "Validated SRRs and PCRs with DXC Cloud Networks, and reviewed vendor contracts and T&Cs for vendor management and risk mitigation. Also built a Power BI dashboard from scratch to make sense of years of contractual data.",
+  },
+  {
+    scope: "dell-technologies",
+    name: "soar-with-mentor-mentee",
+    date: "2025.10–2025.12",
+    description: "Selected for Dell's Soar with Mentor program.",
   },
   {
     scope: "ubc-sus",
     name: "avp-communications",
     logo: "/assets/logos/sus.png",
     url: "https://www.susubc.ca/",
+    date: "2025.06–2026.04",
     description:
-      "Own communications portfolio management, including web development. Led organization of SUS's first-ever hackathon, Hack the Coast, with 183 hackers. It's a community that makes up over 25% of the faculty's 10,000 students but rarely gets events built for it.",
+      "Owned communications portfolio management, including web development. Led organization of SUS's first-ever hackathon, Hack the Coast, with 183 hackers. It's a community that makes up over 25% of the faculty's 10,000 students but rarely gets events built for it.",
+  },
+  {
+    scope: "youcode",
+    name: "logistics-coordinator",
+    logo: "/assets/logos/youcode.png",
+    url: "https://ubcyoucode.com/",
+    date: "2025.06–2026.04",
+    description:
+      "Spearheaded logistics for the WICS x WIDS 24-hour hackathon for underrepresented genders in tech.",
+  },
+  {
+    scope: "ubc-pilates-club",
+    name: "website-director",
+    date: "2025.03–present",
+    description: "Built and maintain the club's website.",
+    current: true,
+  },
+  {
+    scope: "beayoutiful-foundation",
+    name: "youth-mentor",
+    date: "2025.01–present",
+    description: "Mentoring and empowering young girls.",
+    current: true,
   },
   {
     scope: "girlsmarts4tech",
     name: "workshop-facilitator",
     logo: "/assets/logos/girlsmarts4tech.png",
     url: "https://www.cs.ubc.ca/girlsmarts4tech/home",
+    date: "2024.12–present",
     description: "Organize Computer Science workshops for underrepresented youth.",
-  },
-  {
-    scope: "ubc-wids",
-    name: "logistics-coordinator",
-    logo: "/assets/logos/youcode.png",
-    url: "https://ubcyoucode.com/",
-    description:
-      "Spearheading logistics for the WICS x WIDS 24-hour hackathon for underrepresented genders in tech.",
+    current: true,
   },
   {
     scope: "xdhacks",
     name: "co-executive-director",
     logo: "/assets/logos/xdhacks.png",
     url: "https://xdhacks.org/vancouver/safehacks",
-    description: "Lead an executive team organizing SafeHacks, a BC-wide in-person high school hackathon.",
+    date: "2023.08–2024.08",
+    description: "Led an executive team that organized SafeHacks, a BC-wide in-person high school hackathon.",
+  },
+  {
+    scope: "xdhacks",
+    name: "director-of-finance",
+    logo: "/assets/logos/xdhacks.png",
+    date: "2022.09–2023.08",
+    description: "Managed the club's budget and finances.",
   },
 ];
 ---
@@ -86,7 +129,7 @@ const infraEntries = [
         </p>
         <div class="hero-actions">
           <a href="/case-studies/atlas" class="btn btn-primary magnetic">Read the Atlas case study</a>
-          <a href="/Claire_Zhang_Resume.pdf" download class="btn btn-ghost magnetic">Résumé</a>
+          <a href="/Claire_Zhang_Resume.pdf" download class="btn btn-ghost magnetic">Resume</a>
         </div>
         <div class="hero-contact">
           <a href="https://www.linkedin.com/in/claire-zhang-985410301/" target="_blank" rel="noopener">LinkedIn</a>
@@ -133,12 +176,7 @@ const infraEntries = [
     <div class="container">
       <div class="section-head reveal">
         <span class="section-label">Release History</span>
-        <h2>Everything I've shipped</h2>
-        <p>
-          Every project here, dated and versioned the way I'd log any
-          other release. {current.version} is what's currently live,
-          {" "}{flagship.version} is the flagship.
-        </p>
+        <h2>Cool projects I've built</h2>
       </div>
 
       <div class="release-timeline">
@@ -172,7 +210,6 @@ const infraEntries = [
       <div class="section-head reveal">
         <span class="section-label">Infrastructure</span>
         <h2>What's running underneath</h2>
-        <p>None of the releases above ship in a vacuum. This is what's kept them running.</p>
       </div>
 
       <Infrastructure entries={infraEntries} />

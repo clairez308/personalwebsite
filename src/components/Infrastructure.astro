@@ -2,7 +2,8 @@
 interface Entry {
   scope: string;
   name: string;
-  logo: string;
+  date: string;
+  logo?: string;
   description: string;
   url?: string;
   current?: boolean;
@@ -27,19 +28,27 @@ const { entries } = Astro.props;
     {
       entries.map((entry, i) => (
         <div class="infra-entry">
-          <div class="infra-badge">
-            <img src={entry.logo} alt="" loading="lazy" />
+          <div class={`infra-badge ${!entry.logo ? `infra-badge--fallback-${(i % 6) + 1}` : ""}`}>
+            {entry.logo ? (
+              <img src={entry.logo} alt="" loading="lazy" />
+            ) : (
+              <span class="infra-badge-initial">{entry.scope.trim().charAt(0).toUpperCase()}</span>
+            )}
           </div>
           <div class="infra-entry-body">
             <p class="infra-line">
-              <span class="infra-key">
-                {entry.url ? (
-                  <a href={entry.url} target="_blank" rel="noopener">"@{entry.scope}/{entry.name}"</a>
-                ) : (
-                  <>"@{entry.scope}/{entry.name}"</>
-                )}
+              <span class="infra-code">
+                <span class="infra-key">
+                  {entry.url ? (
+                    <a href={entry.url} target="_blank" rel="noopener">"@{entry.scope}/{entry.name}"</a>
+                  ) : (
+                    <>"@{entry.scope}/{entry.name}"</>
+                  )}
+                </span>
+                <span class="infra-punct">: </span>
+                <span class="infra-value">"{entry.date}"</span>
+                {i < entries.length - 1 && <span class="infra-punct">,</span>}
               </span>
-              {i < entries.length - 1 && <span class="infra-punct">,</span>}
               {entry.current && <span class="release-badge current">current</span>}
             </p>
             <p class="infra-comment">// {entry.description}</p>

@@ -5,7 +5,7 @@ interface Props {
   activePage?: "home" | "case-study";
 }
 const { activePage = "home" } = Astro.props;
-const releases = await getReleases();
+const releases = [...(await getReleases())].reverse();
 ---
 
 <nav class="site-nav">
@@ -34,7 +34,7 @@ const releases = await getReleases();
 
     <div class="nav-links">
       <a href="/#infrastructure">Infrastructure</a>
-      <a href="/Claire_Zhang_Resume.pdf" download class="nav-resume magnetic">Résumé</a>
+      <a href="/Claire_Zhang_Resume.pdf" download class="nav-resume magnetic">Resume</a>
     </div>
   </div>
 </nav>
