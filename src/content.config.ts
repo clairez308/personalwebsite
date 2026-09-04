@@ -158,4 +158,19 @@ const caseStudies = defineCollection({
   }),
 });
 
-export const collections = { projects, caseStudies };
+// A personal, dated note about an event, project, or moment — written as a
+// short story rather than a bullet, with an optional photo. The reflection
+// itself is the markdown body of the file, not a frontmatter field, so
+// writing one just means writing a normal note.
+const reflections = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/reflections" }),
+  schema: z.object({
+    date: z.coerce.date(),
+    period: z.string(),
+    title: z.string(),
+    tag: z.string().optional(),
+    photo: z.string().optional(),
+  }),
+});
+
+export const collections = { projects, caseStudies, reflections };

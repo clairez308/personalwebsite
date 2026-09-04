@@ -1,0 +1,51 @@
+---
+import { getCollection, render } from "astro:content";
+
+const rawNotes = await getCollection("reflections");
+const notes = rawNotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const rendered = await Promise.all(
+  notes.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { entry, Content };
+  })
+);
+---
+
+<section id="field-notes">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label">Field Notes</span>
+      <h2>Reflections along the way</h2>
+      <p>The story behind the roles and releases above, in my own words.</p>
+    </div>
+
+    <div class="notes-feed">
+      {
+        rendered.map(({ entry, Content }) => (
+          <article class="note-card reveal">
+            <div class="note-header">
+              <img src="/assets/claire-headshot.jpg" alt="" class="note-avatar" />
+              <div class="note-byline">
+                <span class="note-author">Claire Zhang</span>
+                <span class="note-meta">
+                  {entry.data.period}
+                  {entry.data.tag && ` · ${entry.data.tag}`}
+                </span>
+              </div>
+            </div>
+            <h3 class="note-title">{entry.data.title}</h3>
+            <div class="note-body">
+              <Content />
+            </div>
+            {entry.data.photo && (
+              <div class="note-photo">
+                <img src={entry.data.photo} alt="" loading="lazy" />
+              </div>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

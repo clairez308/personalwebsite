@@ -974,144 +974,101 @@ section {
 
 
 /* ==========================================================================
-   Infrastructure (dependency-file styling, deliberately unlike a release card)
+   Field Notes (personal reflections feed, warm and photo-led on purpose —
+   the opposite register from the code-styled sections around it)
    ========================================================================== */
-.infra-file {
-  background: var(--cover-bg);
+.notes-feed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 640px;
+}
+
+.note-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  overflow: hidden;
-  border: 1px solid rgba(244, 243, 240, 0.1);
+  padding: var(--space-6);
 }
 
-.infra-file-bar {
+.note-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px var(--space-5);
-  background: rgba(244, 243, 240, 0.04);
-  border-bottom: 1px solid rgba(244, 243, 240, 0.1);
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
 }
 
-.infra-dot {
-  width: 10px;
-  height: 10px;
+.note-avatar {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-}
-
-.infra-dot--a { background: #e0605a; }
-.infra-dot--b { background: #dfb350; }
-.infra-dot--c { background: #5fb56a; }
-
-.infra-filename {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: rgba(244, 243, 240, 0.45);
-  margin-left: 6px;
-}
-
-.infra-body {
-  padding: var(--space-6) var(--space-6) var(--space-7);
-  font-family: var(--font-mono);
-}
-
-.infra-punct {
-  color: rgba(244, 243, 240, 0.35);
-  font-size: 0.9rem;
-  margin: 0;
-}
-
-.infra-entry {
-  display: flex;
-  gap: var(--space-4);
-  align-items: flex-start;
-  padding: var(--space-4) 0 var(--space-4) var(--space-5);
-}
-
-.infra-badge {
+  object-fit: cover;
   flex: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
-  padding: 6px;
-  box-sizing: border-box;
-  background: #fff;
+}
+
+.note-byline {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 
-.infra-badge img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+.note-author {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink);
 }
 
-.infra-badge-initial {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 1.05rem;
-  color: rgba(11, 11, 20, 0.75);
+.note-meta {
+  font-size: 0.82rem;
+  color: var(--ink-faint);
 }
 
-.infra-badge--fallback-1 { background: #a5abf7; }
-.infra-badge--fallback-2 { background: #5eead4; }
-.infra-badge--fallback-3 { background: #fdba74; }
-.infra-badge--fallback-4 { background: #f9a8d4; }
-.infra-badge--fallback-5 { background: #bef264; }
-.infra-badge--fallback-6 { background: #7dd3fc; }
-
-.infra-code {
-  display: inline;
+.note-title {
+  font-size: 1.2rem;
+  margin-bottom: var(--space-4);
 }
 
-.infra-value {
-  color: #a3e6b0;
+.note-body {
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.65;
 }
 
-.infra-entry-body {
-  flex: 1;
-  min-width: 0;
+.note-body p {
+  margin-bottom: var(--space-4);
 }
 
-.infra-line {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 0 0 6px;
+.note-body p:last-child {
+  margin-bottom: 0;
 }
 
-.infra-key {
-  font-size: 0.92rem;
-  color: #a5abf7;
+.note-body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-soft);
+  text-underline-offset: 3px;
 }
 
-.infra-key a {
-  color: #a5abf7;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(165, 171, 247, 0.35);
+.note-body a:hover {
+  text-decoration-color: var(--accent);
 }
 
-.infra-key a:hover {
-  border-bottom-color: #a5abf7;
+.note-photo {
+  margin-top: var(--space-5);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--line);
 }
 
-.infra-comment {
-  font-size: 0.86rem;
-  font-style: italic;
-  line-height: 1.6;
-  color: rgba(244, 243, 240, 0.5);
-  max-width: 68ch;
-  margin: 0;
+.note-photo img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  display: block;
 }
 
 @media (max-width: 700px) {
-  .infra-body {
-    padding: var(--space-5) var(--space-4) var(--space-6);
-  }
-
-  .infra-entry {
-    padding-left: var(--space-3);
+  .note-card {
+    padding: var(--space-5);
   }
 }
 

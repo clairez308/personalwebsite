@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ReleaseEntry from "../components/ReleaseEntry.astro";
-import Infrastructure from "../components/Infrastructure.astro";
+import FieldNotes from "../components/FieldNotes.astro";
 import HobbiesCarousel from "../components/HobbiesCarousel.astro";
 import { getReleases } from "../lib/releases";
 
@@ -12,98 +12,6 @@ const flagship = releases.find((r) => r.isFlagship)!;
 const current = releases.find((r) => r.isCurrent)!;
 
 let projectCount = 0;
-
-const infraEntries = [
-  {
-    scope: "ubc-wids",
-    name: "social-media-manager",
-    logo: "/assets/logos/youcode.png",
-    url: "https://ubcyoucode.com/",
-    date: "2026.06–present",
-    description: "Managing social media for UBC's Women In Data Science chapter.",
-    current: true,
-  },
-  {
-    scope: "ubc-pmc",
-    name: "vp-events",
-    logo: "/assets/logos/pmc.png",
-    url: "https://ubcpmc.com/",
-    date: "2026.05–present",
-    description:
-      "Spearheading 4 flagship events and launching 2 brand-new, smaller-scale ones for the largest product management club in Canada.",
-    current: true,
-  },
-  {
-    scope: "cibc",
-    name: "business-systems-analyst",
-    logo: "/assets/logos/cibc.png",
-    date: "2026.01–2026.08",
-    description:
-      "Validated SRRs and PCRs with DXC Cloud Networks, and reviewed vendor contracts and T&Cs for vendor management and risk mitigation. Also built a Power BI dashboard from scratch to make sense of years of contractual data.",
-  },
-  {
-    scope: "dell-technologies",
-    name: "soar-with-mentor-mentee",
-    date: "2025.10–2025.12",
-    description: "Selected for Dell's Soar with Mentor program.",
-  },
-  {
-    scope: "ubc-sus",
-    name: "avp-communications",
-    logo: "/assets/logos/sus.png",
-    url: "https://www.susubc.ca/",
-    date: "2025.06–2026.04",
-    description:
-      "Owned communications portfolio management, including web development. Led organization of SUS's first-ever hackathon, Hack the Coast, with 183 hackers. It's a community that makes up over 25% of the faculty's 10,000 students but rarely gets events built for it.",
-  },
-  {
-    scope: "youcode",
-    name: "logistics-coordinator",
-    logo: "/assets/logos/youcode.png",
-    url: "https://ubcyoucode.com/",
-    date: "2025.06–2026.04",
-    description:
-      "Spearheaded logistics for the WICS x WIDS 24-hour hackathon for underrepresented genders in tech.",
-  },
-  {
-    scope: "ubc-pilates-club",
-    name: "website-director",
-    date: "2025.03–present",
-    description: "Built and maintain the club's website.",
-    current: true,
-  },
-  {
-    scope: "beayoutiful-foundation",
-    name: "youth-mentor",
-    date: "2025.01–present",
-    description: "Mentoring and empowering young girls.",
-    current: true,
-  },
-  {
-    scope: "girlsmarts4tech",
-    name: "workshop-facilitator",
-    logo: "/assets/logos/girlsmarts4tech.png",
-    url: "https://www.cs.ubc.ca/girlsmarts4tech/home",
-    date: "2024.12–present",
-    description: "Organize Computer Science workshops for underrepresented youth.",
-    current: true,
-  },
-  {
-    scope: "xdhacks",
-    name: "co-executive-director",
-    logo: "/assets/logos/xdhacks.png",
-    url: "https://xdhacks.org/vancouver/safehacks",
-    date: "2023.08–2024.08",
-    description: "Led an executive team that organized SafeHacks, a BC-wide in-person high school hackathon.",
-  },
-  {
-    scope: "xdhacks",
-    name: "director-of-finance",
-    logo: "/assets/logos/xdhacks.png",
-    date: "2022.09–2023.08",
-    description: "Managed the club's budget and finances.",
-  },
-];
 ---
 
 <BaseLayout
@@ -216,17 +124,8 @@ const infraEntries = [
     </div>
   </section>
 
-  <!-- Infrastructure (Experience) -->
-  <section id="infrastructure">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="section-label">Infrastructure</span>
-        <h2>What's running underneath</h2>
-      </div>
-
-      <Infrastructure entries={infraEntries} />
-    </div>
-  </section>
+  <!-- Field Notes -->
+  <FieldNotes />
 
   <!-- Beyond work -->
   <HobbiesCarousel />
