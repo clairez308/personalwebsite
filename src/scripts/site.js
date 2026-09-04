@@ -19,8 +19,12 @@ if (timeEl) {
 
 // Type out the hero greeting. The full text is already in the markup so it
 // reads fine with JS off or on first paint; this just clears and retypes it.
+// Runs after the boot sequence (below) finishes, if there is one.
 const typedEl = document.getElementById("hero-typed");
-if (typedEl && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function startHeroTyping(delay = 300) {
+  if (!typedEl || reduceMotion) return;
   const fullText = typedEl.textContent;
   typedEl.textContent = "";
   let i = 0;
@@ -29,7 +33,58 @@ if (typedEl && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     i++;
     if (i <= fullText.length) setTimeout(typeNext, 55);
   };
-  setTimeout(typeNext, 300);
+  setTimeout(typeNext, delay);
+}
+
+// Boot sequence: a terminal-style boot log that plays once per browser
+// session before the hero appears. Visible-by-default in CSS so there's no
+// flash-of-hero if this script is slow to run; this only ever hides it.
+const bootOverlay = document.getElementById("boot-overlay");
+if (bootOverlay) {
+  const alreadyBooted = sessionStorage.getItem("booted") === "1";
+
+  const dismissBoot = () => {
+    bootOverlay.classList.add("hidden");
+    setTimeout(() => bootOverlay.remove(), 400);
+  };
+
+  if (reduceMotion || alreadyBooted) {
+    dismissBoot();
+    startHeroTyping(100);
+  } else {
+    sessionStorage.setItem("booted", "1");
+    const lines = Array.from(bootOverlay.querySelectorAll(".boot-line"));
+    const cursor = document.createElement("span");
+    cursor.className = "boot-cursor";
+
+    const typeLine = (line, onDone) => {
+      const fullText = line.dataset.text;
+      const textEl = line.querySelector(".boot-text");
+      line.appendChild(cursor);
+      let i = 0;
+      const step = () => {
+        textEl.textContent = fullText.slice(0, i);
+        i++;
+        if (i <= fullText.length) setTimeout(step, 18);
+        else onDone();
+      };
+      step();
+    };
+
+    const runLines = (index) => {
+      if (index >= lines.length) {
+        cursor.remove();
+        setTimeout(dismissBoot, 350);
+        setTimeout(() => startHeroTyping(0), 500);
+        return;
+      }
+      typeLine(lines[index], () => setTimeout(() => runLines(index + 1), 180));
+    };
+
+    setTimeout(() => runLines(0), 200);
+  }
+} else {
+  startHeroTyping(300);
 }
 
 // Scroll-reveal

@@ -111,6 +111,18 @@ const infraEntries = [
   description="Claire Zhang"
   activePage="home"
 >
+  <!-- Boot sequence: plays once per session, skipped entirely without JS -->
+  <div id="boot-overlay" class="boot-overlay" aria-hidden="true">
+    <div class="boot-log">
+      <p class="boot-line" data-text="$ initializing claire-zhang.dev"><span class="boot-text"></span></p>
+      <p class="boot-line" data-text={`$ pulling release ${current.version}`}><span class="boot-text"></span></p>
+      <p class="boot-line" data-text="$ ready."><span class="boot-text"></span></p>
+    </div>
+  </div>
+  <noscript>
+    <style>.boot-overlay { display: none !important; }</style>
+  </noscript>
+
   <!-- Hero -->
   <header class="hero" id="top">
     <div class="hero-blobs" aria-hidden="true">

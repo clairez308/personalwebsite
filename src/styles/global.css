@@ -308,6 +308,48 @@ section {
 }
 
 /* ==========================================================================
+   Boot sequence
+   ========================================================================== */
+/* Visible by default so there's zero flash-of-hero risk regardless of JS
+   timing; script.js only ever transitions it to hidden, never to visible.
+   The <noscript> block in index.astro hides it outright with no JS at all. */
+.boot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cover-bg);
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.boot-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-log {
+  font-family: var(--font-mono);
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  color: #a3e6b0;
+  line-height: 1.9;
+}
+
+.boot-line {
+  min-height: 1.9em;
+}
+
+.boot-cursor {
+  display: inline-block;
+  width: 0.55em;
+  margin-left: 2px;
+  border-right: 2px solid #a3e6b0;
+  animation: hero-cursor-blink 1s step-end infinite;
+}
+
+/* ==========================================================================
    Hero
    ========================================================================== */
 .hero {
@@ -1951,6 +1993,14 @@ footer.site-footer {
 
   .hero-cursor {
     animation: none;
+  }
+
+  .boot-cursor {
+    animation: none;
+  }
+
+  .boot-overlay {
+    transition: none;
   }
 
   .reveal {
