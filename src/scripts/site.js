@@ -154,6 +154,83 @@ if (backToTopEl) {
   });
 }
 
+// Field Notes: "see more" only shows up if the text is actually clamped,
+// and the multi-photo grid opens into a lightbox you can arrow through.
+document.querySelectorAll(".note-toggle").forEach((btn) => {
+  const body = btn.previousElementSibling;
+  if (!body) return;
+  requestAnimationFrame(() => {
+    if (body.scrollHeight <= body.clientHeight + 2) {
+      btn.hidden = true;
+      return;
+    }
+    btn.addEventListener("click", () => {
+      const expanded = body.classList.toggle("expanded");
+      btn.textContent = expanded ? "See less" : "See more";
+    });
+  });
+});
+
+const lightbox = document.getElementById("lightbox");
+if (lightbox) {
+  const lightboxImage = document.getElementById("lightbox-image");
+  const lightboxCounter = document.getElementById("lightbox-counter");
+  const prevBtn = document.getElementById("lightbox-prev");
+  const nextBtn = document.getElementById("lightbox-next");
+  const closeBtn = document.getElementById("lightbox-close");
+  let activePhotos = [];
+  let activeIndex = 0;
+
+  const showPhoto = () => {
+    lightboxImage.src = activePhotos[activeIndex];
+    const multi = activePhotos.length > 1;
+    lightboxCounter.textContent = multi ? `${activeIndex + 1} / ${activePhotos.length}` : "";
+    if (prevBtn) prevBtn.hidden = !multi;
+    if (nextBtn) nextBtn.hidden = !multi;
+  };
+
+  const openLightbox = (photos, index) => {
+    activePhotos = photos;
+    activeIndex = index;
+    showPhoto();
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLightbox = () => {
+    lightbox.classList.remove("open");
+    document.body.style.overflow = "";
+  };
+
+  document.querySelectorAll(".note-photos").forEach((grid) => {
+    const photos = JSON.parse(grid.dataset.photos || "[]");
+    grid.querySelectorAll(".note-photo-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        openLightbox(photos, Number(btn.dataset.photoIndex));
+      });
+    });
+  });
+
+  closeBtn?.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  prevBtn?.addEventListener("click", () => {
+    activeIndex = (activeIndex - 1 + activePhotos.length) % activePhotos.length;
+    showPhoto();
+  });
+  nextBtn?.addEventListener("click", () => {
+    activeIndex = (activeIndex + 1) % activePhotos.length;
+    showPhoto();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox.classList.contains("open")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") prevBtn?.click();
+    if (e.key === "ArrowRight") nextBtn?.click();
+  });
+}
+
 // Everything below is cursor-driven, so it only makes sense on a device
 // with an actual pointer and someone who isn't asking for less motion.
 const wantsMotion =
