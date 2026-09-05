@@ -24,8 +24,6 @@ const rendered = await Promise.all(
       {
         rendered.map(({ entry, Content }) => {
           const photos = entry.data.photos ?? [];
-          const visiblePhotos = photos.slice(0, 4);
-          const extraCount = photos.length - 4;
           return (
             <article class="note-card reveal">
               <div class="note-header">
@@ -39,6 +37,29 @@ const rendered = await Promise.all(
                 </div>
               </div>
 
+              {photos.length > 0 && (
+                <div class="note-carousel">
+                  <div class="note-carousel-track">
+                    {photos.map((src) => (
+                      <div class="note-carousel-slide">
+                        <img src={src} alt="" loading="lazy" />
+                      </div>
+                    ))}
+                  </div>
+                  {photos.length > 1 && (
+                    <>
+                      <button type="button" class="note-carousel-btn note-carousel-prev" aria-label="Previous photo">&larr;</button>
+                      <button type="button" class="note-carousel-btn note-carousel-next" aria-label="Next photo">&rarr;</button>
+                      <div class="note-carousel-dots">
+                        {photos.map((_, pi) => (
+                          <span class={`note-carousel-dot${pi === 0 ? " active" : ""}`} data-index={pi} />
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+
               <h3 class="note-title">{entry.data.title}</h3>
 
               <div class="note-body-wrap">
@@ -47,34 +68,10 @@ const rendered = await Promise.all(
                 </div>
                 <button type="button" class="note-toggle">See more</button>
               </div>
-
-              {photos.length > 0 && (
-                <div
-                  class={`note-photos note-photos--${visiblePhotos.length}`}
-                  data-photos={JSON.stringify(photos)}
-                >
-                  {visiblePhotos.map((src, pi) => (
-                    <button type="button" class="note-photo-btn" data-photo-index={pi}>
-                      <img src={src} alt="" loading="lazy" />
-                      {pi === 3 && extraCount > 0 && (
-                        <span class="note-photo-more">+{extraCount}</span>
-                      )}
-                    </button>
-                  ))}
-                </div>
-              )}
             </article>
           );
         })
       }
     </div>
-  </div>
-
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
-    <button type="button" class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous photo">&larr;</button>
-    <img src="" alt="" class="lightbox-image" id="lightbox-image" />
-    <button type="button" class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next photo">&rarr;</button>
-    <span class="lightbox-counter" id="lightbox-counter"></span>
   </div>
 </section>

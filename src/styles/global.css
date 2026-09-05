@@ -979,12 +979,20 @@ section {
    ========================================================================== */
 .notes-feed {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: flex-start;
   gap: var(--space-5);
-  max-width: 640px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: var(--space-2) var(--space-2) var(--space-4);
+  margin: calc(var(--space-2) * -1);
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
 }
 
 .note-card {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
@@ -1023,12 +1031,12 @@ section {
 }
 
 .note-title {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   margin-bottom: var(--space-2);
 }
 
 .note-body-wrap {
-  margin-bottom: var(--space-3);
+  margin-bottom: 0;
 }
 
 .note-body {
@@ -1087,173 +1095,96 @@ section {
   display: none;
 }
 
-/* photo grids, capped at one fixed height so the feed stays compact no
-   matter how many photos a post has or what shape they came in */
-.note-photos {
-  display: grid;
-  gap: 3px;
-  height: 220px;
+/* inline per-post photo carousel: one photo at a time, click through with
+   the arrows or dots, capped at a fixed height so cards stay uniform */
+.note-carousel {
+  position: relative;
+  height: 190px;
   border-radius: var(--radius-sm);
   overflow: hidden;
-}
-
-.note-photos--1 {
-  grid-template-columns: 1fr;
-}
-
-.note-photos--2 {
-  grid-template-columns: 1fr 1fr;
-}
-
-.note-photos--3 {
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr 1fr;
-}
-
-.note-photos--3 .note-photo-btn:first-child {
-  grid-row: 1 / 3;
-}
-
-.note-photos--4 {
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-}
-
-.note-photo-btn {
-  position: relative;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
+  margin-bottom: var(--space-3);
   background: var(--bg);
 }
 
-.note-photo-btn img {
+.note-carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.note-carousel-slide {
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+.note-carousel-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.note-photo-btn:hover img {
-  transform: scale(1.05);
-}
-
-.note-photo-more {
+.note-carousel-btn {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(11, 11, 20, 0.5);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(11, 11, 20, 0.55);
-  color: #fff;
-  font-size: 1.3rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.note-carousel-btn:hover {
+  background: rgba(11, 11, 20, 0.78);
+}
+
+.note-carousel-prev {
+  left: 8px;
+}
+
+.note-carousel-next {
+  right: 8px;
+}
+
+.note-carousel-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+}
+
+.note-carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.note-carousel-dot.active {
+  background: #fff;
+  transform: scale(1.3);
 }
 
 @media (max-width: 700px) {
   .note-card {
+    flex-basis: 260px;
     padding: var(--space-4);
   }
 
-  .note-photos {
-    height: 180px;
-  }
-}
-
-/* lightbox */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(11, 11, 20, 0.92);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-}
-
-.lightbox.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.lightbox-image {
-  max-width: min(88vw, 1000px);
-  max-height: 86vh;
-  object-fit: contain;
-  border-radius: var(--radius-sm);
-}
-
-.lightbox-close,
-.lightbox-nav {
-  position: absolute;
-  background: rgba(244, 243, 240, 0.1);
-  color: var(--cover-ink);
-  border: none;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  font-size: 1.3rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
-}
-
-.lightbox-close:hover,
-.lightbox-nav:hover {
-  background: rgba(244, 243, 240, 0.2);
-}
-
-.lightbox-close {
-  top: 24px;
-  right: 24px;
-}
-
-.lightbox-prev {
-  left: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.lightbox-next {
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.lightbox-counter {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgba(244, 243, 240, 0.7);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-}
-
-@media (max-width: 600px) {
-  .lightbox-nav {
-    width: 38px;
-    height: 38px;
-  }
-
-  .lightbox-prev {
-    left: 10px;
-  }
-
-  .lightbox-next {
-    right: 10px;
-  }
-
-  .lightbox-close {
-    top: 12px;
-    right: 12px;
+  .note-carousel {
+    height: 150px;
   }
 }
 
