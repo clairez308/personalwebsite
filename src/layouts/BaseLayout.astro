@@ -23,6 +23,18 @@ const favicon =
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href={favicon} />
+    <script is:inline>
+      // Set the theme before first paint so the page never flashes the wrong
+      // one. A saved choice wins; otherwise follow the system setting.
+      (function () {
+        var saved = null;
+        try {
+          saved = localStorage.getItem("theme");
+        } catch (e) {}
+        var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

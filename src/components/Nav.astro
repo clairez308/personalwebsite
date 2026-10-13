@@ -35,6 +35,30 @@ const releases = [...(await getReleases())].reverse();
     <div class="nav-links">
       <a href="/#field-notes">Field Notes</a>
       <a href="/Claire_Zhang_Resume.pdf" download class="nav-resume magnetic">Resume</a>
+      <button
+        type="button"
+        id="theme-toggle"
+        class="theme-toggle"
+        role="switch"
+        aria-checked="false"
+        aria-label="Dark mode"
+        title="Toggle light and dark mode"
+      >
+        <span class="theme-toggle-stars" aria-hidden="true">
+          <span style="left: 9px; top: 8px;"></span>
+          <span style="left: 15px; top: 19px;"></span>
+          <span style="left: 6px; top: 17px;"></span>
+        </span>
+        <span class="theme-toggle-thumb" aria-hidden="true">
+          <svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+            <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" />
+          </svg>
+          <svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" />
+          </svg>
+        </span>
+      </button>
     </div>
   </div>
 </nav>
