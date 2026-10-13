@@ -46,6 +46,51 @@
   --radius-sm: 6px;
   --radius-md: 12px;
   --container-w: 1080px;
+
+  --nav-bg: rgba(250, 249, 246, 0.7);
+  --nav-bg-scrolled: rgba(250, 249, 246, 0.92);
+  --shadow: rgba(20, 20, 26, 0.05);
+  --float-shadow: rgba(20, 20, 26, 0.17);
+  --toggle-track: linear-gradient(90deg, #f6dca8, #fbeccc);
+  --toggle-track-line: #e0c98f;
+  --toggle-thumb: #16161a;
+  --toggle-icon: #faf9f6;
+}
+
+/* Dark theme. The inline script in the document head sets data-theme before
+   first paint: a saved choice wins, otherwise it follows the system setting. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e0e14;
+  --surface: #17171f;
+  --ink: #f1f0ec;
+  --ink-soft: #a9a9b2;
+  --ink-faint: #75757f;
+  --line: #2a2a34;
+  --line-strong: #3b3b47;
+  --accent: #a5abf7;
+  --accent-hover: #c3c7fb;
+  --accent-soft: #22223a;
+  --accent-contrast: #0e0e14;
+  --diff-add: #4ade80;
+  --diff-add-soft: #14271c;
+  --diff-fix: #fbbf24;
+  --diff-fix-soft: #2a2213;
+  --diff-improve: #7aa2f7;
+  --diff-improve-soft: #17213a;
+  --diff-skill: #a9a9b2;
+  --diff-skill-soft: #222229;
+  --breaking: #f87171;
+  --breaking-soft: #2d1719;
+
+  --nav-bg: rgba(14, 14, 20, 0.7);
+  --nav-bg-scrolled: rgba(14, 14, 20, 0.92);
+  --shadow: rgba(0, 0, 0, 0.35);
+  --float-shadow: rgba(0, 0, 0, 0.5);
+  --toggle-track: linear-gradient(90deg, #1b1a40, #2e2a78);
+  --toggle-track-line: #3d3a8a;
+  --toggle-thumb: #f1f0ec;
+  --toggle-icon: #0e0e14;
 }
 
 /* ==========================================================================
@@ -120,7 +165,7 @@ nav.site-nav {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(250, 249, 246, 0.7);
+  background: var(--nav-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid transparent;
@@ -128,9 +173,9 @@ nav.site-nav {
 }
 
 nav.site-nav.scrolled {
-  background: rgba(250, 249, 246, 0.92);
+  background: var(--nav-bg-scrolled);
   border-bottom-color: var(--line);
-  box-shadow: 0 8px 24px rgba(20, 20, 26, 0.05);
+  box-shadow: 0 8px 24px var(--shadow);
 }
 
 .nav-inner {
@@ -212,6 +257,92 @@ nav.site-nav.scrolled {
 .nav-links .nav-resume:hover {
   background: var(--accent);
   color: var(--accent-contrast);
+}
+
+/* Light / dark switch: a pill with a sun and moon thumb. Stars fade in on
+   the empty side of the track once it's dark. */
+.theme-toggle {
+  position: relative;
+  flex: none;
+  width: 56px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--toggle-track-line);
+  border-radius: 999px;
+  background: var(--toggle-track);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.4s ease, background 0.5s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.theme-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--toggle-thumb);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1), background 0.4s ease;
+}
+
+.theme-toggle[aria-checked="true"] .theme-toggle-thumb {
+  transform: translateX(26px);
+}
+
+.theme-toggle-icon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 13px;
+  height: 13px;
+  color: var(--toggle-icon);
+  transition: opacity 0.35s ease, transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.theme-icon-moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.4);
+}
+
+.theme-toggle[aria-checked="true"] .theme-icon-sun {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.4);
+}
+
+.theme-toggle[aria-checked="true"] .theme-icon-moon {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+.theme-toggle-stars span {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.theme-toggle[aria-checked="true"] .theme-toggle-stars span {
+  opacity: 0.85;
+}
+
+/* Theme change is animated with a View Transition when the browser supports
+   it: the new theme grows out from the toggle. The default cross-fade is
+   turned off so the clip-path reveal is the only motion. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 .nav-back {
@@ -1264,7 +1395,7 @@ section {
 
 .hobby-card:hover img {
   transform: scale(1.04) translateY(-6px);
-  box-shadow: 0 18px 34px rgba(20, 20, 26, 0.16);
+  box-shadow: 0 18px 34px var(--float-shadow);
 }
 
 @media (max-width: 600px) {
@@ -1889,7 +2020,7 @@ footer.site-footer {
 /* custom selection color, small thing but it's the little things */
 ::selection {
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-contrast);
 }
 
 /* faint grain over everything so the flat colors feel less like a screen */
@@ -1925,7 +2056,7 @@ footer.site-footer {
   border-radius: 50%;
   border: none;
   background: var(--ink);
-  color: #fff;
+  color: var(--bg);
   font-size: 1.15rem;
   line-height: 1;
   cursor: pointer;
@@ -1935,7 +2066,7 @@ footer.site-footer {
   opacity: 0;
   pointer-events: none;
   transform: translateY(8px);
-  box-shadow: 0 10px 24px rgba(20, 20, 26, 0.18);
+  box-shadow: 0 10px 24px var(--float-shadow);
   transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
 }
 

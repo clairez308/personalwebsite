@@ -1,3 +1,56 @@
+// Light / dark switch. The head script has already set data-theme before
+// first paint; this wires up the button and remembers the choice. Until the
+// visitor picks one, the page follows their system setting.
+const themeToggle = document.getElementById("theme-toggle");
+if (themeToggle) {
+  const root = document.documentElement;
+  const isDark = () => root.dataset.theme === "dark";
+  const syncToggle = () => themeToggle.setAttribute("aria-checked", String(isDark()));
+  syncToggle();
+
+  // Grow the new theme out from the button when the browser supports View
+  // Transitions. Otherwise, or with reduced motion, it just swaps.
+  const setTheme = (next, x, y) => {
+    const apply = () => {
+      root.dataset.theme = next;
+      syncToggle();
+    };
+    if (!document.startViewTransition || reduceMotion) {
+      apply();
+      return;
+    }
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    const transition = document.startViewTransition(apply);
+    transition.ready.then(() => {
+      root.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+        { duration: 650, easing: "cubic-bezier(0.4, 0, 0.2, 1)", pseudoElement: "::view-transition-new(root)" }
+      );
+    });
+  };
+
+  themeToggle.addEventListener("click", () => {
+    const next = isDark() ? "light" : "dark";
+    const rect = themeToggle.getBoundingClientRect();
+    setTheme(next, rect.left + rect.width / 2, rect.top + rect.height / 2);
+    try {
+      localStorage.setItem("theme", next);
+    } catch (e) {}
+  });
+
+  // No saved choice yet: keep up with the system setting as it changes.
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    let saved = null;
+    try {
+      saved = localStorage.getItem("theme");
+    } catch (err) {}
+    if (!saved) {
+      root.dataset.theme = e.matches ? "dark" : "light";
+      syncToggle();
+    }
+  });
+}
+
 // Footer year
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
