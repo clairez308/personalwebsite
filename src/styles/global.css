@@ -339,10 +339,18 @@ nav.site-nav.scrolled {
 /* Theme change is animated with a View Transition when the browser supports
    it: the new theme grows out from the toggle. The default cross-fade is
    turned off so the clip-path reveal is the only motion. */
+/* The page background sits on body, which the transition snapshot doesn't
+   always carry. Give the root an explicit background and make both snapshots
+   opaque, so the old theme never shows through the new one. */
+html {
+  background: var(--bg);
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+  background: var(--bg);
 }
 
 .nav-back {
