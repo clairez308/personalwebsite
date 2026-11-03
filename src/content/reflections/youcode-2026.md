@@ -1,6 +1,6 @@
 ---
 date: "2026-04-01"
-period: "Apr 2026"
+period: "Apr 1, 2026"
 title: "youCode 2026: from attendee to organizer"
 tag: "youCode 2026"
 photos: ["/assets/field-notes/youcode-2026.jpg"]

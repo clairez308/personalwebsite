@@ -1,6 +1,6 @@
 ---
 date: "2025-11-22"
-period: "Nov 2025"
+period: "Nov 22, 2025"
 title: "Product Heist 2025: my first pitching comp"
 tag: "Product Heist"
 photos: ["/assets/atlas-team.jpg"]

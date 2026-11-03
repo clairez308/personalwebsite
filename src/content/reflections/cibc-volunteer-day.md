@@ -1,6 +1,6 @@
 ---
 date: "2026-04-15"
-period: "Apr 2026"
+period: "Apr 15, 2026"
 title: "Volunteer day with the CIBC team"
 tag: "CIBC"
 photos: ["/assets/hobbies/07-cibc-volunteer.jpg"]

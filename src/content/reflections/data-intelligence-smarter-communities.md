@@ -1,6 +1,6 @@
 ---
-date: "2026-05-01"
-period: "September 2026"
+date: "2026-09-01"
+period: "Sep 1, 2026"
 title: "Data Intelligence for Smarter Communities: 1st place"
 tag: "Five Bars 3G"
 photos: ["/assets/databricks.png"]

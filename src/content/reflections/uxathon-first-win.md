@@ -1,6 +1,6 @@
 ---
 date: "2025-01-12"
-period: "Jan 2025"
+period: "Jan 12, 2025"
 title: "UXathon: my first win"
 tag: "UXathon"
 photos: ["/assets/project-prepaire.jpg"]

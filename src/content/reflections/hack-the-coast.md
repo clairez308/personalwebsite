@@ -1,6 +1,6 @@
 ---
 date: "2026-02-01"
-period: "Feb 2026"
+period: "Feb 1, 2026"
 title: "Hack the Coast: SUS's first-ever hackathon"
 tag: "Hack the Coast"
 photos: ["/assets/hobbies/08-hackthecoast.jpg"]

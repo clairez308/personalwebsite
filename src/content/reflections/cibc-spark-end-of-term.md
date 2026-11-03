@@ -1,6 +1,6 @@
 ---
 date: "2026-08-01"
-period: "Aug 2026"
+period: "Aug 1, 2026"
 title: "End of term at CIBC"
 tag: "CIBC SPARK"
 photos: ["/assets/field-notes/cibc-spark.jpg"]

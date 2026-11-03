@@ -1,6 +1,6 @@
 ---
 date: "2026-01-01"
-period: "Jan 2026"
+period: "Jan 1, 2026"
 title: "UofTHacks: 3rd place out of 161 projects"
 tag: "UofTHacks 13"
 photos: ["/assets/project-shop-a-sketch.jpg"]

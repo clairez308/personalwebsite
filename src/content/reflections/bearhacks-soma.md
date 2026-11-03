@@ -1,6 +1,6 @@
 ---
-date: "2026-04-02"
-period: "May 2026"
+date: "2026-05-01"
+period: "May 1, 2026"
 title: "BearHacks: Best Use of Gemma with SOMA"
 tag: "BearHacks 2026"
 photos: ["/assets/project-soma.jpg"]

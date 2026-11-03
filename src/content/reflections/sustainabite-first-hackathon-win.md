@@ -1,6 +1,6 @@
 ---
 date: "2025-03-01"
-period: "Mar 2025"
+period: "Mar 1, 2025"
 title: "SustainABite: my first hackathon win"
 tag: "youCode 2025"
 photos: ["/assets/project-sustainabite.jpg"]

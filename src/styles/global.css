@@ -2248,3 +2248,61 @@ footer.site-footer {
     transform: none;
   }
 }
+
+/* ==========================================================================
+   Experience
+   ========================================================================== */
+.experience-list {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 720px;
+}
+
+.experience-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.experience-when {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+  padding-top: 4px;
+}
+
+.experience-item h3 {
+  font-size: 1.25rem;
+}
+
+.experience-org {
+  display: block;
+  margin-top: var(--space-1);
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.experience-status {
+  display: inline-block;
+  margin-top: var(--space-2);
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .experience-item {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+}
