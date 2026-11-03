@@ -16,13 +16,12 @@ const releases = [...(await getReleases())].reverse();
       {
         releases.map((r) => {
           const classes = [
-            r.isCurrent && "current",
             r.isFlagship && "flagship",
             r.isFlagship && activePage === "case-study" && "active",
           ]
             .filter(Boolean)
             .join(" ");
-          const title = `${r.version} · ${r.period}${r.isFlagship ? " · Flagship release" : ""}${r.isCurrent ? " · Current" : ""}`;
+          const title = `${r.version} · ${r.period}${r.isFlagship ? " · Flagship release" : ""}`;
           return (
             <a href={r.href} class={classes} title={title}>
               {r.version}

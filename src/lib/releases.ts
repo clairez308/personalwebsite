@@ -8,7 +8,6 @@ export interface Release {
   period: string;
   title: string;
   isFlagship: boolean;
-  isCurrent: boolean;
   kind: "project" | "case-study";
   project?: CollectionEntry<"projects">;
   caseStudy?: CollectionEntry<"caseStudies">;
@@ -57,7 +56,6 @@ export async function getReleases(): Promise<Release[]> {
       period: item.period,
       title: item.title,
       isFlagship: item.kind === "case-study",
-      isCurrent: index === merged.length - 1,
       kind: item.kind,
       project: item.project,
       caseStudy: item.caseStudy,

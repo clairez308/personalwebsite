@@ -10,7 +10,7 @@ const releases = await getReleases();
 const releasesNewestFirst = [...releases].reverse();
 
 const flagship = releases.find((r) => r.isFlagship)!;
-const current = releases.find((r) => r.isCurrent)!;
+const latest = releasesNewestFirst[0];
 
 let projectCount = 0;
 
@@ -112,7 +112,7 @@ const infraEntries = [
   <div id="boot-overlay" class="boot-overlay" aria-hidden="true">
     <div class="boot-log">
       <p class="boot-line" data-text="$ initializing claire-zhang.dev"><span class="boot-text"></span></p>
-      <p class="boot-line" data-text={`$ pulling release ${current.version}`}><span class="boot-text"></span></p>
+      <p class="boot-line" data-text={`$ pulling release ${latest.version}`}><span class="boot-text"></span></p>
       <p class="boot-line" data-text="$ ready."><span class="boot-text"></span></p>
     </div>
   </div>

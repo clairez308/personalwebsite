@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { release, colorVariant } = Astro.props;
-const { version, period, isFlagship, isCurrent, anchor } = release;
+const { version, period, isFlagship, anchor } = release;
 const project = release.project?.data;
 const caseStudy = release.caseStudy?.data;
 const initial = release.title.trim().charAt(0);
@@ -21,10 +21,9 @@ const initial = release.title.trim().charAt(0);
 
   <div class="release-content">
     {
-      (isFlagship || isCurrent) && (
+      isFlagship && (
         <div class="release-badges">
-          {isFlagship && <span class="release-badge flagship">Flagship release</span>}
-          {isCurrent && <span class="release-badge current">Current</span>}
+          <span class="release-badge flagship">Flagship release</span>
         </div>
       )
     }
