@@ -161,22 +161,21 @@ if ("IntersectionObserver" in window) {
   revealEls.forEach((el) => el.classList.add("visible"));
 }
 
-// The reflections curtain parts once the section is well in view. With
-// reduced motion it opens straight away.
+// The reflections curtain parts once the section is well in view, and closes
+// again when it scrolls away so the reveal replays each time. With reduced
+// motion it stays open.
 const reflectionsEl = document.querySelector(".reflections");
 if (reflectionsEl) {
-  const openCurtain = () => reflectionsEl.classList.add("is-open");
   if (reduceMotion || !("IntersectionObserver" in window)) {
-    openCurtain();
+    reflectionsEl.classList.add("is-open");
   } else {
     const curtainObserver = new IntersectionObserver(
       (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          openCurtain();
-          curtainObserver.disconnect();
-        }
+        entries.forEach((entry) => {
+          reflectionsEl.classList.toggle("is-open", entry.isIntersecting && entry.intersectionRatio >= 0.25);
+        });
       },
-      { threshold: 0.25 }
+      { threshold: [0, 0.25] }
     );
     curtainObserver.observe(reflectionsEl);
   }
