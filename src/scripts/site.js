@@ -349,8 +349,8 @@ if (wantsMotion) {
   resize();
   window.addEventListener("resize", resize);
 
-  // indigo, teal, amber and pink, the same palette as the field notes
-  const hues = [245, 172, 35, 330];
+  // the site's own indigo, with a lighter lavender for the sparks
+  const hues = [245, 250];
   const TRAIL_LIFE = 700;
   const SPARK_LIFE = 900;
   const points = [];
@@ -366,7 +366,7 @@ if (wantsMotion) {
       const a = points[i - 1];
       const b = points[i];
       const age = (now - b.t) / TRAIL_LIFE;
-      ctx.strokeStyle = `hsla(${b.hue}, 85%, 62%, ${(1 - age) * 0.6})`;
+      ctx.strokeStyle = `hsla(${b.hue}, 45%, 58%, ${(1 - age) * 0.5})`;
       ctx.lineWidth = Math.max(0.6, 8 * (1 - age));
       ctx.lineCap = "round";
       ctx.beginPath();
@@ -385,7 +385,7 @@ if (wantsMotion) {
       }
       s.x += s.vx;
       s.y += s.vy;
-      ctx.fillStyle = `hsla(${s.hue}, 90%, 70%, ${1 - age})`;
+      ctx.fillStyle = `hsla(${s.hue}, 35%, 94%, ${(1 - age) * 0.9})`;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r * (1 - age * 0.5), 0, Math.PI * 2);
       ctx.fill();
