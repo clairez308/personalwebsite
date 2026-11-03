@@ -12,11 +12,15 @@ const rendered = await Promise.all(
 );
 ---
 
-<section id="field-notes">
+<section id="reflections" class="reflections">
+  <!-- A night-sky curtain that parts when the section scrolls into view -->
+  <div class="sky-curtain sky-curtain--left" aria-hidden="true"></div>
+  <div class="sky-curtain sky-curtain--right" aria-hidden="true"></div>
+
   <div class="container">
     <div class="section-head reveal">
-      <span class="section-label">Field Notes</span>
-      <h2>Reflections along the way</h2>
+      <span class="section-label">Reflections</span>
+      <h2>Thoughts along the way</h2>
       <p>The story behind the roles and releases above, in my own words.</p>
     </div>
 

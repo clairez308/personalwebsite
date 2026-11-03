@@ -18,17 +18,17 @@ const infraEntries = [
   {
     scope: "arcteryx",
     name: "associate-project-specialist-co-op",
+    logo: "/assets/logos/arc.png",
     date: "2027.01–2027.08",
-    description: "Incoming co-op as an Associate Project Specialist.",
+    description: "Incoming Associate Project Specialist on OmniChannel Platforms.",
   },
   {
-    scope: "ubc-wids",
-    name: "social-media-manager",
-    logo: "/assets/logos/youcode.png",
-    url: "https://ubcyoucode.com/",
-    date: "2026.06–present",
-    description: "Managing social media for UBC's Women In Data Science chapter.",
-    current: true,
+    scope: "cibc",
+    name: "business-systems-analyst",
+    logo: "/assets/logos/cibc.png",
+    date: "2026.01–2026.08",
+    description:
+      "Validated SRRs and PCRs with DXC Cloud Networks, and reviewed vendor contracts and T&Cs for vendor management and risk mitigation. Also built a Power BI dashboard from scratch to make sense of years of contractual data.",
   },
   {
     scope: "ubc-pmc",
@@ -41,18 +41,13 @@ const infraEntries = [
     current: true,
   },
   {
-    scope: "cibc",
-    name: "business-systems-analyst",
-    logo: "/assets/logos/cibc.png",
-    date: "2026.01–2026.08",
-    description:
-      "Validated SRRs and PCRs with DXC Cloud Networks, and reviewed vendor contracts and T&Cs for vendor management and risk mitigation. Also built a Power BI dashboard from scratch to make sense of years of contractual data.",
-  },
-  {
-    scope: "dell-technologies",
-    name: "soar-with-mentor-mentee",
-    date: "2025.10–2025.12",
-    description: "Selected for Dell's Soar with Mentor program.",
+    scope: "ubc-wids",
+    name: "social-media-manager",
+    logo: "/assets/logos/youcode.png",
+    url: "https://ubcyoucode.com/",
+    date: "2026.06–present",
+    description: "Managing social media for UBC's Women In Data Science chapter.",
+    current: true,
   },
   {
     scope: "ubc-sus",
@@ -75,15 +70,10 @@ const infraEntries = [
   {
     scope: "ubc-pilates-club",
     name: "website-director",
+    logo: "/assets/logos/pilates.png",
+    url: "https://ubcpilatesclub.vercel.app/",
     date: "2025.03–present",
     description: "Built and maintain the club's website.",
-    current: true,
-  },
-  {
-    scope: "beayoutiful-foundation",
-    name: "youth-mentor",
-    date: "2025.01–present",
-    description: "Mentoring and empowering young girls.",
     current: true,
   },
   {
@@ -204,16 +194,6 @@ const infraEntries = [
             if (release.kind === "project") projectCount++;
             return (
               <>
-                {release.isFlagship && (
-                  <div class="breaking-change reveal">
-                    <span class="breaking-change-label">&#9888; Breaking change</span>
-                    <p>
-                      Engineering-first became product-first. Everything
-                      after this still ships code, I just started leading
-                      with the problem instead of the stack.
-                    </p>
-                  </div>
-                )}
                 <ReleaseEntry release={release} colorVariant={(projectCount % 3) + 1} />
               </>
             );
@@ -227,7 +207,7 @@ const infraEntries = [
   <section id="infrastructure">
     <div class="container">
       <div class="section-head reveal">
-        <span class="section-label">Infrastructure</span>
+        <span class="section-label">Experience</span>
         <h2>What's running underneath</h2>
       </div>
 

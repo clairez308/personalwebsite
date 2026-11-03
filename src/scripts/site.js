@@ -161,6 +161,27 @@ if ("IntersectionObserver" in window) {
   revealEls.forEach((el) => el.classList.add("visible"));
 }
 
+// The reflections curtain parts once the section is well in view. With
+// reduced motion it opens straight away.
+const reflectionsEl = document.querySelector(".reflections");
+if (reflectionsEl) {
+  const openCurtain = () => reflectionsEl.classList.add("is-open");
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    openCurtain();
+  } else {
+    const curtainObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          openCurtain();
+          curtainObserver.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    curtainObserver.observe(reflectionsEl);
+  }
+}
+
 // Reading-progress line at the top of the page
 const progressEl = document.querySelector(".scroll-progress");
 if (progressEl) {

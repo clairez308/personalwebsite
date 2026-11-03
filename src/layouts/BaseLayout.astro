@@ -27,6 +27,7 @@ const favicon =
       // Set the theme before first paint so the page never flashes the wrong
       // one. A saved choice wins; otherwise follow the system setting.
       (function () {
+        document.documentElement.classList.add("js");
         var saved = null;
         try {
           saved = localStorage.getItem("theme");
@@ -43,6 +44,8 @@ const favicon =
     />
   </head>
   <body>
+    <div class="night-sky night-sky--near" aria-hidden="true"></div>
+    <div class="night-sky night-sky--far" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <div class="scroll-progress" aria-hidden="true"></div>
 
