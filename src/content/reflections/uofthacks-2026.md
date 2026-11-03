@@ -1,13 +1,15 @@
 ---
 date: "2026-01-01"
-period: "Jan 1, 2026"
+period: "Jan 18, 2026"
 title: "UofTHacks: 3rd place out of 161 projects"
 tag: "UofTHacks 13"
 photos: ["/assets/project-shop-a-sketch.jpg"]
 ---
 
-I honestly didn't expect this one! We placed 3rd out of 161 projects at UofTHacks. We were a group of three, and it was my first hackathon in Toronto after moving here for my co-op. I didn't know anyone when I started!
+Just 2 weeks after I set foot in Toronto to start my co-op term at CIBC, I dove head first into the hackathon scene in Ontario with UoftHacks13. I honestly didn't expect this win coming in...we ended up placing 3rd out of 161 projects. Started from not even knowing my team to an outstanding unique project!
 
-I was in the Shopify stream, so I was thinking about the commerce industry. I came up with a really creative idea and was able to pitch it well. It reminded me that creativity and a great pitch go a long way in a hackathon. At the end of the day, it's all about the idea!
+We were in the Shopify stream, so thinking about the commerce industry. With the creativity of our idea and a great pitch it really proved to me once again how important they are in a hackathon. At the end of the day, it's all about the idea!
+
+Shoutout to my teammates: Maddy & Shen!
 
 **Key learning:** A creative idea, pitched clearly, can carry a lot more weight than you'd expect.
