@@ -330,6 +330,100 @@ if (wantsMotion) {
   }
 }
 
+// Cursor trail: a soft ribbon of colour that fades behind the pointer, with
+// the odd spark drifting off it. Pointer devices only, and off when the
+// visitor has asked for less motion.
+if (wantsMotion) {
+  const canvas = document.createElement("canvas");
+  canvas.className = "cursor-trail";
+  canvas.setAttribute("aria-hidden", "true");
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext("2d");
+
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  resize();
+  window.addEventListener("resize", resize);
+
+  // indigo, teal, amber and pink, the same palette as the field notes
+  const hues = [245, 172, 35, 330];
+  const TRAIL_LIFE = 700;
+  const SPARK_LIFE = 900;
+  const points = [];
+  const sparks = [];
+  let running = false;
+
+  const draw = (now) => {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    while (points.length && now - points[0].t > TRAIL_LIFE) points.shift();
+
+    // the ribbon: each segment thins and fades as it ages
+    for (let i = 1; i < points.length; i++) {
+      const a = points[i - 1];
+      const b = points[i];
+      const age = (now - b.t) / TRAIL_LIFE;
+      ctx.strokeStyle = `hsla(${b.hue}, 85%, 62%, ${(1 - age) * 0.6})`;
+      ctx.lineWidth = Math.max(0.6, 8 * (1 - age));
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    }
+
+    // sparks: tiny dots that drift away and vanish
+    for (let i = sparks.length - 1; i >= 0; i--) {
+      const s = sparks[i];
+      const age = (now - s.t) / SPARK_LIFE;
+      if (age >= 1) {
+        sparks.splice(i, 1);
+        continue;
+      }
+      s.x += s.vx;
+      s.y += s.vy;
+      ctx.fillStyle = `hsla(${s.hue}, 90%, 70%, ${1 - age})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r * (1 - age * 0.5), 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (points.length || sparks.length) {
+      requestAnimationFrame(draw);
+    } else {
+      running = false;
+    }
+  };
+
+  window.addEventListener(
+    "pointermove",
+    (e) => {
+      const now = performance.now();
+      const hue = hues[Math.floor(now / 1200) % hues.length];
+      points.push({ x: e.clientX, y: e.clientY, t: now, hue });
+      if (Math.random() < 0.3) {
+        sparks.push({
+          x: e.clientX,
+          y: e.clientY,
+          vx: (Math.random() - 0.5) * 1.6,
+          vy: (Math.random() - 0.5) * 1.6 - 0.4,
+          r: 1 + Math.random() * 1.6,
+          hue,
+          t: now,
+        });
+      }
+      if (!running) {
+        running = true;
+        requestAnimationFrame(draw);
+      }
+    },
+    { passive: true }
+  );
+}
+
 // For anyone who checks the console before the About section
 console.log(
   "%cHey.",
