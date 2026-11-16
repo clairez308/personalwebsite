@@ -1,61 +1,35 @@
 ---
 import { getCollection } from "astro:content";
+import ExperienceBoard, { type Experience } from "./ExperienceBoard.tsx";
+import "../styles/experiences.css";
 
+// Order as written in experiences.yaml (current and incoming roles first in each group).
 const entries = await getCollection("experiences");
-const groups = [
-  { key: "work", label: "work" },
-  { key: "leadership", label: "leadership" },
-  { key: "community", label: "community" },
-] as const;
+const items: Experience[] = entries.map((entry) => ({
+  id: entry.id,
+  org: entry.data.org,
+  role: entry.data.role,
+  dates: entry.data.dates,
+  category: entry.data.category,
+  summary: entry.data.summary,
+  bullets: entry.data.bullets,
+  logo: entry.data.logo,
+  image: entry.data.image,
+  url: entry.data.url,
+  current: entry.data.current,
+  incoming: entry.data.incoming,
+}));
 ---
 
-<section id="experience" class="scroll-mt-8 px-4 py-20 md:px-8">
+<section id="experience" class="experience scroll-mt-8 px-4 py-20 md:px-8">
   <div class="mx-auto max-w-[1080px]">
     <p class="font-mono text-sm text-ink-soft">02 · places I've been</p>
     <h2 class="font-display mt-2 text-4xl md:text-5xl">What's running underneath</h2>
+    <p class="mt-3 max-w-prose text-ink-soft">Work, leadership and community roles. Pick a card to open the letter.</p>
 
-    {
-      groups.map((group) => {
-        const items = entries.filter((e) => e.data.category === group.key);
-        return (
-          <div class="mt-10">
-            <h3 class="font-mono text-sm uppercase tracking-wider text-ink-soft">{group.label}</h3>
-            <ul class="mt-4 grid gap-5 md:grid-cols-2">
-              {items.map((entry) => {
-                const d = entry.data;
-                return (
-                  <li class="reveal relative rounded-sm border border-kraft/60 bg-white/60 p-5 shadow-sm">
-                    <div class="flex items-start gap-4">
-                      <img src={d.logo} alt="" width="48" height="48" loading="lazy" decoding="async" class="h-12 w-12 flex-none object-contain" />
-                      <div class="min-w-0">
-                        <p class="font-display text-xl">
-                          {d.url ? (
-                            <a href={d.url} target="_blank" rel="noopener" class="underline decoration-kraft underline-offset-4">{d.org}</a>
-                          ) : (
-                            d.org
-                          )}
-                        </p>
-                        <p class="text-ink">{d.role}</p>
-                        <p class="font-mono text-xs text-ink-soft">
-                          {d.dates}
-                          {d.current && <span class="ml-2 text-tomato">[current]</span>}
-                          {d.incoming && <span class="ml-2 text-tomato">[incoming]</span>}
-                        </p>
-                      </div>
-                    </div>
-                    <p class="mt-4 text-[0.95rem] text-ink-soft">{d.summary}</p>
-                    {d.bullets.length > 0 && (
-                      <ul class="mt-3 list-disc pl-5 text-[0.95rem]">
-                        {d.bullets.map((b) => <li>{b}</li>)}
-                      </ul>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        );
-      })
-    }
+    <div class="mt-10">
+      <!-- Without JavaScript the full list still renders here; the island takes over after hydration. -->
+      <ExperienceBoard entries={items} client:visible />
+    </div>
   </div>
 </section>

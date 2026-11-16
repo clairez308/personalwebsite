@@ -278,3 +278,11 @@ body {
   max-width: var(--container-w);
   margin: 0 auto;
 }
+
+/* Astro islands default to display: contents, which gives client:visible no box
+   to observe, so the island never hydrates. Give them a box. */
+astro-island {
+  display: block !important;
+  height: 100%;
+  width: 100%;
+}
