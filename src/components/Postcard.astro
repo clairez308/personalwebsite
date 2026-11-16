@@ -1,5 +1,7 @@
 ---
 import { site } from "../content/site";
+import PostcardForm from "./PostcardForm.tsx";
+import "../styles/postcard.css";
 ---
 
 <section id="say-hi" class="scroll-mt-8 px-4 py-20 md:px-8">
@@ -9,10 +11,16 @@ import { site } from "../content/site";
     <p class="mt-4 max-w-prose text-lg text-ink-soft">
       Recruiting, a coffee chat, or an opinion on a product you use every day. All welcome.
     </p>
-    <ul class="mt-8 flex flex-wrap gap-3">
-      <li>
-        <a href={`mailto:${site.socials.email}`} class="inline-block rounded-md bg-tomato px-5 py-3 text-paper shadow-sm hover:brightness-95">email me</a>
-      </li>
+
+    <div class="mt-12">
+      <!-- Without JavaScript, the email link is the way in. The postcard takes over after hydration. -->
+      <p class="email-fallback">
+        Email me at <a href={`mailto:${site.socials.email}`}>{site.socials.email}</a>.
+      </p>
+      <PostcardForm client:visible />
+    </div>
+
+    <ul class="mt-12 flex flex-wrap gap-3">
       <li>
         <a href={site.socials.linkedin} target="_blank" rel="noopener" class="inline-block rounded-md border-2 border-ink px-5 py-3 hover:bg-paper-deep">LinkedIn ↗</a>
       </li>
