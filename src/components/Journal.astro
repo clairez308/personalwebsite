@@ -1,22 +1,54 @@
 ---
 import { getCollection, render } from "astro:content";
+import JournalBook, { type BookEntry } from "./JournalBook.tsx";
+import { keyLearningOf } from "../lib/reflections";
+import { site } from "../content/site";
+import "../styles/journal.css";
 
 const entries = (await getCollection("reflections")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
+
+// The flip book gets the rendered body split into blocks (paragraphs, lists),
+// with the key-learning paragraph taken out of the body and passed separately.
+const book: BookEntry[] = entries.map((entry) => {
+  const html = entry.rendered?.html ?? "";
+  const blocks = html
+    .split(/(?=<(?:p|ul|ol|h[1-6]|blockquote|figure)[\s>])/)
+    .map((b) => b.trim())
+    .filter((b) => b.length > 0)
+    .filter((b) => !/^<p>\s*<strong>\s*Key learning:/i.test(b))
+    .map((b) => ({ html: b, words: b.replace(/<[^>]+>/g, " ").trim().split(/\s+/).filter(Boolean).length }));
+  return {
+    id: entry.id,
+    period: entry.data.period,
+    tag: entry.data.tag ?? null,
+    title: entry.data.title,
+    photos: entry.data.photos ?? [],
+    keyLearning: keyLearningOf(entry) ?? null,
+    blocks,
+  };
+});
+
+// The plain list below is the no-JavaScript version. The book replaces it
+// visually once it's on the page (see .js .journal-list in journal.css).
 const rendered = await Promise.all(entries.map(async (entry) => ({ entry, ...(await render(entry)) })));
 ---
 
-<section id="journal" class="scroll-mt-8 px-4 py-20 md:px-8">
+<section id="journal" class="journal scroll-mt-8 px-4 py-20 md:px-8">
   <div class="mx-auto max-w-[1080px]">
     <p class="font-mono text-sm text-ink-soft">03 · notes to self</p>
     <h2 class="font-display mt-2 text-4xl md:text-5xl">Reflections</h2>
     <p class="mt-3 max-w-prose text-ink-soft">The story behind the roles and releases above, in my own words.</p>
 
-    <div class="mt-10 space-y-12">
+    <div class="journal-book mt-10">
+      <JournalBook entries={book} linkedin={site.socials.linkedin} client:visible />
+    </div>
+
+    <div class="journal-list mt-10 space-y-12">
       {
         rendered.map(({ entry, Content }) => (
-          <article class="reveal grid gap-6 border-t border-kraft/40 pt-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
+          <article class="grid gap-6 border-t border-kraft/40 pt-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
             <div>
               <p class="font-mono text-sm text-ink-soft">
                 {entry.data.period}

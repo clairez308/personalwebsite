@@ -1,0 +1,191 @@
+/* ---------- Journal: reflections as a flip book ---------- */
+
+/* No JavaScript: the plain article list shows. With JavaScript the book
+   replaces it. The book's server-rendered first spread is still in the HTML
+   until the island hydrates, so the section is never empty. */
+.js .journal-list {
+  display: none;
+}
+.no-js .journal-book {
+  display: none;
+}
+
+.book-root {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  outline: none;
+}
+.book-root:focus-visible {
+  outline: 2px solid var(--tomato);
+  outline-offset: 6px;
+  border-radius: 6px;
+}
+
+.book {
+  position: relative;
+  perspective: 1400px;
+  min-height: 420px;
+}
+
+/* One sheet: left and right pages side by side, with a gutter shadow. */
+.spread {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #fbf7ef;
+  border-radius: 4px;
+  box-shadow:
+    0 14px 30px rgba(43, 36, 32, 0.18),
+    inset 0 0 40px rgba(107, 94, 85, 0.08);
+  transform-origin: center;
+}
+.spread::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 24px;
+  margin-left: -12px;
+  background: linear-gradient(90deg, transparent, rgba(107, 94, 85, 0.14), transparent);
+  pointer-events: none;
+}
+
+.book-page {
+  min-height: 420px;
+  padding: 2rem 2rem 1.75rem 2.5rem;
+  color: var(--ink);
+  background-image:
+    linear-gradient(90deg, transparent 2.1rem, rgba(226, 72, 61, 0.3) 2.1rem, rgba(226, 72, 61, 0.3) 2.15rem, transparent 2.15rem),
+    repeating-linear-gradient(to bottom, transparent 0 1.7rem, rgba(107, 94, 85, 0.16) 1.7rem 1.75rem);
+  background-position: 0 0, 0 0.5rem;
+}
+.book-page--left {
+  background-color: #f7f1e4;
+  padding-right: 2rem;
+}
+
+/* Photos taped in with washi, slightly tilted. */
+.washi-photo {
+  display: block;
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  border: 6px solid #fff;
+  box-shadow: 0 3px 8px rgba(43, 36, 32, 0.2);
+  position: relative;
+}
+.book-page--left .washi-photo:nth-child(odd) {
+  transform: rotate(-1.5deg);
+}
+.book-page--left .washi-photo:nth-child(even) {
+  transform: rotate(1.2deg);
+}
+.book-page--left .space-y-5 > * + * {
+  margin-top: 1.25rem;
+}
+
+/* The closed book: a kraft cover with an elastic band. */
+.book-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  background-color: var(--kraft);
+  background-image:
+    repeating-linear-gradient(35deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 6px),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.12), transparent 60%);
+  border-radius: 4px 8px 8px 4px;
+  box-shadow: 0 14px 30px rgba(43, 36, 32, 0.25);
+  transform-origin: left center;
+  transition: transform 1.1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: default;
+}
+.book-cover-label {
+  position: relative;
+  z-index: 1;
+  padding: 0.4rem 0.9rem;
+  background: #fbf7ef;
+  color: var(--ink);
+  font-size: 1.8rem;
+  transform: rotate(-3deg);
+  box-shadow: 0 2px 4px rgba(43, 36, 32, 0.2);
+}
+.book-band {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 2.5rem;
+  width: 14px;
+  background: var(--tomato);
+  opacity: 0.85;
+  transition: opacity 0.6s ease 0.2s;
+}
+.is-open .book-cover {
+  transform: rotateY(-172deg);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 1.1s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.4s ease 0.9s;
+}
+.is-open .book-band {
+  opacity: 0;
+}
+.is-closed .spread {
+  visibility: hidden;
+}
+.is-open .spread {
+  visibility: visible;
+}
+
+/* Navigation: hand-drawn arrows and a mono counter. */
+.book-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+.hand-arrow {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-hand);
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--tomato);
+  cursor: pointer;
+  transform: rotate(-4deg);
+}
+.hand-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.hand-arrow:hover:not(:disabled) {
+  transform: rotate(0deg) scale(1.08);
+}
+
+.highlight {
+  background: linear-gradient(transparent 45%, var(--butter) 45%, var(--butter) 92%, transparent 92%);
+  color: inherit;
+}
+
+/* Mobile: the two pages of a sheet stack, one after the other. */
+@media (max-width: 767px) {
+  .spread {
+    grid-template-columns: 1fr;
+  }
+  .spread::after {
+    display: none;
+  }
+  .book-page,
+  .book-page--left {
+    min-height: 0;
+  }
+  .book-page--left {
+    border-bottom: 1px dashed rgba(107, 94, 85, 0.35);
+  }
+}
