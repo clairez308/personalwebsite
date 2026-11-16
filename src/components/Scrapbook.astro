@@ -1,28 +1,37 @@
 ---
 import { getCollection } from "astro:content";
+import ScrapbookBoard, { type HobbyPhoto } from "./ScrapbookBoard.tsx";
+import "../styles/scrapbook.css";
 
 const items = await getCollection("hobbies");
+const photos: HobbyPhoto[] = items.map((item) => ({
+  id: item.id,
+  name: item.data.name,
+  src: item.data.photos[0],
+  caption: item.data.caption,
+}));
 ---
 
-<section id="play" class="scroll-mt-8 px-4 py-20 md:px-8">
+<section id="play" class="scrapbook-section scroll-mt-8 px-4 py-20 md:px-8">
   <div class="mx-auto max-w-[1080px]">
     <p class="font-mono text-sm text-ink-soft">04 · off the clock</p>
     <h2 class="font-display mt-2 text-4xl md:text-5xl">Beyond work</h2>
+    <p class="mt-3 max-w-prose text-ink-soft">
+      A corkboard of photos and stickers. Move things around, draw on it, and save your page if you like it.
+    </p>
 
-    <ul class="mt-10 grid grid-cols-2 gap-6 md:grid-cols-3">
-      {
-        items.map((item, i) => (
-          <li class="reveal">
-            <figure class={`bg-white p-3 pb-6 shadow-md ${i % 2 ? "rotate-[1.5deg]" : "rotate-[-1.5deg]"}`}>
-              <img src={item.data.photos[0]} alt={item.data.name} loading="lazy" decoding="async" class="aspect-square w-full object-cover" />
-              <figcaption class="mt-3 font-mono text-xs text-ink-soft">
-                {item.data.name}
-                {!item.data.caption.startsWith("TODO") && <span class="ml-1 font-hand text-lg text-ink">{item.data.caption}</span>}
-              </figcaption>
-            </figure>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="mt-10">
+      <!-- The photos are in the HTML too. The board takes over once it hydrates. -->
+      <noscript>
+        <ul class="grid grid-cols-2 gap-6 md:grid-cols-3">
+          {photos.map((p) => (
+            <li>
+              <img src={p.src} alt={p.name} loading="lazy" class="aspect-square w-full object-cover" />
+            </li>
+          ))}
+        </ul>
+      </noscript>
+      <ScrapbookBoard photos={photos} client:visible />
+    </div>
   </div>
 </section>
