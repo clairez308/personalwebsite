@@ -19,7 +19,7 @@ const projects = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
   schema: z.object({
     title: z.string(),
-    url: z.string().url(),
+    url: z.url(),
     // Real, sortable date this shipped (its "release date") — drives both
     // display order and the version number assigned in index.astro.
     date: z.coerce.date(),
@@ -37,8 +37,8 @@ const projects = defineCollection({
     tags: z.array(z.string()).optional(),
     links: z
       .object({
-        live: z.string().url().optional(),
-        github: z.string().url().optional(),
+        live: z.url().optional(),
+        github: z.url().optional(),
         caseStudy: z.string().optional(),
       })
       .optional(),
@@ -161,7 +161,7 @@ const caseStudies = defineCollection({
     deliverables: z.array(
       z.object({
         label: z.string(),
-        url: z.string().url().optional(),
+        url: z.url().optional(),
       })
     ),
     result: z.string(),
@@ -202,7 +202,7 @@ const experiences = defineCollection({
     bullets: z.array(z.string()).max(3).default([]),
     logo: z.string(),
     image: z.string().optional(),
-    url: z.string().url().optional(),
+    url: z.url().optional(),
     current: z.boolean().optional(),
     incoming: z.boolean().optional(),
   }),

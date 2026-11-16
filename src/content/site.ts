@@ -22,12 +22,13 @@ export const site = {
   },
 
   // Divider tabs, in page order. `id` must match the section's id.
+  // `stop` is the handwritten label on the thread (§5.3).
   sections: [
-    { id: "work", label: "work" },
-    { id: "experience", label: "experience" },
-    { id: "journal", label: "journal" },
-    { id: "play", label: "play" },
-    { id: "say-hi", label: "say hi" },
+    { id: "work", label: "work", stop: "01 things I built" },
+    { id: "experience", label: "experience", stop: "02 places I've been" },
+    { id: "journal", label: "journal", stop: "03 notes to self" },
+    { id: "play", label: "play", stop: "04 off the clock" },
+    { id: "say-hi", label: "say hi", stop: "05 say hi" },
   ],
 
   resumePath: "/Claire_Zhang_Resume.pdf",

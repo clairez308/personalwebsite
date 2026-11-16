@@ -1,53 +1,90 @@
 ---
 import { site } from "../content/site";
+import HeroSticker from "./HeroSticker.tsx";
 
-const { hero, socials, resumePath } = { ...site, hero: site.hero };
+const { hero, socials, resumePath } = site;
+
+// Arrow doodle for each margin note. pathLength="1" lets CSS draw it in.
+const arrows = [
+  "M4 30 Q 30 2 54 16 M44 8 L55 16 L47 26",
+  "M6 10 Q 26 34 52 24 M42 30 L52 24 L49 14",
+  "M52 6 Q 24 4 6 26 M14 24 L5 27 L9 36",
+  "M4 14 Q 30 36 56 30 M46 36 L56 30 L50 22",
+];
 ---
 
-<header id="top" class="mx-auto grid max-w-[1080px] items-center gap-10 px-4 pb-16 pt-24 md:grid-cols-[1.15fr_0.85fr] md:px-8 md:pt-32">
-  <div>
-    <p class="font-hand text-2xl text-tomato">{hero.handwritten}</p>
-    <h1 class="font-display mt-2 text-5xl leading-tight md:text-7xl">{hero.headline}</h1>
-    <p class="mt-6 max-w-prose text-lg text-ink-soft">{hero.lede}</p>
-    <ul class="mt-5 flex flex-wrap gap-2 font-mono text-sm text-ink-soft">
-      {hero.tags.map((tag) => <li>[{tag}]</li>)}
-    </ul>
-    <div class="mt-8 flex flex-wrap gap-3">
-      <a href="#work" class="rounded-md bg-tomato px-5 py-3 text-paper shadow-sm hover:brightness-95">see my work ↓</a>
-      <a href={resumePath} target="_blank" rel="noopener" class="rounded-md border-2 border-ink px-5 py-3 hover:bg-paper-deep">résumé ↗</a>
-    </div>
-    <ul class="mt-8 flex flex-wrap gap-4 font-mono text-sm">
-      <li><a class="underline decoration-kraft underline-offset-4" href={socials.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a class="underline decoration-kraft underline-offset-4" href={socials.github} target="_blank" rel="noopener">GitHub</a></li>
-      <li><a class="underline decoration-kraft underline-offset-4" href={`mailto:${socials.email}`}>Email</a></li>
-    </ul>
+<header id="top" class="relative">
+  <!-- Faint doodles: slowest parallax layer -->
+  <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+    <svg data-depth="0.25" class="absolute hidden left-[8%] md:block top-[18%] h-10 w-10 text-kraft opacity-60" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <path class="doodle" pathLength="1" d="M20 4 L23 15 L35 16 L25 23 L28 35 L20 28 L12 35 L15 23 L5 16 L17 15 Z" />
+    </svg>
+    <svg data-depth="0.25" class="absolute right-[10%] hidden md:block top-[60%] h-8 w-8 text-sage opacity-70" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <path class="doodle" pathLength="1" d="M4 22 Q 14 6 22 20 T 38 14" />
+    </svg>
   </div>
 
-  <div class="relative mx-auto w-full max-w-sm">
-    <img
-      src="/assets/claire-headshot.jpg"
-      alt="Claire Zhang"
-      class="aspect-[4/5] w-full -rotate-2 rounded-sm border-[10px] border-white object-cover shadow-lg"
-      loading="eager"
-      decoding="async"
-    />
-    <ul class="pointer-events-none absolute inset-0 hidden md:block" aria-label="Notes about me">
-      {
-        hero.annotations.map((note, i) => (
-          <li
-            class={`absolute font-hand text-xl leading-tight text-ink ${
-              [
-                "-left-10 -top-6 rotate-[-6deg]",
-                "-right-8 top-1/3 rotate-3",
-                "-left-6 bottom-10 rotate-[-2deg]",
-                "-right-6 bottom-0 rotate-6",
-              ][i % 4]
-            }`}
-          >
-            {note}
-          </li>
-        ))
-      }
-    </ul>
+  <div data-hero-content class="mx-auto grid max-w-[1080px] items-center gap-10 px-4 pb-24 pt-24 md:grid-cols-[1.15fr_0.85fr] md:px-8 md:pt-32">
+    <div>
+      <p class="font-hand text-2xl text-tomato">{hero.handwritten}</p>
+      <h1 class="font-display mt-2 text-5xl leading-tight md:text-7xl">{hero.headline}</h1>
+      <p class="mt-6 max-w-prose text-lg text-ink-soft">{hero.lede}</p>
+      <ul class="mt-5 flex flex-wrap gap-2 font-mono text-sm text-ink-soft">
+        {hero.tags.map((tag) => <li>[{tag}]</li>)}
+      </ul>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#work" class="rounded-md bg-tomato px-5 py-3 text-paper shadow-sm hover:brightness-95">see my work ↓</a>
+        <a href={resumePath} target="_blank" rel="noopener" class="rounded-md border-2 border-ink px-5 py-3 hover:bg-paper-deep">résumé ↗</a>
+      </div>
+      <ul class="mt-8 flex flex-wrap gap-4 font-mono text-sm">
+        <li><a class="underline decoration-kraft underline-offset-4" href={socials.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a class="underline decoration-kraft underline-offset-4" href={socials.github} target="_blank" rel="noopener">GitHub</a></li>
+        <li><a class="underline decoration-kraft underline-offset-4" href={`mailto:${socials.email}`}>Email</a></li>
+      </ul>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-sm">
+      <!-- Parallax layers: the photo is the fastest, the notes are in the middle -->
+      <div data-depth="0.9" class="relative">
+        <div class="sticker-wrap relative aspect-[4/5] w-full">
+          <!-- Real image in the HTML. The sticker island takes over once it mounts. -->
+          <img
+            src="/assets/claire-headshot.jpg"
+            alt="Claire Zhang"
+            width="800"
+            height="1000"
+            class="sticker-fallback absolute inset-0 h-full w-full -rotate-2 rounded-sm border-[10px] border-white object-cover shadow-lg"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <div class="sticker-island absolute inset-0">
+            <HeroSticker client:visible />
+          </div>
+        </div>
+      </div>
+
+      <ul data-depth="0.5" class="pointer-events-none absolute inset-0 hidden md:block" aria-label="Notes about me">
+        {
+          hero.annotations.map((note, i) => (
+            <li
+              class={`absolute flex items-center gap-2 font-hand text-xl leading-tight text-ink ${
+                [
+                  "-left-10 -top-8 rotate-[-6deg]",
+                  "-right-12 top-1/3 rotate-3",
+                  "-left-8 bottom-16 rotate-[-2deg]",
+                  "-right-8 bottom-2 rotate-6",
+                ][i % 4]
+              }`}
+            >
+              <span>{note}</span>
+              <svg class="h-10 w-14 flex-none text-tomato" viewBox="0 0 60 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path class="doodle" pathLength="1" d={arrows[i % arrows.length]} />
+              </svg>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 </header>

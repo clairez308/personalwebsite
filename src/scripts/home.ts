@@ -1,9 +1,12 @@
 import { activeSection } from "../lib/stores";
 import { scrollToTarget, refresh } from "../lib/scroll";
 import { site } from "../content/site";
+import "./loader.ts";
+import "./hero.ts";
+import "./thread.ts";
 
-// Home page only: Lenis/ScrollTrigger are imported through lib/scroll, so
-// they ship here and nowhere else.
+// Home page only. Lenis and ScrollTrigger come in through lib/scroll, so they
+// ship here and nowhere else.
 
 // 1. Same-page links (/#work, #journal) scroll through Lenis.
 document.addEventListener("click", (event) => {
@@ -35,12 +38,30 @@ if ("IntersectionObserver" in window && sectionEls.length) {
   sectionEls.forEach((el) => activeObserver.observe(el));
 }
 
-// 3. Images that load late change page height; keep ScrollTrigger honest.
-window.addEventListener("load", () => refresh());
-
-// 4. Divider tabs: the tab for the section in view sticks out (data-active).
+// 3. Divider tabs: the tab for the section in view sticks out (data-active).
 activeSection.subscribe((id) => {
   document.querySelectorAll<HTMLElement>("[data-tab]").forEach((tab) => {
     tab.dataset.active = String(tab.dataset.tab === id);
   });
 });
+
+// 4. Hand-drawn doodles draw themselves in when they reach the viewport.
+const doodles = document.querySelectorAll<SVGPathElement>(".doodle");
+if ("IntersectionObserver" in window) {
+  const doodleObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add("drawn");
+        doodleObserver.unobserve(entry.target);
+      }
+    },
+    { threshold: 0.4 }
+  );
+  doodles.forEach((d) => doodleObserver.observe(d));
+} else {
+  doodles.forEach((d) => d.classList.add("drawn"));
+}
+
+// 5. Images that load late change page height; keep ScrollTrigger honest.
+window.addEventListener("load", () => refresh());

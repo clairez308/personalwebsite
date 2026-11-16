@@ -1,0 +1,22 @@
+---
+// Washi-tape loader (first visit per session). Visible by default; the
+// inline script below hides it on repeat visits before first paint, and
+// `.no-js` hides it when JavaScript is off. src/scripts/loader.ts animates it.
+---
+
+<div id="loader" class="loader" role="status" aria-label="Loading claire zhang">
+  <div class="tape tape-pink" style="--r: -14deg; --top: 4%"></div>
+  <div class="tape tape-tomato" style="--r: 9deg; --top: 24%"></div>
+  <div class="tape tape-gingham" style="--r: -6deg; --top: 46%"></div>
+  <div class="tape tape-kraft" style="--r: 12deg; --top: 66%"></div>
+  <div class="tape tape-sage" style="--r: -18deg; --top: 84%"></div>
+  <p class="loader-name font-hand">claire zhang</p>
+</div>
+<script is:inline>
+  // Repeat visit in this tab session: skip the loader before it paints.
+  try {
+    if (sessionStorage.getItem("bj-loader-seen") === "1") {
+      document.documentElement.dataset.loaderSeen = "1";
+    }
+  } catch (e) {}
+</script>

@@ -1,0 +1,24 @@
+---
+import { site } from "../content/site";
+
+// The thread: one ink line that winds down the page through every section.
+// Its path, stop positions and scroll drawing are built by src/scripts/thread.ts.
+---
+
+<div id="thread" class="thread" aria-hidden="true">
+  <svg class="thread-svg" aria-hidden="true">
+    <path class="thread-path" id="thread-path" d="" />
+  </svg>
+  <p class="thread-start" data-thread-start>start here ↓</p>
+  {
+    site.sections.map((s, i) => (
+      <div class="thread-stop" data-stop={s.id}>
+        <span class="thread-pin">{i + 1}</span>
+        <span class="thread-label">{s.stop}</span>
+      </div>
+    ))
+  }
+  <svg class="thread-plane" viewBox="-14 -14 28 28" aria-hidden="true">
+    <path d="M-12 -6 L12 0 L-12 6 L-6 0 Z" fill="var(--tomato)" stroke="var(--ink)" stroke-width="1" stroke-linejoin="round" />
+  </svg>
+</div>
