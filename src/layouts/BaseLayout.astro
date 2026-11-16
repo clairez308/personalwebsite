@@ -1,10 +1,13 @@
 ---
 import Footer from "../components/Footer.astro";
 import ResumeNote from "../components/ResumeNote.astro";
+import PencilCase from "../components/PencilCase.tsx";
+import ClickSparkLayer from "../components/ClickSparkLayer.tsx";
 // Tokens, fonts, Tailwind utilities and grain. The legacy global.css still
 // styles the Atlas case study; it's removed piece by piece in later phases.
 import "../styles/app.css";
 import "../styles/global.css";
+import "../styles/pencilcase.css";
 import { site } from "../content/site";
 
 interface Props {
@@ -39,6 +42,9 @@ const favicon =
     <slot />
 
     <Footer />
+
+    <ClickSparkLayer client:only="react" />
+    <PencilCase client:idle />
 
     <script>
       import "../scripts/core.ts";

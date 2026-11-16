@@ -1,3 +1,5 @@
+import "./pencil.ts";
+
 // Loaded on every page from BaseLayout. Kept small on purpose: no GSAP or
 // Lenis here, so the case study page doesn't pay for them.
 

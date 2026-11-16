@@ -1,0 +1,255 @@
+/* ---------- Pencil case: floating button, panel, colour-in desk, tape match ---------- */
+
+.pencil-case-root {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 9000;
+}
+.pencil-case-btn {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(0 4px 6px rgba(43, 36, 32, 0.25));
+  transition: transform 0.2s ease;
+}
+.pencil-case-btn:hover {
+  transform: translateY(-2px);
+}
+.pencil-case-btn.is-wiggle {
+  animation: case-wiggle 0.9s ease-in-out;
+}
+@keyframes case-wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(-9deg);
+  }
+  45% {
+    transform: rotate(8deg);
+  }
+  70% {
+    transform: rotate(-4deg);
+  }
+}
+
+.pencil-panel {
+  position: absolute;
+  right: 0;
+  bottom: 64px;
+  width: min(380px, calc(100vw - 2rem));
+  max-height: min(560px, calc(100vh - 6rem));
+  overflow-y: auto;
+  padding: 1rem;
+  background: #fbf7ef;
+  border-radius: 6px;
+  box-shadow: 0 18px 40px rgba(43, 36, 32, 0.3);
+  color: var(--ink);
+}
+@media (max-width: 767px) {
+  .pencil-case-root {
+    right: 0;
+    bottom: 0;
+  }
+  .pencil-panel {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 80vh;
+    border-radius: 14px 14px 0 0;
+  }
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.panel-tabs {
+  display: flex;
+  gap: 0.4rem;
+}
+.panel-tab {
+  appearance: none;
+  padding: 0.3rem 0.6rem;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.panel-tab[aria-selected="true"] {
+  background: var(--butter);
+}
+.close {
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--tomato);
+  color: var(--paper);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tool-btn {
+  appearance: none;
+  padding: 0.3rem 0.6rem;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+/* Colour in */
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.6rem;
+}
+.swatch {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+}
+.swatch[aria-checked="true"] {
+  box-shadow: 0 0 0 3px #fbf7ef, 0 0 0 5px var(--ink);
+}
+.desk {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 4px;
+}
+.region {
+  cursor: pointer;
+  transition: fill 0.2s ease;
+}
+.region:focus-visible {
+  outline: 2px solid var(--tomato);
+}
+.colour-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.6rem;
+}
+
+/* Tape match */
+.match-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.45rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  perspective: 600px;
+}
+.tile-back,
+.tile-front {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  backface-visibility: hidden;
+  transition: transform 0.35s ease;
+}
+.tile-back {
+  background-color: var(--kraft);
+  background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.18) 0 4px, transparent 4px 9px);
+  color: var(--paper);
+  font-size: 1.6rem;
+}
+.tile-front {
+  background: #fff;
+  border: 2px solid var(--ink);
+  transform: rotateY(180deg);
+  padding: 0.25rem;
+}
+.tile.is-open .tile-back {
+  transform: rotateY(180deg);
+}
+.tile.is-open .tile-front {
+  transform: rotateY(0deg);
+}
+.tile.is-matched .tile-front {
+  background: var(--paper-deep);
+}
+.tile:focus-visible {
+  outline: 2px solid var(--tomato);
+  outline-offset: 2px;
+}
+
+.win {
+  position: relative;
+  margin-top: 0.8rem;
+  text-align: center;
+  overflow: hidden;
+}
+.confetti {
+  position: absolute;
+  inset: -40px 0 0 0;
+  pointer-events: none;
+}
+.confetti i {
+  position: absolute;
+  top: 0;
+  width: 8px;
+  height: 12px;
+  border-radius: 1px;
+  animation: fall 1.8s ease-in forwards;
+  opacity: 0.9;
+}
+@keyframes fall {
+  to {
+    transform: translateY(260px) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pencil-case-btn.is-wiggle,
+  .confetti i,
+  .tile-back,
+  .tile-front {
+    animation: none !important;
+    transition: none !important;
+  }
+}

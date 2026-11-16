@@ -286,3 +286,136 @@ astro-island {
   height: 100%;
   width: 100%;
 }
+
+/* ---------- Pencil cursor, ink trail, Shift crosshair ---------- */
+.has-pencil,
+.has-pencil * {
+  cursor: none !important;
+}
+/* Text fields keep a visible caret, so the pencil steps aside there. */
+.has-pencil input,
+.has-pencil textarea {
+  cursor: text !important;
+}
+.pencil {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10001;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+  will-change: transform;
+  transform-origin: 0 0;
+}
+.pencil-art {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  transform: translate(-3px, -3px);
+  transition: transform 0.15s ease;
+}
+.pencil-nib,
+.pencil-scribble {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.pencil[data-mode="nib"] .pencil-nib {
+  opacity: 1;
+}
+.pencil[data-mode="link"] .pencil-art {
+  transform: translate(-3px, -3px) rotate(10deg);
+}
+.pencil[data-mode="link"] .pencil-scribble,
+.pencil[data-mode="envelope"] .pencil-scribble,
+.pencil[data-mode="flip"] .pencil-scribble {
+  opacity: 1;
+  transition-delay: 0.1s;
+}
+.pencil[data-mode="flip"] .pencil-scribble {
+  animation: spin 2.4s linear infinite;
+  transform-origin: 14px 14px;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.pencil-label {
+  position: absolute;
+  left: 30px;
+  top: 14px;
+  white-space: nowrap;
+  padding: 0.1rem 0.4rem;
+  background: var(--butter);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.2;
+  border-radius: 3px;
+  transform: rotate(-4deg);
+  box-shadow: 0 2px 4px rgba(43, 36, 32, 0.2);
+}
+.pencil[data-mode="drag"] .pencil-art {
+  opacity: 0.7;
+}
+.ink-trail {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+.crosshair {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  display: none;
+}
+html[data-shift] .crosshair {
+  display: block;
+}
+.ch-x,
+.ch-y {
+  position: absolute;
+  background: rgba(43, 36, 32, 0.35);
+}
+.ch-x {
+  left: -100vw;
+  top: 0;
+  width: 200vw;
+  height: 1px;
+}
+.ch-y {
+  top: -100vh;
+  left: 0;
+  width: 1px;
+  height: 200vh;
+}
+.ch-label {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  font-size: 0.7rem;
+  color: var(--ink);
+  background: var(--paper);
+  padding: 0 0.3rem;
+}
+
+/* ---------- Footer: plain-cursor toggle ---------- */
+.plain-cursor-toggle {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
