@@ -32,11 +32,13 @@ const release = releases.find((r) => r.caseStudy?.id === entry.id)!;
 <BaseLayout
   title={`${title}: Product Case Study | Claire Zhang`}
   description={description}
-  activePage="case-study"
 >
+  <nav aria-label="Case study" class="flex flex-wrap items-center justify-between gap-4 pl-40 pr-4 pt-5 md:pl-44 md:pr-8">
+    <a href="/" class="font-display text-lg text-ink no-underline">Claire Zhang</a>
+    <a href="/#journal" class="nav-back">&larr; back to the journal</a>
+  </nav>
   <header class="cover spotlight">
     <div class="container cover-inner">
-      <a href="/" class="nav-back">&larr; Back to portfolio</a>
       <span class="cover-eyebrow">{release.version} &middot; Flagship Release</span>
       <h1>{title}</h1>
       <p class="cover-sub">{subtitle}</p>

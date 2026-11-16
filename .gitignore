@@ -22,3 +22,11 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# local build-journal planning doc (not for the repo)
+BUILD_JOURNAL_SPEC.md
+
+# local env files (secrets)
+.env.local
+.env*.local
+.vercel

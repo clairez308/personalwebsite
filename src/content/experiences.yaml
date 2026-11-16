@@ -1,0 +1,106 @@
+# Experience entries, moved out of index.astro (infraEntries).
+# category: work | leadership | community
+# bullets: 0-3 short lines. None exist yet, so they're empty (see TODO list).
+# summary is the existing description, kept verbatim.
+
+- id: arcteryx-associate-project-specialist-co-op
+  org: "Arc'teryx"
+  role: "Associate Project Specialist Co-op"
+  dates: "2027.01–2027.08"
+  category: work
+  summary: "Incoming Associate Project Specialist on OmniChannel Platforms."
+  bullets: []
+  logo: /assets/logos/arc.png
+  incoming: true
+
+- id: cibc-business-systems-analyst
+  org: "CIBC"
+  role: "Business Systems Analyst"
+  dates: "2026.01–2026.08"
+  category: work
+  summary: "Validated SRRs and PCRs with DXC Cloud Networks, and reviewed vendor contracts and T&Cs for vendor management and risk mitigation. Also built a Power BI dashboard from scratch to make sense of years of contractual data."
+  bullets: []
+  logo: /assets/logos/cibc.png
+
+- id: ubc-pmc-vp-events
+  org: "UBC Product Management Club"
+  role: "VP Events"
+  dates: "2026.05–present"
+  category: leadership
+  summary: "Spearheading 4 flagship events and launching 2 brand-new, smaller-scale ones for the largest product management club in Canada."
+  bullets: []
+  logo: /assets/logos/pmc.png
+  url: "https://ubcpmc.com/"
+  current: true
+
+- id: ubc-wids-social-media-manager
+  org: "UBC WiDS"
+  role: "Social Media Manager"
+  dates: "2026.06–present"
+  category: community
+  summary: "Managing social media for UBC's Women In Data Science chapter."
+  bullets: []
+  logo: /assets/logos/youcode.png
+  url: "https://ubcyoucode.com/"
+  current: true
+
+- id: ubc-sus-avp-communications
+  org: "UBC SUS"
+  role: "AVP Communications"
+  dates: "2025.06–2026.04"
+  category: leadership
+  summary: "Owned communications portfolio management, including web development. Led organization of SUS's first-ever hackathon, Hack the Coast, with 183 hackers. It's a community that makes up over 25% of the faculty's 10,000 students but rarely gets events built for it."
+  bullets: []
+  logo: /assets/logos/sus.png
+  url: "https://www.susubc.ca/"
+
+- id: youcode-logistics-coordinator
+  org: "youCode"
+  role: "Logistics Coordinator"
+  dates: "2025.06–2026.04"
+  category: community
+  summary: "Spearheaded logistics for the WICS x WIDS 24-hour hackathon for underrepresented genders in tech."
+  bullets: []
+  logo: /assets/logos/youcode.png
+  url: "https://ubcyoucode.com/"
+
+- id: ubc-pilates-club-website-director
+  org: "UBC Pilates Club"
+  role: "Website Director"
+  dates: "2025.03–present"
+  category: leadership
+  summary: "Built and maintain the club's website."
+  bullets: []
+  logo: /assets/logos/pilates.png
+  url: "https://ubcpilatesclub.vercel.app/"
+  current: true
+
+- id: girlsmarts4tech-workshop-facilitator
+  org: "GirlSmarts4Tech"
+  role: "Workshop Facilitator"
+  dates: "2024.12–present"
+  category: community
+  summary: "Organize Computer Science workshops for underrepresented youth."
+  bullets: []
+  logo: /assets/logos/girlsmarts4tech.png
+  url: "https://www.cs.ubc.ca/girlsmarts4tech/home"
+  current: true
+
+- id: xdhacks-co-executive-director
+  org: "XDHacks"
+  role: "Co-Executive Director"
+  dates: "2023.08–2024.08"
+  category: leadership
+  summary: "Led an executive team that organized SafeHacks, a BC-wide in-person high school hackathon."
+  bullets: []
+  logo: /assets/logos/xdhacks.png
+  url: "https://xdhacks.org/vancouver/safehacks"
+
+- id: xdhacks-director-of-finance
+  org: "XDHacks"
+  role: "Director of Finance"
+  dates: "2022.09–2023.08"
+  category: leadership
+  summary: "Managed the club's budget and finances."
+  bullets: []
+  logo: /assets/logos/xdhacks.png

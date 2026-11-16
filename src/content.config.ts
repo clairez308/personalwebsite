@@ -1,5 +1,5 @@
 import { defineCollection, z } from "astro:content";
-import { glob } from "astro/loaders";
+import { glob, file } from "astro/loaders";
 
 // A changelog line: tagged like a commit (what kind of change this was),
 // with an optional before/after pair for the rare bullet that's a literal
@@ -29,6 +29,19 @@ const projects = defineCollection({
     image: z.string().optional(),
     bullets: z.array(bullet),
     stack: z.array(z.string()),
+    // Card-face fields for the Projects section. Optional until they're
+    // written: nothing is drafted here yet (see the TODO list).
+    oneLiner: z.string().optional(),
+    role: z.string().optional(),
+    description: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    links: z
+      .object({
+        live: z.string().url().optional(),
+        github: z.string().url().optional(),
+        caseStudy: z.string().optional(),
+      })
+      .optional(),
   }),
 });
 
@@ -170,7 +183,39 @@ const reflections = defineCollection({
     title: z.string(),
     tag: z.string().optional(),
     photos: z.array(z.string()).optional(),
+    // Optional. When missing, the Journal parses the "**Key learning:**"
+    // paragraph out of the body (see src/lib/reflections.ts).
+    keyLearning: z.string().optional(),
   }),
 });
 
-export const collections = { projects, caseStudies, reflections };
+// Experience entries (formerly the infraEntries array in index.astro).
+// Loaded from one YAML file so the copy can be edited without touching code.
+const experiences = defineCollection({
+  loader: file("./src/content/experiences.yaml"),
+  schema: z.object({
+    org: z.string(),
+    role: z.string(),
+    dates: z.string(),
+    category: z.enum(["work", "leadership", "community"]),
+    summary: z.string(),
+    bullets: z.array(z.string()).max(3).default([]),
+    logo: z.string(),
+    image: z.string().optional(),
+    url: z.string().url().optional(),
+    current: z.boolean().optional(),
+    incoming: z.boolean().optional(),
+  }),
+});
+
+// Beyond-work photos for the scrapbook. One item per photo for now.
+const hobbies = defineCollection({
+  loader: file("./src/content/hobbies.yaml"),
+  schema: z.object({
+    name: z.string(),
+    photos: z.array(z.string()).min(1),
+    caption: z.string(),
+  }),
+});
+
+export const collections = { projects, caseStudies, reflections, experiences, hobbies };

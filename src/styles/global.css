@@ -2,10 +2,10 @@
    Design tokens
    ========================================================================== */
 :root {
-  --bg: #faf9f6;
+  --bg: #f6f0e4;
   --surface: #ffffff;
-  --ink: #16161a;
-  --ink-soft: #58585f;
+  --ink: #2b2420;
+  --ink-soft: #6b5e55;
   --ink-faint: #8a8a90;
   --line: #e6e4dd;
   --line-strong: #d6d3c9;
@@ -55,42 +55,6 @@
   --toggle-track-line: #e0c98f;
   --toggle-thumb: #16161a;
   --toggle-icon: #faf9f6;
-}
-
-/* Dark theme. The inline script in the document head sets data-theme before
-   first paint: a saved choice wins, otherwise it follows the system setting. */
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0e0e14;
-  --surface: #17171f;
-  --ink: #f1f0ec;
-  --ink-soft: #a9a9b2;
-  --ink-faint: #75757f;
-  --line: #2a2a34;
-  --line-strong: #3b3b47;
-  --accent: #a5abf7;
-  --accent-hover: #c3c7fb;
-  --accent-soft: #22223a;
-  --accent-contrast: #0e0e14;
-  --diff-add: #4ade80;
-  --diff-add-soft: #14271c;
-  --diff-fix: #fbbf24;
-  --diff-fix-soft: #2a2213;
-  --diff-improve: #7aa2f7;
-  --diff-improve-soft: #17213a;
-  --diff-skill: #a9a9b2;
-  --diff-skill-soft: #222229;
-  --breaking: #f87171;
-  --breaking-soft: #2d1719;
-
-  --nav-bg: rgba(14, 14, 20, 0.7);
-  --nav-bg-scrolled: rgba(14, 14, 20, 0.92);
-  --shadow: rgba(0, 0, 0, 0.35);
-  --float-shadow: rgba(0, 0, 0, 0.5);
-  --toggle-track: linear-gradient(90deg, #1b1a40, #2e2a78);
-  --toggle-track-line: #3d3a8a;
-  --toggle-thumb: #f1f0ec;
-  --toggle-icon: #0e0e14;
 }
 
 /* ==========================================================================
@@ -257,100 +221,6 @@ nav.site-nav.scrolled {
 .nav-links .nav-resume:hover {
   background: var(--accent);
   color: var(--accent-contrast);
-}
-
-/* Light / dark switch: a pill with a sun and moon thumb. Stars fade in on
-   the empty side of the track once it's dark. */
-.theme-toggle {
-  position: relative;
-  flex: none;
-  width: 56px;
-  height: 30px;
-  padding: 0;
-  border: 1px solid var(--toggle-track-line);
-  border-radius: 999px;
-  background: var(--toggle-track);
-  cursor: pointer;
-  overflow: hidden;
-  transition: border-color 0.4s ease, background 0.5s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.theme-toggle:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-.theme-toggle-thumb {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--toggle-thumb);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-  transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1), background 0.4s ease;
-}
-
-.theme-toggle[aria-checked="true"] .theme-toggle-thumb {
-  transform: translateX(26px);
-}
-
-.theme-toggle-icon {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 13px;
-  height: 13px;
-  color: var(--toggle-icon);
-  transition: opacity 0.35s ease, transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
-}
-
-.theme-icon-moon {
-  opacity: 0;
-  transform: rotate(-90deg) scale(0.4);
-}
-
-.theme-toggle[aria-checked="true"] .theme-icon-sun {
-  opacity: 0;
-  transform: rotate(90deg) scale(0.4);
-}
-
-.theme-toggle[aria-checked="true"] .theme-icon-moon {
-  opacity: 1;
-  transform: rotate(0) scale(1);
-}
-
-.theme-toggle-stars span {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  background: #fff;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.theme-toggle[aria-checked="true"] .theme-toggle-stars span {
-  opacity: 0.85;
-}
-
-/* Theme change is animated with a View Transition when the browser supports
-   it: the new theme grows out from the toggle. The default cross-fade is
-   turned off so the clip-path reveal is the only motion. */
-/* The page background sits on body, which the transition snapshot doesn't
-   always carry. Give the root an explicit background and make both snapshots
-   opaque, so the old theme never shows through the new one. */
-html {
-  background: var(--bg);
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-  background: var(--bg);
 }
 
 .nav-back {
@@ -1468,16 +1338,6 @@ footer.site-footer {
 /* ==========================================================================
    Scroll reveal
    ========================================================================== */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* ==========================================================================
    Case study page
@@ -2044,15 +1904,6 @@ footer.site-footer {
 }
 
 /* faint grain over everything so the flat colors feel less like a screen */
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-}
 
 /* thin reading-progress line pinned to the very top of the viewport */
 .scroll-progress {
@@ -2414,160 +2265,4 @@ footer.site-footer {
   height: 100%;
   pointer-events: none;
   z-index: 998;
-}
-
-/* ==========================================================================
-   Night sky
-   Dark theme only. Two star layers at different sizes and speeds give a
-   little depth without filling the page.
-   ========================================================================== */
-/* The night gradient goes on the root, and the body is transparent, so the
-   star layers (which sit behind the body) aren't painted over. */
-:root[data-theme="dark"] {
-  background:
-    radial-gradient(ellipse 60% 50% at 18% 0%, rgba(55, 48, 163, 0.22), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 92% 100%, rgba(99, 102, 241, 0.14), transparent 70%),
-    var(--bg);
-  background-attachment: fixed;
-}
-
-:root[data-theme="dark"] body {
-  background: transparent;
-}
-
-.night-sky {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-}
-
-:root[data-theme="dark"] .night-sky {
-  display: block;
-}
-
-.night-sky--near {
-  background-image:
-    radial-gradient(1.5px 1.5px at 12% 18%, #ffffff, transparent),
-    radial-gradient(1.5px 1.5px at 38% 62%, #e6e4ff, transparent),
-    radial-gradient(1.5px 1.5px at 71% 27%, #ffffff, transparent),
-    radial-gradient(1.5px 1.5px at 88% 81%, #cfd2ff, transparent),
-    radial-gradient(1.5px 1.5px at 54% 90%, #ffffff, transparent),
-    radial-gradient(1.5px 1.5px at 24% 84%, #ffffff, transparent);
-  background-size: 700px 700px;
-  animation: twinkle 7s ease-in-out infinite alternate;
-}
-
-.night-sky--far {
-  background-image:
-    radial-gradient(1.5px 1.5px at 30% 40%, rgba(255, 255, 255, 0.6), transparent),
-    radial-gradient(1.5px 1.5px at 66% 12%, rgba(230, 228, 255, 0.5), transparent),
-    radial-gradient(1.5px 1.5px at 82% 56%, rgba(255, 255, 255, 0.5), transparent),
-    radial-gradient(1.5px 1.5px at 8% 74%, rgba(255, 255, 255, 0.4), transparent);
-  background-size: 420px 420px;
-  animation: twinkle 11s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes twinkle {
-  from { opacity: 0.45; }
-  to { opacity: 1; }
-}
-
-/* ==========================================================================
-   Reflections curtain
-   A starry panel covers the section and parts sideways as it scrolls into
-   view, leaving a thin glowing seam where it opened. Only applies when JS
-   is running, so the section is never hidden without it.
-   ========================================================================== */
-.reflections {
-  position: relative;
-  overflow: hidden;
-}
-
-.sky-curtain {
-  display: none;
-}
-
-.js .sky-curtain {
-  display: block;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  z-index: 5;
-  pointer-events: none;
-  background-color: #08081a;
-  background-image:
-    radial-gradient(1.5px 1.5px at 14% 22%, #ffffff, transparent),
-    radial-gradient(1.5px 1.5px at 46% 70%, #e6e4ff, transparent),
-    radial-gradient(1.5px 1.5px at 78% 30%, #ffffff, transparent),
-    radial-gradient(1.5px 1.5px at 62% 88%, #cfd2ff, transparent),
-    radial-gradient(1.5px 1.5px at 28% 52%, #ffffff, transparent),
-    linear-gradient(180deg, #0b0b24 0%, #08081a 100%);
-  background-size: 360px 360px, 360px 360px, 360px 360px, 360px 360px, 360px 360px, 100% 100%;
-  transition: transform 1.6s cubic-bezier(0.7, 0, 0.2, 1);
-}
-
-.js .sky-curtain--left {
-  left: 0;
-}
-
-.js .sky-curtain--right {
-  right: 0;
-}
-
-/* the seam: a thin glowing line on the inner edge of each panel */
-.js .sky-curtain--left::after,
-.js .sky-curtain--right::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(transparent, rgba(165, 171, 247, 0.9), transparent);
-  box-shadow: 0 0 18px rgba(165, 171, 247, 0.6);
-  transition: opacity 0.8s ease;
-}
-
-.js .sky-curtain--left::after {
-  right: 0;
-}
-
-.js .sky-curtain--right::after {
-  left: 0;
-}
-
-.js .reflections.is-open .sky-curtain--left {
-  transform: translateX(-101%);
-}
-
-.js .reflections.is-open .sky-curtain--right {
-  transform: translateX(101%);
-}
-
-.js .reflections.is-open .sky-curtain::after {
-  opacity: 0;
-}
-
-@media (max-width: 700px) {
-  .release-thumb {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-  }
-
-  .release-thumb:hover {
-    transform: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .night-sky {
-    animation: none !important;
-  }
-
-  .js .sky-curtain {
-    transition: none;
-  }
 }

@@ -1,0 +1,67 @@
+---
+import { getReleases } from "../lib/releases";
+
+// Release history: the flagship case study first, then projects newest first.
+const releases = [...(await getReleases())].reverse();
+const flagship = releases.find((r) => r.isFlagship)!;
+const projects = releases.filter((r) => r.kind === "project");
+const tagLabel = { shipped: "shipped", fixed: "fixed", improved: "improved", skill: "skill" } as const;
+---
+
+<section id="work" class="scroll-mt-8 px-4 py-20 md:px-8">
+  <div class="mx-auto max-w-[1080px]">
+    <p class="font-mono text-sm text-ink-soft">01 · things I built</p>
+    <h2 class="font-display mt-2 text-4xl md:text-5xl">Cool projects I've built</h2>
+
+    <article class="reveal mt-10 rounded-sm bg-paper-deep p-6 shadow-md md:p-10">
+      <p class="font-mono text-sm text-ink-soft">{flagship.version} · Flagship release · {flagship.period}</p>
+      <h3 class="font-display mt-2 text-3xl">{flagship.title}, my take on an operating system for venture capital</h3>
+      <p class="mt-4 max-w-prose text-ink-soft">{flagship.caseStudy!.data.description}</p>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-3">
+        {
+          flagship.caseStudy!.data.featuredStats.map((stat) => (
+            <li class="border-l-4 border-butter pl-3">
+              <span class="font-display block text-2xl">{stat.value}</span>
+              <span class="text-sm text-ink-soft">{stat.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <a href={flagship.href} class="mt-8 inline-block font-hand text-2xl text-tomato underline decoration-wavy underline-offset-4">
+        read the case study →
+      </a>
+    </article>
+
+    <ol class="mt-12 space-y-10">
+      {
+        projects.map((release) => {
+          const data = release.project!.data;
+          return (
+            <li class="reveal border-t border-kraft/40 pt-8">
+              <p class="font-mono text-sm text-ink-soft">
+                {release.version} · {release.period}
+              </p>
+              <h3 class="font-display mt-1 text-2xl">
+                <a href={data.url} target="_blank" rel="noopener" class="underline decoration-kraft underline-offset-4">
+                  {data.title}
+                </a>
+              </h3>
+              {data.result && <p class="mt-2 text-ink-soft">{data.result}</p>}
+              <ul class="mt-4 space-y-2 text-[0.95rem]">
+                {data.bullets.map((bullet) => (
+                  <li>
+                    <span class="mr-2 font-mono text-xs text-tomato">[{tagLabel[bullet.tag]}]</span>
+                    {bullet.text}
+                  </li>
+                ))}
+              </ul>
+              <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-ink-soft">
+                {data.stack.map((item) => <li class="rounded-sm bg-paper-deep px-2 py-1">{item}</li>)}
+              </ul>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </div>
+</section>

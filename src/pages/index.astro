@@ -1,223 +1,26 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ReleaseEntry from "../components/ReleaseEntry.astro";
-import FieldNotes from "../components/FieldNotes.astro";
-import HobbiesCarousel from "../components/HobbiesCarousel.astro";
-import Infrastructure from "../components/Infrastructure.astro";
-import { getReleases } from "../lib/releases";
-
-const releases = await getReleases();
-const releasesNewestFirst = [...releases].reverse();
-
-const flagship = releases.find((r) => r.isFlagship)!;
-const latest = releasesNewestFirst[0];
-
-let projectCount = 0;
-
-const infraEntries = [
-  {
-    scope: "arcteryx",
-    name: "associate-project-specialist-co-op",
-    logo: "/assets/logos/arc.png",
-    date: "2027.01–2027.08",
-    description: "Incoming Associate Project Specialist on OmniChannel Platforms.",
-  },
-  {
-    scope: "cibc",
-    name: "business-systems-analyst",
-    logo: "/assets/logos/cibc.png",
-    date: "2026.01–2026.08",
-    description:
-      "Validated SRRs and PCRs with DXC Cloud Networks, and reviewed vendor contracts and T&Cs for vendor management and risk mitigation. Also built a Power BI dashboard from scratch to make sense of years of contractual data.",
-  },
-  {
-    scope: "ubc-pmc",
-    name: "vp-events",
-    logo: "/assets/logos/pmc.png",
-    url: "https://ubcpmc.com/",
-    date: "2026.05–present",
-    description:
-      "Spearheading 4 flagship events and launching 2 brand-new, smaller-scale ones for the largest product management club in Canada.",
-    current: true,
-  },
-  {
-    scope: "ubc-wids",
-    name: "social-media-manager",
-    logo: "/assets/logos/youcode.png",
-    url: "https://ubcyoucode.com/",
-    date: "2026.06–present",
-    description: "Managing social media for UBC's Women In Data Science chapter.",
-    current: true,
-  },
-  {
-    scope: "ubc-sus",
-    name: "avp-communications",
-    logo: "/assets/logos/sus.png",
-    url: "https://www.susubc.ca/",
-    date: "2025.06–2026.04",
-    description:
-      "Owned communications portfolio management, including web development. Led organization of SUS's first-ever hackathon, Hack the Coast, with 183 hackers. It's a community that makes up over 25% of the faculty's 10,000 students but rarely gets events built for it.",
-  },
-  {
-    scope: "youcode",
-    name: "logistics-coordinator",
-    logo: "/assets/logos/youcode.png",
-    url: "https://ubcyoucode.com/",
-    date: "2025.06–2026.04",
-    description:
-      "Spearheaded logistics for the WICS x WIDS 24-hour hackathon for underrepresented genders in tech.",
-  },
-  {
-    scope: "ubc-pilates-club",
-    name: "website-director",
-    logo: "/assets/logos/pilates.png",
-    url: "https://ubcpilatesclub.vercel.app/",
-    date: "2025.03–present",
-    description: "Built and maintain the club's website.",
-    current: true,
-  },
-  {
-    scope: "girlsmarts4tech",
-    name: "workshop-facilitator",
-    logo: "/assets/logos/girlsmarts4tech.png",
-    url: "https://www.cs.ubc.ca/girlsmarts4tech/home",
-    date: "2024.12–present",
-    description: "Organize Computer Science workshops for underrepresented youth.",
-    current: true,
-  },
-  {
-    scope: "xdhacks",
-    name: "co-executive-director",
-    logo: "/assets/logos/xdhacks.png",
-    url: "https://xdhacks.org/vancouver/safehacks",
-    date: "2023.08–2024.08",
-    description: "Led an executive team that organized SafeHacks, a BC-wide in-person high school hackathon.",
-  },
-  {
-    scope: "xdhacks",
-    name: "director-of-finance",
-    logo: "/assets/logos/xdhacks.png",
-    date: "2022.09–2023.08",
-    description: "Managed the club's budget and finances.",
-  },
-];
+import DividerTabs from "../components/DividerTabs.astro";
+import Hero from "../components/Hero.astro";
+import Projects from "../components/Projects.astro";
+import Experiences from "../components/Experiences.astro";
+import Journal from "../components/Journal.astro";
+import Scrapbook from "../components/Scrapbook.astro";
+import SayHi from "../components/SayHi.astro";
+import { site } from "../content/site";
 ---
 
-<BaseLayout
-  title="Claire Zhang"
-  description="Claire Zhang"
-  activePage="home"
->
-  <!-- Boot sequence: plays once per session, skipped entirely without JS -->
-  <div id="boot-overlay" class="boot-overlay" aria-hidden="true">
-    <div class="boot-log">
-      <p class="boot-line" data-text="$ initializing claire-zhang.dev"><span class="boot-text"></span></p>
-      <p class="boot-line" data-text={`$ pulling release ${latest.version}`}><span class="boot-text"></span></p>
-      <p class="boot-line" data-text="$ ready."><span class="boot-text"></span></p>
-    </div>
-  </div>
-  <noscript>
-    <style>.boot-overlay { display: none !important; }</style>
-  </noscript>
-
-  <!-- Hero -->
-  <header class="hero" id="top">
-    <div class="hero-blobs" aria-hidden="true">
-      <div class="hero-blob hero-blob-1"></div>
-      <div class="hero-blob hero-blob-2"></div>
-      <div class="hero-blob hero-blob-3"></div>
-    </div>
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <span class="hero-eyebrow">Computer Science @ UBC</span>
-        <h1>
-          <span id="hero-typed">Hi, I'm Claire!</span><span class="hero-cursor" aria-hidden="true"></span>
-        </h1>
-        <p class="hero-lede">
-          Welcome to my portfolio! I'm a CS student @ UBC interested in product management, tech consulting, and data.
-        </p>
-        <div class="hero-actions">
-          <a href="/case-studies/atlas" class="btn btn-primary magnetic">Read the Atlas case study</a>
-          <a href="/Claire_Zhang_Resume.pdf" download class="btn btn-ghost magnetic">Resume</a>
-        </div>
-        <div class="hero-contact">
-          <a href="https://www.linkedin.com/in/claire-zhang-985410301/" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="https://github.com/clairez308" target="_blank" rel="noopener">GitHub</a>
-          <a href="mailto:clairezhang838@gmail.com">Email</a>
-        </div>
-      </div>
-      <div class="hero-photo-parallax">
-        <div class="hero-photo-wrap">
-          <img src="/assets/claire-headshot.jpg" alt="Claire Zhang" class="hero-photo" />
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Featured case study -->
-  <section>
-    <div class="container">
-      <div class="featured spotlight reveal">
-        <div class="featured-inner">
-          <div>
-            <span class="featured-tag">{flagship.version} &middot; Flagship Release</span>
-            <h3>{flagship.title}, my take on an operating system for venture capital</h3>
-            <p class="featured-desc">{flagship.caseStudy!.data.description}</p>
-            <div class="featured-stats">
-              {
-                flagship.caseStudy!.data.featuredStats.map((stat) => (
-                  <div class="stat">
-                    <b>{stat.value}</b>
-                    <span>{stat.label}</span>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
-          <a href={flagship.href} class="featured-cta magnetic">Read the case study →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Release History -->
-  <section id="work">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="section-label">Release History</span>
-        <h2>Cool projects I've built</h2>
-      </div>
-
-      <div class="release-timeline">
-        {
-          releasesNewestFirst.map((release) => {
-            if (release.kind === "project") projectCount++;
-            return (
-              <>
-                <ReleaseEntry release={release} colorVariant={(projectCount % 3) + 1} />
-              </>
-            );
-          })
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Infrastructure (Experience) -->
-  <section id="infrastructure">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="section-label">Experience</span>
-        <h2>What's running underneath</h2>
-      </div>
-
-      <Infrastructure entries={infraEntries} />
-    </div>
-  </section>
-
-  <!-- Field Notes -->
-  <FieldNotes />
-
-  <!-- Beyond work -->
-  <HobbiesCarousel />
+<BaseLayout title={site.title} description={site.description}>
+  <DividerTabs />
+  <main>
+    <Hero />
+    <Projects />
+    <Experiences />
+    <Journal />
+    <Scrapbook />
+    <SayHi />
+  </main>
+  <script>
+    import "../scripts/home.ts";
+  </script>
 </BaseLayout>

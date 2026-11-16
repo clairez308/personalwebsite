@@ -1,0 +1,47 @@
+# Beyond-work photos for the scrapbook. One item per photo for now.
+# caption is a placeholder until you write the handwritten captions.
+
+- id: dance
+  name: dancing
+  photos: ["/assets/hobbies/01-dance.jpg"]
+  caption: "TODO(claire): caption"
+
+- id: yoga
+  name: yoga
+  photos: ["/assets/hobbies/02-yoga.jpg"]
+  caption: "TODO(claire): caption"
+
+- id: volunteering
+  name: volunteering
+  photos: ["/assets/hobbies/03-volunteering.jpg"]
+  caption: "TODO(claire): caption"
+
+- id: snowboarding
+  name: snowboarding
+  photos: ["/assets/hobbies/04-snow.jpg"]
+  caption: "TODO(claire): caption"
+
+- id: travelling
+  name: travelling
+  photos: ["/assets/hobbies/05-travel.jpg"]
+  caption: "TODO(claire): caption"
+
+- id: painting
+  name: painting
+  photos: ["/assets/hobbies/06-paint.jpg"]
+  caption: "TODO(claire): caption"
+
+- id: cibc-volunteering
+  name: volunteering
+  photos: ["/assets/hobbies/07-cibc-volunteer.jpg"]
+  caption: "TODO(claire): caption"
+
+- id: hack-the-coast
+  name: hackathons
+  photos: ["/assets/hobbies/08-hackthecoast.jpg"]
+  caption: "TODO(claire): caption"
+
+- id: pilates
+  name: pilates
+  photos: ["/assets/hobbies/09-pilates.jpg"]
+  caption: "TODO(claire): caption"

@@ -1,0 +1,100 @@
+/* Build Journal styles: tokens, Tailwind utilities, paper grain.
+   Preflight is intentionally not imported, so the legacy global.css pages
+   (the Atlas case study) keep their current base styles. */
+@import "@fontsource-variable/fraunces/full.css";
+@import "@fontsource-variable/fraunces/full-italic.css";
+@import "@fontsource-variable/inter/index.css";
+@import "@fontsource-variable/jetbrains-mono/index.css";
+@import "@fontsource-variable/caveat/index.css";
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Light only: the paper concept has no dark theme. */
+:root {
+  color-scheme: light;
+  --paper: #f6f0e4; /* page background, cream notebook paper */
+  --paper-deep: #ede3d1; /* alternate section bg, card backs */
+  --ink: #2b2420; /* text + the thread, warm near-black */
+  --ink-soft: #6b5e55; /* secondary text (5.5:1 on paper, 4.9:1 on paper-deep) */
+  --tomato: #e2483d; /* primary accent: CTAs, the plane, highlights. Use sparingly */
+  --washi-pink: #f2b8c6;
+  --kraft: #b98b5e; /* corkboard, envelopes, tape */
+  --sage: #9aa67a;
+  --butter: #f5d867; /* highlighter marks only */
+}
+
+/* Tailwind v4 theme: the same tokens as utilities (bg-paper, text-ink-soft,
+   font-hand, ...). Components and React islands read the same values. */
+@theme {
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-tomato: var(--tomato);
+  --color-washi-pink: var(--washi-pink);
+  --color-kraft: var(--kraft);
+  --color-sage: var(--sage);
+  --color-butter: var(--butter);
+
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Courier New", monospace;
+  --font-hand: "Caveat", "Bradley Hand", cursive;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 2px solid var(--tomato);
+  outline-offset: 3px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 50, "WONK" 0;
+}
+
+/* Paper grain over the whole page: ~5% opacity SVG noise, never interactive. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Scroll reveal. Gated on .js so content stays visible without JavaScript. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.js .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

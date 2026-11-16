@@ -1,0 +1,24 @@
+---
+import { site } from "../content/site";
+---
+
+<section id="say-hi" class="scroll-mt-8 px-4 py-20 md:px-8">
+  <div class="mx-auto max-w-[1080px]">
+    <p class="font-mono text-sm text-ink-soft">05 · say hi</p>
+    <h2 class="font-display mt-2 text-4xl md:text-5xl">Say hi</h2>
+    <p class="mt-4 max-w-prose text-lg text-ink-soft">
+      Recruiting, a coffee chat, or an opinion on a product you use every day. All welcome.
+    </p>
+    <ul class="mt-8 flex flex-wrap gap-3">
+      <li>
+        <a href={`mailto:${site.socials.email}`} class="inline-block rounded-md bg-tomato px-5 py-3 text-paper shadow-sm hover:brightness-95">email me</a>
+      </li>
+      <li>
+        <a href={site.socials.linkedin} target="_blank" rel="noopener" class="inline-block rounded-md border-2 border-ink px-5 py-3 hover:bg-paper-deep">LinkedIn ↗</a>
+      </li>
+      <li>
+        <a href={site.socials.github} target="_blank" rel="noopener" class="inline-block rounded-md border-2 border-ink px-5 py-3 hover:bg-paper-deep">GitHub ↗</a>
+      </li>
+    </ul>
+  </div>
+</section>
