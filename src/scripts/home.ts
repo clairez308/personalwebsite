@@ -4,6 +4,7 @@ import { site } from "../content/site";
 import "./loader.ts";
 import "./hero.ts";
 import "./thread.ts";
+import "./projects.ts";
 
 // Home page only. Lenis and ScrollTrigger come in through lib/scroll, so they
 // ship here and nowhere else.

@@ -13,4 +13,8 @@ bullets:
   - tag: "shipped"
     text: "Scoped the ElevenLabs voice integration so you could ask about a muscle group and just hear the answer, hands free."
 stack: ["React", "Three.js", "Gemini", "ElevenLabs"]
+oneLiner: "Making anatomy feel less scary, visually and out loud."
+description: "Won out of 32 teams at BearHacks 2026 for Best Use of Gemma 4. I led the pitch and made the case for why body literacy should feel visual and conversational instead of clinical. The whole frontend is in React and Three.js, built around the brief to make anatomy less scary, and ElevenLabs voice means you can ask about a muscle group and just hear the answer, hands free."
+links:
+  live: "https://devpost.com/software/soma-4wzq57"
 ---

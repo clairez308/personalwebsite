@@ -31,3 +31,9 @@ export function scrollToTarget(target: string | HTMLElement): void {
   else if (typeof target === "string") document.querySelector(target)?.scrollIntoView();
   else target.scrollIntoView();
 }
+
+// Scroll to an absolute page offset, through Lenis when it's running.
+export function scrollToY(y: number): void {
+  if (lenis) lenis.scrollTo(y);
+  else window.scrollTo({ top: y, behavior: "smooth" });
+}

@@ -1,67 +1,91 @@
 ---
+import ProjectDeck, { type DeckItem } from "./ProjectDeck.tsx";
 import { getReleases } from "../lib/releases";
+import "../styles/projects.css";
 
-// Release history: the flagship case study first, then projects newest first.
+// Atlas first (the flagship), then the other projects newest first.
 const releases = [...(await getReleases())].reverse();
 const flagship = releases.find((r) => r.isFlagship)!;
-const projects = releases.filter((r) => r.kind === "project");
-const tagLabel = { shipped: "shipped", fixed: "fixed", improved: "improved", skill: "skill" } as const;
+const projectReleases = releases.filter((r) => r.kind === "project");
+
+// A small, stable tilt per card so it looks placed by hand (not random per render).
+const tiltFor = (id: string) => {
+  let h = 0;
+  for (const c of id) h = (h * 31 + c.charCodeAt(0)) | 0;
+  return (Math.abs(h) % 7) - 3;
+};
+
+const linkLabel = (key: "live" | "github") => (key === "github" ? "github ↗" : "live ↗");
+
+const atlasCase = flagship.caseStudy!.data;
+const items: DeckItem[] = [
+  {
+    id: "atlas",
+    version: flagship.version,
+    title: flagship.title,
+    period: flagship.period,
+    year: String(flagship.date.getFullYear()),
+    image: "/assets/atlas-team.jpg",
+    result: atlasCase.result,
+    description: atlasCase.description,
+    stack: [],
+    links: [{ label: "read the case study →", href: flagship.href }],
+    flagship: true,
+    callouts: atlasCase.featuredStats.map((s) => `${s.value}: ${s.label}`),
+    rotate: 0,
+  },
+  ...projectReleases.map((release) => {
+    const data = release.project!.data;
+    const links = (Object.keys(data.links ?? {}) as ("live" | "github")[])
+      .filter((k) => data.links?.[k])
+      .map((k) => ({ label: linkLabel(k), href: data.links![k]! }));
+    return {
+      id: release.project!.id,
+      version: release.version,
+      title: data.title,
+      period: data.period,
+      year: String(release.date.getFullYear()),
+      image: data.image ?? "",
+      result: data.result,
+      description: data.description,
+      stack: data.stack,
+      links,
+      flagship: false,
+      callouts: [],
+      rotate: tiltFor(release.project!.id),
+    };
+  }),
+];
 ---
 
-<section id="work" class="scroll-mt-8 px-4 py-20 md:px-8">
-  <div class="mx-auto max-w-[1080px]">
+<section id="work" class="projects scroll-mt-8 px-4 py-20 md:px-8">
+  <div class="projects-bg" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-[1080px]">
     <p class="font-mono text-sm text-ink-soft">01 · things I built</p>
     <h2 class="font-display mt-2 text-4xl md:text-5xl">Cool projects I've built</h2>
 
-    <article class="reveal mt-10 rounded-sm bg-paper-deep p-6 shadow-md md:p-10">
-      <p class="font-mono text-sm text-ink-soft">{flagship.version} · Flagship release · {flagship.period}</p>
-      <h3 class="font-display mt-2 text-3xl">{flagship.title}, my take on an operating system for venture capital</h3>
-      <p class="mt-4 max-w-prose text-ink-soft">{flagship.caseStudy!.data.description}</p>
-      <ul class="mt-6 grid gap-4 sm:grid-cols-3">
-        {
-          flagship.caseStudy!.data.featuredStats.map((stat) => (
-            <li class="border-l-4 border-butter pl-3">
-              <span class="font-display block text-2xl">{stat.value}</span>
-              <span class="text-sm text-ink-soft">{stat.label}</span>
-            </li>
-          ))
-        }
-      </ul>
-      <a href={flagship.href} class="mt-8 inline-block font-hand text-2xl text-tomato underline decoration-wavy underline-offset-4">
-        read the case study →
-      </a>
-    </article>
-
-    <ol class="mt-12 list-none space-y-10 pl-0">
-      {
-        projects.map((release) => {
-          const data = release.project!.data;
-          return (
-            <li class="reveal border-t border-kraft/40 pt-8">
-              <p class="font-mono text-sm text-ink-soft">
-                {release.version} · {release.period}
-              </p>
-              <h3 class="font-display mt-1 text-2xl">
-                <a href={data.url} target="_blank" rel="noopener" class="underline decoration-kraft underline-offset-4">
-                  {data.title}
+    <div class="projects-grid mt-10">
+      <nav aria-label="Projects index" class="toc">
+        <ol class="list-none pl-0">
+          {
+            items.map((item, i) => (
+              <li>
+                <a href={`#work-${item.id}`} class="toc-row" data-toc={item.id} data-index={i}>
+                  <span class="font-mono text-xs text-ink-soft">{item.version}</span>
+                  <span class="toc-title font-display">{item.title}</span>
+                  <span class="toc-leader" aria-hidden="true"></span>
+                  <span class="font-mono text-xs text-ink-soft">{item.year}</span>
                 </a>
-              </h3>
-              {data.result && <p class="mt-2 text-ink-soft">{data.result}</p>}
-              <ul class="mt-4 space-y-2 text-[0.95rem]">
-                {data.bullets.map((bullet) => (
-                  <li>
-                    <span class="mr-2 font-mono text-xs text-tomato">[{tagLabel[bullet.tag]}]</span>
-                    {bullet.text}
-                  </li>
-                ))}
-              </ul>
-              <ul class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-ink-soft">
-                {data.stack.map((item) => <li class="rounded-sm bg-paper-deep px-2 py-1">{item}</li>)}
-              </ul>
-            </li>
-          );
-        })
-      }
-    </ol>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="psst font-hand text-lg text-ink-soft">Atlas first, the rest newest first.</p>
+      </nav>
+
+      <div class="deck-wrap">
+        <ProjectDeck items={items} client:visible />
+      </div>
+    </div>
   </div>
 </section>

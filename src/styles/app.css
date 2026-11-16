@@ -1,3 +1,5 @@
+@layer theme, base, legacy, components, utilities;
+
 /* Build Journal styles: tokens, Tailwind utilities, paper grain.
    Preflight is intentionally not imported, so the legacy global.css pages
    (the Atlas case study) keep their current base styles. */
@@ -266,4 +268,13 @@ main > * {
 /* Nothing on the page may scroll sideways (the sticker's canvas can overhang). */
 body {
   overflow-x: clip;
+}
+
+/* The legacy case-study layout uses the .container class from global.css.
+   Tailwind also ships a .container utility, which would otherwise win (the
+   utilities layer sits above legacy), so this restores the legacy rule. */
+.container {
+  width: 90%;
+  max-width: var(--container-w);
+  margin: 0 auto;
 }

@@ -42,7 +42,7 @@ if (root && main && svg && path && plane) {
     // Stops alternate sides on desktop; the whole edge on mobile.
     const stops: Pt[] = sections.map((el, i) => {
       const y = topOf(el) + 110;
-      const x = desktop ? (i % 2 === 0 ? W * 0.07 : W * 0.93) : W * 0.09;
+      const x = desktop ? (i % 2 === 0 ? W * 0.07 : W * 0.93) : W * 0.025;
       return { x, y };
     });
 

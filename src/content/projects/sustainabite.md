@@ -11,4 +11,8 @@ bullets:
   - tag: "shipped"
     text: "Led the React Native and Expo frontend, then kept building after the hackathon ended, adding Firebase Auth and Firestore to prove it could work as more than a demo."
 stack: ["React Native", "Expo", "Firebase"]
+oneLiner: "An app that connects budgeting students to surplus food."
+description: "A mobile app that connects budgeting students to surplus food, so less of it goes to waste. I led the React Native and Expo frontend, then kept building after the hackathon ended, adding Firebase Auth and Firestore to prove it could work as more than a demo. Result: 1st place, SAP Stream (Beginner), youCode 2025."
+links:
+  live: "https://devpost.com/software/sustainabite-571y0a"
 ---

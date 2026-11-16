@@ -10,4 +10,8 @@ bullets:
   - tag: "improved"
     text: "Tuned KNN models with 5-fold cross-validation to 73.47% accuracy, then turned the output into a KPI dashboard someone outside the project could actually read."
 stack: ["R", "Statistical Modeling"]
+oneLiner: "Modelling how players actually engage, then turning it into a dashboard people can read."
+description: "A predictive analytics pipeline in R on the PLAI dataset, built to model how players actually engage. I tuned KNN models with 5-fold cross-validation to 73.47% accuracy, then turned the output into a KPI dashboard that someone outside the project could read."
+links:
+  github: "https://github.com/clairez308/dsci-100-2024-5-w2-group-005-32"
 ---

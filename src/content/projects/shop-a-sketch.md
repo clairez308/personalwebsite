@@ -13,4 +13,8 @@ bullets:
   - tag: "shipped"
     text: "Connected a React and Tailwind frontend to a Python and Node backend, and got a working drawing canvas shipped in 36 hours."
 stack: ["React", "Tailwind", "Gemini API", "Google Shopping API"]
+oneLiner: "Search by drawing instead of typing."
+description: "I pitched the core idea: search by drawing instead of typing. I owned the main product loop, turning a sketch into a ranked set of real, purchasable results through the Google Shopping API. A React and Tailwind frontend connects to a Python and Node backend, and a working drawing canvas shipped in 36 hours. Result: 3rd overall at UofTHacks13, out of 161 projects."
+links:
+  live: "https://devpost.com/software/shop-a-sketch"
 ---
