@@ -37,3 +37,13 @@ if (timeEl) {
   updateTime();
   setInterval(updateTime, 30000);
 }
+
+// 3. Back to top: appears after a screen of scrolling, scrolls smoothly up.
+const toTop = document.querySelector<HTMLButtonElement>("[data-to-top]");
+if (toTop) {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const update = () => toTop.classList.toggle("is-visible", window.scrollY > window.innerHeight * 0.8);
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+  toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }));
+}

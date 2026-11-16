@@ -17,8 +17,11 @@ interface Props {
 
 const { title = site.title, description = site.description } = Astro.props;
 
-const favicon =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%233730a3' d='M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z'/%3E%3C/svg%3E";
+// Favicon: the Twemoji airplane.
+const favicon = "/assets/graphics/plane.svg";
+
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL("/og.png", site.url).href;
 ---
 
 <!doctype html>
@@ -28,7 +31,21 @@ const favicon =
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#f6f0e4" />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" href={favicon} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <script is:inline>
       // Mark JS as available before first paint. The reveal styles key off .js.
       document.documentElement.classList.replace("no-js", "js");
@@ -42,6 +59,8 @@ const favicon =
     <slot />
 
     <Footer />
+
+    <button type="button" class="to-top" data-to-top aria-label="Back to top">↑</button>
 
     <ClickSparkLayer client:only="react" />
     <PencilCase client:idle />

@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
-import { AnimatePresence, motion } from "motion/react";
+
+// The reflections as a real book: a hardcover that opens, then pages that turn
+// with a 3D flip. The pages are server-rendered too, so the first spread is in
+// the HTML before the island hydrates.
 
 export interface BookBlock {
   html: string;
@@ -16,21 +19,16 @@ export interface BookEntry {
   blocks: BookBlock[];
 }
 
-// One sheet of paper: the photo page, or a right-hand text page.
-type Spread = {
-  key: string;
-  left:
-    | { kind: "photo"; entry: BookEntry }
-    | { kind: "cont"; entry: BookEntry; page: number }
-    | { kind: "end" };
-  right:
-    | { kind: "text"; entry: BookEntry; page: number; blocks: BookBlock[]; first: boolean; last: boolean }
-    | { kind: "end"; linkedin: string };
-};
+// One sheet: a left page and a right page.
+type Page =
+  | { kind: "photo"; entry: BookEntry }
+  | { kind: "text"; entry: BookEntry; page: number; blocks: BookBlock[]; first: boolean; last: boolean }
+  | { kind: "cont"; entry: BookEntry; page: number }
+  | { kind: "end"; linkedin: string };
+type Spread = { key: string; left: Page; right: Page };
 
 const PAGE_WORDS = 150;
 
-// Split a body into pages of roughly PAGE_WORDS, at block (paragraph) boundaries.
 function paginate(blocks: BookBlock[]): BookBlock[][] {
   const pages: BookBlock[][] = [];
   let current: BookBlock[] = [];
@@ -56,36 +54,25 @@ function buildSpreads(entries: BookEntry[], linkedin: string): Spread[] {
       const last = page === pages.length - 1;
       spreads.push({
         key: `${entry.id}-${page}`,
-        left:
-          page === 0
-            ? { kind: "photo", entry }
-            : { kind: "cont", entry, page },
+        left: page === 0 ? { kind: "photo", entry } : { kind: "cont", entry, page },
         right: { kind: "text", entry, page, blocks, first: page === 0, last },
       });
     });
   }
-  spreads.push({ key: "end", left: { kind: "end" }, right: { kind: "end", linkedin } });
+  spreads.push({ key: "end", left: { kind: "end", linkedin }, right: { kind: "end", linkedin } });
   return spreads;
 }
 
-function KeyLearning({ text }: { text: string }) {
-  return (
-    <p className="mt-5 font-hand text-2xl leading-snug">
-      <mark className="highlight">{text}</mark>
-    </p>
-  );
-}
-
-function LeftPage({ page }: { page: Spread["left"] }) {
+function PageView({ page }: { page: Page }) {
   if (page.kind === "photo") {
     const { entry } = page;
     return (
-      <div className="book-page book-page--left">
+      <div className="page page--left">
         <p className="font-hand text-2xl text-tomato">{entry.period}</p>
         {entry.tag && <p className="font-mono text-xs text-ink-soft">{entry.tag}</p>}
-        <div className="mt-4 space-y-5">
+        <div className="page-photos">
           {entry.photos.map((src) => (
-            <img key={src} src={src} alt="" loading="lazy" decoding="async" className="washi-photo" />
+            <img key={src} src={src} alt="" loading="lazy" decoding="async" />
           ))}
         </div>
       </div>
@@ -93,37 +80,36 @@ function LeftPage({ page }: { page: Spread["left"] }) {
   }
   if (page.kind === "cont") {
     return (
-      <div className="book-page book-page--left">
+      <div className="page page--left">
         <p className="font-mono text-xs text-ink-soft">(cont.)</p>
         <p className="font-display mt-2 text-xl text-ink-soft">{page.entry.title}</p>
       </div>
     );
   }
-  return (
-    <div className="book-page book-page--left">
-      <p className="font-hand text-3xl">to be continued...</p>
-    </div>
-  );
-}
-
-function RightPage({ page, entry }: { page: Spread["right"]; entry: BookEntry | null }) {
   if (page.kind === "end") {
     return (
-      <div className="book-page">
-        <p className="font-display text-2xl">More soon.</p>
-        <p className="mt-3 text-ink-soft">New notes get written when there's something worth remembering.</p>
+      <div className="page">
+        <p className="font-hand text-3xl">to be continued...</p>
         <a href={page.linkedin} target="_blank" rel="noopener" className="stamp mt-6 inline-block">
           follow along on LinkedIn ↗
         </a>
       </div>
     );
   }
+  // Right-hand text page.
   return (
-    <div className="book-page">
-      {page.first && <h3 className="font-display text-2xl leading-tight">{page.entry.title}</h3>}
-      {!page.first && <p className="font-mono text-xs text-ink-soft">(cont.)</p>}
-      <div className="mt-3 space-y-4 text-[1.02rem] leading-relaxed" dangerouslySetInnerHTML={{ __html: page.blocks.map((b) => b.html).join("") }} />
-      {page.last && entry?.keyLearning && <KeyLearning text={entry.keyLearning} />}
+    <div className="page">
+      {page.first ? (
+        <h3 className="font-display text-2xl leading-tight">{page.entry.title}</h3>
+      ) : (
+        <p className="font-mono text-xs text-ink-soft">(cont.)</p>
+      )}
+      <div className="page-body" dangerouslySetInnerHTML={{ __html: page.blocks.map((b) => b.html).join("") }} />
+      {page.last && page.entry.keyLearning && (
+        <p className="key-learning font-hand">
+          <mark className="highlight">{page.entry.keyLearning}</mark>
+        </p>
+      )}
     </div>
   );
 }
@@ -132,10 +118,12 @@ export default function JournalBook({ entries, linkedin }: { entries: BookEntry[
   const spreads = useMemo(() => buildSpreads(entries, linkedin), [entries, linkedin]);
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
+  // A turning leaf: direction and the spread it's turning from/to.
+  const [turn, setTurn] = useState<null | { dir: 1 | -1; from: number; to: number }>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const reduce = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Closed-book intro: the cover opens once the book has scrolled into view.
+  // The cover opens once the book has scrolled into view.
   useEffect(() => {
     const el = rootRef.current;
     if (!el) return;
@@ -144,9 +132,9 @@ export default function JournalBook({ entries, linkedin }: { entries: BookEntry[
       return;
     }
     const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          window.setTimeout(() => setOpen(true), 500);
+      (list) => {
+        if (list.some((e) => e.isIntersecting)) {
+          window.setTimeout(() => setOpen(true), 400);
           io.disconnect();
         }
       },
@@ -156,10 +144,25 @@ export default function JournalBook({ entries, linkedin }: { entries: BookEntry[
     return () => io.disconnect();
   }, [reduce]);
 
-  // One sheet per spread. On mobile the two pages stack, so the same step applies.
-  const go = (delta: number) => setIndex((i) => Math.min(spreads.length - 1, Math.max(0, i + delta)));
-  const spread = spreads[index];
-  const counter = `p. ${index + 1} / ${spreads.length}`;
+  const go = (dir: 1 | -1) => {
+    if (turn) return;
+    const to = index + dir;
+    if (to < 0 || to >= spreads.length) return;
+    if (!open) setOpen(true);
+    // Reduced motion and small screens (one page at a time) switch without the turn.
+    const small = window.matchMedia("(max-width: 767px)").matches;
+    if (reduce || small) {
+      setIndex(to);
+      return;
+    }
+    setTurn({ dir, from: index, to });
+  };
+
+  const finishTurn = () => {
+    if (!turn) return;
+    setIndex(turn.to);
+    setTurn(null);
+  };
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowRight") {
@@ -171,39 +174,60 @@ export default function JournalBook({ entries, linkedin }: { entries: BookEntry[
     }
   };
 
-  const entryFor = (s: Spread) => (s.left.kind === "photo" || s.left.kind === "cont" ? s.left.entry : null);
+  const spread = spreads[index];
+  // While a leaf turns, the static sheet underneath shows the spread it's landing on.
+  const under = turn ? (turn.dir === 1 ? { left: spread.left, right: spreads[turn.to].right } : { left: spreads[turn.to].left, right: spread.right }) : spread;
+  const leafFront = turn ? (turn.dir === 1 ? spread.right : spread.left) : null;
+  const leafBack = turn ? (turn.dir === 1 ? spreads[turn.to].left : spreads[turn.to].right) : null;
 
   return (
     <div ref={rootRef} className="book-root" tabIndex={0} role="region" aria-label="Reflections book. Use the arrow keys to turn pages." onKeyDown={onKeyDown}>
       <div className={`book ${open ? "is-open" : "is-closed"}`}>
-        <div className="book-cover" aria-hidden={open}>
-          <span className="book-cover-label font-hand">notes to self</span>
-          <span className="book-band" aria-hidden="true" />
+        {/* The sheet underneath: the two pages that are showing. */}
+        <div className="sheet" aria-live={turn ? "off" : "polite"}>
+          <PageView page={under.left} />
+          <PageView page={under.right} />
+          <div className="spine" aria-hidden="true" />
         </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={spread.key}
-            className="spread"
-            initial={reduce ? false : { rotateY: -12, opacity: 0 }}
-            animate={{ rotateY: 0, opacity: 1 }}
-            exit={reduce ? { opacity: 0 } : { rotateY: 12, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+        {/* The leaf that turns over the spine. */}
+        {turn && leafFront && leafBack && (
+          <div
+            className={`leaf ${turn.dir === 1 ? "leaf--forward" : "leaf--back"}`}
+            onAnimationEnd={finishTurn}
+            aria-hidden="true"
           >
-            <LeftPage page={spread.left} />
-            <RightPage page={spread.right} entry={entryFor(spread)} />
-          </motion.div>
-        </AnimatePresence>
+            <div className="leaf-face leaf-front">
+              <PageView page={leafFront} />
+            </div>
+            <div className="leaf-face leaf-back">
+              <PageView page={leafBack} />
+            </div>
+          </div>
+        )}
+
+        {/* The hardcover. Opening it rotates the cover away from the spine. */}
+        <button
+          type="button"
+          className="cover"
+          onClick={() => setOpen(true)}
+          aria-label="Open the book"
+          tabIndex={open ? -1 : 0}
+          aria-hidden={open}
+        >
+          <span className="cover-title font-hand">notes to self</span>
+          <span className="cover-sub font-mono">reflections</span>
+        </button>
       </div>
 
       <nav className="book-nav" aria-label="Turn pages">
-        <button type="button" className="hand-arrow" onClick={() => go(-1)} disabled={index === 0} aria-label="Previous page">
+        <button type="button" className="hand-arrow" onClick={() => go(-1)} disabled={index === 0 || !!turn} aria-label="Previous page">
           ←
         </button>
         <span className="font-mono text-xs text-ink-soft" aria-live="polite">
-          {counter}
+          p. {index + 1} / {spreads.length}
         </span>
-        <button type="button" className="hand-arrow" onClick={() => go(1)} disabled={index >= spreads.length - 1} aria-label="Next page">
+        <button type="button" className="hand-arrow" onClick={() => go(1)} disabled={index >= spreads.length - 1 || !!turn} aria-label="Next page">
           →
         </button>
       </nav>

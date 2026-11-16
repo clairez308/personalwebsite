@@ -1,18 +1,18 @@
 ---
 import { site } from "../content/site";
 
-// Notebook divider tabs pinned to the right edge (desktop). On mobile they
-// collapse into one bookmark button that opens the same list.
+// Notebook divider tabs on the right edge (desktop, always visible). On mobile
+// they collapse into one button that opens the same list.
 const colors = ["bg-washi-pink", "bg-kraft", "bg-sage", "bg-butter", "bg-washi-pink"];
 ---
 
-<nav aria-label="Sections" class="fixed right-0 top-1/3 z-40 hidden flex-col items-end gap-2 md:flex">
+<nav aria-label="Sections" class="tabs-desktop fixed right-0 top-1/3 z-40 hidden flex-col items-end gap-2 md:flex">
   {
     site.sections.map((s, i) => (
       <a
         href={`#${s.id}`}
         data-tab={s.id}
-        class={`${colors[i % colors.length]} font-mono text-xs text-ink rounded-l-md px-3 py-2 shadow-sm translate-x-[50%] transition-transform duration-300 hover:translate-x-0 focus-visible:translate-x-0 data-[active=true]:translate-x-0`}
+        class={`tab ${colors[i % colors.length]}`}
       >
         {s.label}
       </a>
@@ -20,14 +20,14 @@ const colors = ["bg-washi-pink", "bg-kraft", "bg-sage", "bg-butter", "bg-washi-p
   }
 </nav>
 
-<details class="fixed right-3 top-3 z-40 md:hidden">
-  <summary class="cursor-pointer list-none rounded-md bg-tomato px-3 py-2 font-mono text-xs text-paper shadow-sm">
+<details class="tabs-mobile fixed right-3 top-3 z-40 md:hidden">
+  <summary class="cursor-pointer list-none rounded-md border-2 border-ink bg-tomato px-3 py-2 font-mono text-sm font-semibold text-paper shadow-md">
     sections
   </summary>
-  <nav aria-label="Sections (mobile)" class="mt-2 flex flex-col items-end gap-2 rounded-md bg-paper-deep p-2 shadow">
+  <nav aria-label="Sections (mobile)" class="mt-2 flex flex-col items-end gap-2 rounded-md border-2 border-ink bg-paper p-2 shadow-md">
     {
       site.sections.map((s) => (
-        <a href={`#${s.id}`} data-tab={s.id} class="font-mono text-sm text-ink px-2 py-1 rounded data-[active=true]:bg-butter">
+        <a href={`#${s.id}`} data-tab={s.id} class="tab-mobile">
           {s.label}
         </a>
       ))

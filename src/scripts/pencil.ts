@@ -46,20 +46,7 @@ const pencil = document.createElement("div");
 pencil.className = "pencil";
 pencil.setAttribute("aria-hidden", "true");
 pencil.innerHTML = `
-  <svg class="pencil-art" viewBox="0 0 40 40" width="28" height="28">
-    <g class="pencil-body">
-      <polygon points="0,0 9,3 3,9" fill="#2b2420" />
-      <polygon points="9,3 30,4 34,8 31,13 9,12" fill="#f5d867" stroke="#2b2420" stroke-width="1.2" stroke-linejoin="round" />
-      <rect x="30" y="4" width="6" height="9" rx="1" fill="#e2483d" stroke="#2b2420" stroke-width="1.2" />
-    </g>
-    <g class="pencil-nib">
-      <circle cx="14" cy="14" r="4" fill="none" stroke="#2b2420" stroke-width="1.4" />
-      <circle cx="14" cy="14" r="1.6" fill="#e2483d" />
-    </g>
-    <g class="pencil-scribble">
-      <path d="M-4 -2 C 6 -10, 14 6, 22 -4 S 40 -6, 42 4" fill="none" stroke="#2b2420" stroke-width="1.2" />
-    </g>
-  </svg>
+  <img class="pencil-art" src="/assets/graphics/pencil.svg" width="32" height="32" alt="" draggable="false" />
   <span class="pencil-label font-hand"></span>
 `;
 
@@ -87,7 +74,7 @@ let enabled = false;
 let target = { x: -100, y: -100 };
 let pos = { x: -100, y: -100 };
 let lastX = -100;
-let tilt = -35;
+let tilt = 0;
 let raf = 0;
 let trail: { x: number; y: number; t: number }[] = [];
 let trailRaf = 0;
@@ -121,10 +108,11 @@ function frame() {
   // Tilt toward the direction of travel, a few degrees at most.
   const vx = pos.x - lastX;
   lastX = pos.x;
-  tilt += (Math.max(-12, Math.min(12, vx * 0.6)) - 35 - tilt) * 0.2;
-  const rotate = reduceMotion ? -35 : tilt;
-  const pressed = pencil.dataset.mode === "link" ? " translateY(3px) rotate(-18deg)" : "";
-  pencil.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${rotate}deg)${pressed}`;
+  tilt += (Math.max(-12, Math.min(12, vx * 0.6)) - tilt) * 0.2;
+  const rotate = reduceMotion ? 0 : tilt;
+  // The pencil tip is its bottom-left corner, so the image hangs up and to the right of the pointer.
+  const pressed = pencil.dataset.mode === "link" ? " translateY(2px)" : "";
+  pencil.style.transform = `translate(${pos.x}px, ${pos.y - 32}px) rotate(${rotate}deg)${pressed}`;
   raf = requestAnimationFrame(frame);
 }
 

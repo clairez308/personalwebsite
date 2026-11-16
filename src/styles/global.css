@@ -4,16 +4,16 @@
    ========================================================================== */
 :root {
   --bg: #f6f0e4;
-  --surface: #ffffff;
+  --surface: #fbf7ef;
   --ink: #2b2420;
   --ink-soft: #6b5e55;
-  --ink-faint: #8a8a90;
-  --line: #e6e4dd;
-  --line-strong: #d6d3c9;
-  --accent: #3730a3;
-  --accent-hover: #2b2480;
-  --accent-soft: #edeefb;
-  --accent-contrast: #ffffff;
+  --ink-faint: #7d6f65;
+  --line: #e6dccb;
+  --line-strong: #d4c6ae;
+  --accent: #e2483d;
+  --accent-hover: #c93a30;
+  --accent-soft: #f6e7c8;
+  --accent-contrast: #f6f0e4;
   --diff-add: #15803d;
   --diff-add-soft: #ecf6ee;
   --diff-fix: #b45309;
@@ -25,9 +25,9 @@
   --breaking: #b91c1c;
   --breaking-soft: #fdecec;
 
-  --cover-bg: #0b0b14;
-  --cover-ink: #f4f3f0;
-  --cover-line: rgba(244, 243, 240, 0.14);
+  --cover-bg: #2b2420;
+  --cover-ink: #f6f0e4;
+  --cover-line: rgba(246, 240, 228, 0.16);
 
   --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -387,7 +387,7 @@ section {
 .hero-blob-1 {
   width: 560px;
   height: 560px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.65), transparent 70%);
+  background: radial-gradient(circle, rgba(226, 72, 61,0.65), transparent 70%);
   top: -200px;
   right: -160px;
   animation: hero-drift-1 15s ease-in-out infinite;
@@ -396,7 +396,7 @@ section {
 .hero-blob-2 {
   width: 460px;
   height: 460px;
-  background: radial-gradient(circle, rgba(55, 48, 163, 0.55), transparent 70%);
+  background: radial-gradient(circle, rgba(226, 72, 61,0.55), transparent 70%);
   bottom: -180px;
   left: 2%;
   animation: hero-drift-2 19s ease-in-out infinite;
@@ -576,8 +576,8 @@ section {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 82% 18%, rgba(99, 102, 241, 0.35), transparent 55%),
-    radial-gradient(circle at 10% 90%, rgba(99, 102, 241, 0.18), transparent 50%);
+    radial-gradient(circle at 82% 18%, rgba(226, 72, 61,0.35), transparent 55%),
+    radial-gradient(circle at 10% 90%, rgba(226, 72, 61,0.18), transparent 50%);
   pointer-events: none;
 }
 
@@ -594,7 +594,7 @@ section {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #a5abf7;
+  color: var(--accent);
   margin-bottom: var(--space-4);
   display: block;
 }
@@ -645,7 +645,7 @@ section {
 }
 
 .featured-cta:hover {
-  background: #a5abf7;
+  background: var(--accent);
 }
 
 /* ==========================================================================
@@ -783,7 +783,7 @@ section {
 }
 
 .release-thumb-placeholder--1 {
-  background: linear-gradient(135deg, #3730a3, #6366f1);
+  background: linear-gradient(135deg, #e2483d, #f2b8c6);
 }
 
 .release-thumb-placeholder--2 {
@@ -791,7 +791,7 @@ section {
 }
 
 .release-thumb-placeholder--3 {
-  background: linear-gradient(135deg, #4c1d95, #3730a3);
+  background: linear-gradient(135deg, #2b2420, #e2483d);
 }
 
 .release-details {
@@ -1356,8 +1356,8 @@ footer.site-footer {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 85% 20%, rgba(99, 102, 241, 0.32), transparent 55%),
-    radial-gradient(circle at 15% 85%, rgba(99, 102, 241, 0.16), transparent 50%);
+    radial-gradient(circle at 85% 20%, rgba(226, 72, 61,0.32), transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(226, 72, 61,0.16), transparent 50%);
   pointer-events: none;
 }
 
@@ -1381,7 +1381,7 @@ footer.site-footer {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #a5abf7;
+  color: var(--accent);
   margin-bottom: var(--space-4);
 }
 
@@ -1704,7 +1704,7 @@ footer.site-footer {
 }
 
 .mvp-col.core h4 {
-  color: #a5abf7;
+  color: var(--accent);
 }
 
 .mvp-col ol {
@@ -2193,7 +2193,7 @@ footer.site-footer {
   color: rgba(11, 11, 20, 0.75);
 }
 
-.infra-badge--fallback-1 { background: #a5abf7; }
+.infra-badge--fallback-1 { background: var(--accent); }
 .infra-badge--fallback-2 { background: #5eead4; }
 .infra-badge--fallback-3 { background: #fdba74; }
 .infra-badge--fallback-4 { background: #f9a8d4; }
@@ -2223,17 +2223,17 @@ footer.site-footer {
 
 .infra-key {
   font-size: 0.92rem;
-  color: #a5abf7;
+  color: var(--accent);
 }
 
 .infra-key a {
-  color: #a5abf7;
+  color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid rgba(165, 171, 247, 0.35);
 }
 
 .infra-key a:hover {
-  border-bottom-color: #a5abf7;
+  border-bottom-color: var(--accent);
 }
 
 .infra-comment {

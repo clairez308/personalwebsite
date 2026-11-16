@@ -302,45 +302,22 @@ astro-island {
   left: 0;
   top: 0;
   z-index: 10001;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   pointer-events: none;
   will-change: transform;
-  transform-origin: 0 0;
+  transform-origin: 0 100%;
 }
 .pencil-art {
   position: absolute;
   left: 0;
   top: 0;
-  overflow: visible;
-  transform: translate(-3px, -3px);
+  width: 32px;
+  height: 32px;
   transition: transform 0.15s ease;
 }
-.pencil-nib,
-.pencil-scribble {
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-.pencil[data-mode="nib"] .pencil-nib {
-  opacity: 1;
-}
 .pencil[data-mode="link"] .pencil-art {
-  transform: translate(-3px, -3px) rotate(10deg);
-}
-.pencil[data-mode="link"] .pencil-scribble,
-.pencil[data-mode="envelope"] .pencil-scribble,
-.pencil[data-mode="flip"] .pencil-scribble {
-  opacity: 1;
-  transition-delay: 0.1s;
-}
-.pencil[data-mode="flip"] .pencil-scribble {
-  animation: spin 2.4s linear infinite;
-  transform-origin: 14px 14px;
-}
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  transform: rotate(-8deg);
 }
 .pencil-label {
   position: absolute;
@@ -418,4 +395,90 @@ html[data-shift] .crosshair {
   text-decoration: underline;
   text-underline-offset: 4px;
   cursor: pointer;
+}
+
+/* ---------- Divider tabs: always visible, the current section sticks out ---------- */
+.tab,
+.tab-mobile {
+  display: block;
+  font-family: var(--font-mono);
+  color: var(--ink);
+  text-decoration: none;
+  border: 2px solid var(--ink);
+  box-shadow: 0 2px 6px rgba(43, 36, 32, 0.18);
+}
+.tab {
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-right: 0;
+  border-radius: 8px 0 0 8px;
+  transition:
+    margin 0.25s ease,
+    background-color 0.25s ease;
+}
+.tab[data-active="true"] {
+  margin-left: -0.9rem;
+  background: var(--tomato);
+  color: var(--paper);
+}
+.tab:hover,
+.tab:focus-visible {
+  margin-left: -0.6rem;
+}
+.tab-mobile {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 6px;
+}
+.tab-mobile[data-active="true"] {
+  background: var(--butter);
+}
+
+/* ---------- Back to top ---------- */
+.to-top {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 9000;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.5rem;
+  line-height: 1;
+  box-shadow: 0 4px 10px rgba(43, 36, 32, 0.25);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+.to-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.to-top:hover {
+  transform: translateY(-2px);
+  background: var(--butter);
+}
+@media (prefers-reduced-motion: reduce) {
+  .to-top,
+  .tab {
+    transition: none !important;
+  }
+}
+
+/* The thread's plane is now a Twemoji image; it rides the path, rotated to its tangent. */
+.thread-plane {
+  transform-origin: 50% 50%;
+}
+
+/* The thread keeps its numbered pins; the handwritten labels repeated the section headings. */
+.thread-label {
+  display: none;
 }

@@ -9,7 +9,7 @@ export const site = {
 
   hero: {
     headline: "Hi, I'm Claire.",
-    handwritten: "CS @ UBC → building toward product management",
+    handwritten: "CS @ UBC",
     lede: "Welcome to my portfolio! I'm a CS student @ UBC interested in product management, tech consulting, and data.",
     tags: ["pm", "data", "consulting"],
     // Hand-drawn margin notes around the photo (§5.2).

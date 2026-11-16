@@ -195,12 +195,16 @@
   color: var(--tomato);
 }
 
+/* Hidden without moving far off-screen: the back face is rotated, which mirrors offsets. */
 .honeypot {
   position: absolute;
-  left: -10000px;
+  left: 0;
+  top: 0;
   width: 1px;
   height: 1px;
   overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .postcard-actions {
@@ -345,4 +349,10 @@
   .thanks {
     opacity: 1;
   }
+}
+
+.stamp-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
 }

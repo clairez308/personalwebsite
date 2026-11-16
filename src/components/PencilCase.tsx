@@ -34,36 +34,17 @@ const regions: { id: string; label: string; d: string }[] = [
 const kinds = ["star", "heart", "tomato", "plane", "sun", "coffee"] as const;
 type Kind = (typeof kinds)[number];
 
+const tileSrc: Record<Kind, string> = {
+  star: "/assets/graphics/star.svg",
+  heart: "/assets/graphics/heart.svg",
+  tomato: "/assets/graphics/tomato.svg",
+  plane: "/assets/graphics/plane.svg",
+  sun: "/assets/graphics/sun.svg",
+  coffee: "/assets/graphics/coffee.svg",
+};
+
 function TileArt({ kind }: { kind: Kind }) {
-  switch (kind) {
-    case "star":
-      return <polygon points="20,3 25,15 38,15 28,23 32,36 20,29 8,36 12,23 2,15 15,15" fill="#f5d867" stroke="#2b2420" strokeWidth="1.2" />;
-    case "heart":
-      return <path d="M20 35 C4 24 2 14 8 8 C13 3 19 6 20 11 C21 6 27 3 32 8 C38 14 36 24 20 35Z" fill="#f2b8c6" stroke="#2b2420" strokeWidth="1.2" />;
-    case "tomato":
-      return (
-        <g>
-          <circle cx="20" cy="22" r="13" fill="#e2483d" stroke="#2b2420" strokeWidth="1.2" />
-          <path d="M12 12 L20 8 L28 12 L24 14 L20 9 L16 14 Z" fill="#9aa67a" />
-        </g>
-      );
-    case "plane":
-      return <polygon points="2,20 38,6 26,36 20,24" fill="#e2483d" stroke="#2b2420" strokeWidth="1" />;
-    case "sun":
-      return (
-        <g stroke="#f5d867" strokeWidth="3" strokeLinecap="round">
-          <circle cx="20" cy="20" r="8" fill="#f5d867" />
-          <path d="M20 2v5M20 33v5M2 20h5M33 20h5M7 7l3 3M30 30l3 3M7 33l3-3M30 10l3-3" />
-        </g>
-      );
-    case "coffee":
-      return (
-        <g>
-          <path d="M8 14 H30 V28 Q30 34 22 34 H16 Q8 34 8 28 Z" fill="#fbf7ef" stroke="#2b2420" strokeWidth="1.2" />
-          <path d="M30 17 H34 Q36 17 36 21 Q36 25 30 25" fill="none" stroke="#2b2420" strokeWidth="1.2" />
-        </g>
-      );
-  }
+  return <img src={tileSrc[kind]} alt="" className="tile-img" draggable={false} />;
 }
 
 type Tile = { id: number; kind: Kind };
@@ -233,9 +214,9 @@ function TapeMatch() {
                 aria-pressed={isOpen}
               >
                 <span className="tile-back font-hand" aria-hidden="true">?</span>
-                <svg className="tile-front" viewBox="0 0 40 40" aria-hidden="true">
+                <span className="tile-front" aria-hidden="true">
                   <TileArt kind={tile.kind} />
-                </svg>
+                </span>
               </button>
             </li>
           );
@@ -328,12 +309,7 @@ export default function PencilCase() {
         aria-controls="pencil-case-panel"
         onClick={toggle}
       >
-        <svg viewBox="0 0 48 36" width="48" height="36" aria-hidden="true">
-          <rect x="2" y="8" width="44" height="24" rx="5" fill="#9aa67a" stroke="#2b2420" strokeWidth="1.6" />
-          <path d="M2 16 H46" stroke="#2b2420" strokeWidth="1.2" />
-          <rect x="16" y="2" width="16" height="8" rx="2" fill="#f2b8c6" stroke="#2b2420" strokeWidth="1.2" />
-          <rect x="18" y="20" width="12" height="6" rx="1" fill="#fbf7ef" stroke="#2b2420" strokeWidth="1" />
-        </svg>
+        <img src="/assets/graphics/pencil.svg" width="40" height="40" alt="" />
         <span className="sr-only">pencil case</span>
       </button>
 

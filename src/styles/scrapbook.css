@@ -213,3 +213,17 @@
     padding-right: 0;
   }
 }
+
+/* Twemoji images in the tray and on the board */
+.sticker-btn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.tray-img {
+  pointer-events: none;
+}
+/* Polaroids have no captions, so the frame is an even border. */
+.polaroid {
+  padding: 6px;
+}

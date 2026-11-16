@@ -39,42 +39,20 @@ function writeDraft(d: Draft) {
   }
 }
 
-// Small stamp artwork for the picker and the stamp box.
+// Stamp artwork: Twemoji graphics, UBC stays a typed badge.
 function StampArt({ kind }: { kind: Stamp }) {
-  switch (kind) {
-    case "tomato":
-      return (
-        <svg viewBox="0 0 40 40" aria-hidden="true">
-          <circle cx="20" cy="22" r="13" fill="#e2483d" stroke="#2b2420" strokeWidth="1.2" />
-          <path d="M12 12 L20 8 L28 12 L24 14 L20 9 L16 14 Z" fill="#9aa67a" />
-        </svg>
-      );
-    case "snowboard":
-      return (
-        <svg viewBox="0 0 40 40" aria-hidden="true">
-          <rect x="16" y="3" width="8" height="34" rx="4" fill="#2b2420" transform="rotate(30 20 20)" />
-        </svg>
-      );
-    case "paint":
-      return (
-        <svg viewBox="0 0 40 40" aria-hidden="true">
-          <path d="M20 4 C32 4 36 13 34 20 C32 28 24 26 22 30 C20 34 14 36 10 30 C6 24 6 4 20 4Z" fill="#fbf7ef" stroke="#2b2420" strokeWidth="1.2" />
-          <circle cx="14" cy="14" r="3" fill="#e2483d" />
-          <circle cx="22" cy="11" r="3" fill="#f5d867" />
-          <circle cx="28" cy="18" r="3" fill="#9aa67a" />
-          <circle cx="12" cy="24" r="3" fill="#2b2420" />
-        </svg>
-      );
-    case "ubc":
-      return (
-        <svg viewBox="0 0 40 40" aria-hidden="true">
-          <rect x="4" y="10" width="32" height="20" fill="#1b4a7a" />
-          <text x="20" y="25" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="9" fontWeight="700" fill="#fbf7ef">
-            UBC
-          </text>
-        </svg>
-      );
+  if (kind === "ubc") {
+    return (
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <rect x="4" y="10" width="32" height="20" fill="#1b4a7a" />
+        <text x="20" y="25" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="9" fontWeight="700" fill="#fbf7ef">
+          UBC
+        </text>
+      </svg>
+    );
   }
+  const src = { tomato: "/assets/graphics/tomato.svg", snowboard: "/assets/graphics/snowboard.svg", paint: "/assets/graphics/paint-palette.svg" }[kind];
+  return <img src={src} alt="" />;
 }
 
 const stampLabel: Record<Stamp, string> = {
@@ -159,10 +137,9 @@ export default function PostcardForm() {
         <div className="postcard-face postcard-front" aria-hidden={ready && flipped} inert={ready && flipped ? true : undefined}>
           <svg className="postcard-art" viewBox="0 0 400 260" role="img" aria-label="A postcard: Greetings from Vancouver, with mountains and the ocean">
             <rect width="400" height="260" fill="#f6e7c8" />
-            <circle cx="310" cy="70" r="26" fill="#f5d867" />
-            <path d="M0 170 L70 100 L120 150 L180 80 L250 160 L300 120 L400 180 L400 260 L0 260 Z" fill="#9aa67a" />
-            <path d="M0 200 L90 170 L160 205 L240 175 L320 205 L400 190 L400 260 L0 260 Z" fill="#6f8fa6" />
-            <path d="M180 80 L168 102 L192 102 Z M70 100 L58 120 L82 120 Z" fill="#fbf7ef" />
+            <image href="/assets/graphics/sun.svg" x="300" y="14" width="70" height="70" />
+            <image href="/assets/graphics/mountain.svg" x="40" y="90" width="200" height="200" />
+            <image href="/assets/graphics/wave.svg" x="0" y="170" width="400" height="90" preserveAspectRatio="none" />
             <text x="24" y="52" fontFamily="Caveat, cursive" fontSize="34" fill="#2b2420">
               Greetings from
             </text>

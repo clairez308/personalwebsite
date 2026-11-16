@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
-import { motion } from "motion/react";
+import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent as ReactPointerEvent, type ReactNode, type RefObject } from "react";
+import { motion, useMotionValue, type HTMLMotionProps } from "motion/react";
 import { getStroke } from "perfect-freehand";
 
 // The scrapbook: a corkboard you can arrange. Everything is stored in board
@@ -12,7 +12,7 @@ export interface HobbyPhoto {
   caption: string | null;
 }
 
-type StickerKind = "star" | "heart" | "tomato" | "snowboard" | "brush" | "mat" | "pm" | "coffee" | "plane" | "book" | "sun" | "flower" | "ticket";
+type StickerKind = "star" | "heart" | "tomato" | "snowboard" | "paint" | "yoga" | "coffee" | "plane" | "book" | "sun" | "flower" | "ticket";
 type Mode = "select" | "tape" | "pen" | "eraser" | "sticker";
 type Ink = "#2b2420" | "#e2483d" | "#f2b8c6" | "#9aa67a";
 const inks: Ink[] = ["#2b2420", "#e2483d", "#f2b8c6", "#9aa67a"];
@@ -66,105 +66,20 @@ function defaultItems(photos: HobbyPhoto[]): Item[] {
   ];
 }
 
-// Stickers are tiny inline SVGs on a 40 x 40 grid.
-const stickerArt: Record<StickerKind, { label: string; svg: ReactNode }> = {
-  star: {
-    label: "star",
-    svg: <polygon points="20,2 25,15 39,15 28,24 32,38 20,30 8,38 12,24 1,15 15,15" fill="#f5d867" stroke="#2b2420" strokeWidth="1.2" />,
-  },
-  heart: {
-    label: "heart",
-    svg: <path d="M20 35 C4 24 2 14 8 8 C13 3 19 6 20 11 C21 6 27 3 32 8 C38 14 36 24 20 35Z" fill="#f2b8c6" stroke="#2b2420" strokeWidth="1.2" />,
-  },
-  tomato: {
-    label: "tomato",
-    svg: (
-      <g>
-        <circle cx="20" cy="22" r="14" fill="#e2483d" stroke="#2b2420" strokeWidth="1.2" />
-        <path d="M12 12 L20 8 L28 12 L24 14 L20 9 L16 14 Z" fill="#9aa67a" />
-      </g>
-    ),
-  },
-  snowboard: {
-    label: "snowboard",
-    svg: <rect x="15" y="2" width="10" height="36" rx="5" fill="#2b2420" transform="rotate(35 20 20)" />,
-  },
-  brush: {
-    label: "paintbrush",
-    svg: (
-      <g>
-        <rect x="18" y="4" width="4" height="22" fill="#b98b5e" />
-        <path d="M14 26 Q20 40 26 26 Z" fill="#e2483d" stroke="#2b2420" strokeWidth="1" />
-      </g>
-    ),
-  },
-  mat: {
-    label: "yoga mat",
-    svg: (
-      <g>
-        <rect x="2" y="12" width="36" height="16" rx="4" fill="#9aa67a" stroke="#2b2420" strokeWidth="1.2" />
-        <path d="M2 20 H38 M2 24 H38" stroke="#fbf7ef" strokeOpacity="0.5" />
-      </g>
-    ),
-  },
-  pm: {
-    label: "PM in progress",
-    svg: <text x="20" y="25" textAnchor="middle" fontFamily="Caveat, cursive" fontSize="9" fill="#2b2420">PM in progress</text>,
-  },
-  coffee: {
-    label: "coffee",
-    svg: (
-      <g>
-        <path d="M8 14 H30 V28 Q30 34 22 34 H16 Q8 34 8 28 Z" fill="#fbf7ef" stroke="#2b2420" strokeWidth="1.2" />
-        <path d="M30 17 H34 Q36 17 36 21 Q36 25 30 25" fill="none" stroke="#2b2420" strokeWidth="1.2" />
-      </g>
-    ),
-  },
-  plane: {
-    label: "paper plane",
-    svg: <polygon points="2,20 38,6 26,36 20,24" fill="#e2483d" stroke="#2b2420" strokeWidth="1" />,
-  },
-  book: {
-    label: "book",
-    svg: (
-      <g>
-        <rect x="6" y="6" width="28" height="30" rx="2" fill="#9aa67a" stroke="#2b2420" strokeWidth="1.2" />
-        <line x1="12" y1="6" x2="12" y2="36" stroke="#2b2420" strokeWidth="1" />
-      </g>
-    ),
-  },
-  sun: {
-    label: "sun",
-    svg: (
-      <g stroke="#f5d867" strokeWidth="3" strokeLinecap="round">
-        <circle cx="20" cy="20" r="8" fill="#f5d867" />
-        <path d="M20 2v5M20 33v5M2 20h5M33 20h5M7 7l3 3M30 30l3 3M7 33l3-3M30 10l3-3" />
-      </g>
-    ),
-  },
-  flower: {
-    label: "pressed flower",
-    svg: (
-      <g fill="#f2b8c6" stroke="#2b2420" strokeWidth="0.8">
-        <circle cx="20" cy="10" r="7" />
-        <circle cx="30" cy="18" r="7" />
-        <circle cx="26" cy="30" r="7" />
-        <circle cx="14" cy="30" r="7" />
-        <circle cx="10" cy="18" r="7" />
-        <circle cx="20" cy="20" r="5" fill="#f5d867" />
-      </g>
-    ),
-  },
-  ticket: {
-    label: "ticket stub",
-    svg: (
-      <g>
-        <rect x="2" y="12" width="36" height="16" rx="2" fill="#fbf7ef" stroke="#2b2420" strokeWidth="1" />
-        <line x1="27" y1="12" x2="27" y2="28" stroke="#2b2420" strokeDasharray="2 2" />
-        <text x="13" y="23" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="5" fill="#e2483d">ADMIT</text>
-      </g>
-    ),
-  },
+// Stickers are Twemoji graphics (CC-BY 4.0), copied into /public/assets/graphics.
+const stickerArt: Record<StickerKind, { label: string; src: string }> = {
+  star: { label: "star", src: "/assets/graphics/star.svg" },
+  heart: { label: "heart", src: "/assets/graphics/heart.svg" },
+  tomato: { label: "tomato", src: "/assets/graphics/tomato.svg" },
+  snowboard: { label: "snowboard", src: "/assets/graphics/snowboard.svg" },
+  paint: { label: "paint palette", src: "/assets/graphics/paint-palette.svg" },
+  yoga: { label: "yoga mat", src: "/assets/graphics/yoga.svg" },
+  coffee: { label: "coffee", src: "/assets/graphics/coffee.svg" },
+  plane: { label: "paper plane", src: "/assets/graphics/plane.svg" },
+  book: { label: "book", src: "/assets/graphics/book.svg" },
+  sun: { label: "sun", src: "/assets/graphics/sun.svg" },
+  flower: { label: "blossom", src: "/assets/graphics/blossom.svg" },
+  ticket: { label: "ticket", src: "/assets/graphics/ticket.svg" },
 };
 const stickerKinds = Object.keys(stickerArt) as StickerKind[];
 
@@ -206,6 +121,51 @@ function writeSaved(data: Saved) {
   } catch {
     // Storage full or blocked: the board still works, it just won't persist.
   }
+}
+
+// A piece you can grab. Motion moves it while you drag; on release the new
+// position is written to state and the motion offset is cleared in the same
+// update, so the piece lands where you let go instead of snapping back.
+function Movable({
+  enabled,
+  boardRef,
+  onRaise,
+  onMove,
+  rotate,
+  className,
+  style,
+  children,
+  ...rest
+}: {
+  enabled: boolean;
+  boardRef: RefObject<HTMLDivElement | null>;
+  onRaise: () => void;
+  onMove: (dxPct: number, dyPct: number) => void;
+  rotate: number;
+  className: string;
+  style: CSSProperties;
+  children: ReactNode;
+} & Omit<HTMLMotionProps<"div">, "style" | "className" | "onDragStart" | "onDragEnd" | "children" | "drag" | "rotate">) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  return (
+    <motion.div
+      className={className}
+      style={{ ...style, x, y, rotate }}
+      drag={enabled}
+      dragMomentum={false}
+      onDragStart={onRaise}
+      onDragEnd={() => {
+        const rect = boardRef.current!.getBoundingClientRect();
+        onMove((x.get() / rect.width) * 100, (y.get() / rect.height) * 100);
+        x.set(0);
+        y.set(0);
+      }}
+      {...rest}
+    >
+      {children}
+    </motion.div>
+  );
 }
 
 export default function ScrapbookBoard({ photos }: { photos: HobbyPhoto[] }) {
@@ -406,16 +366,12 @@ export default function ScrapbookBoard({ photos }: { photos: HobbyPhoto[] }) {
           const style: CSSProperties = { left: `${item.x}%`, top: `${item.y}%` };
           return (
             <div key={item.id} className="piece" style={style} data-kind={item.kind}>
-              <motion.div
+              <Movable
                 className="drag"
-                drag={mode === "select"}
-                dragMomentum={false}
-                dragSnapToOrigin
-                onDragStart={() => raise(item.id)}
-                onDragEnd={(_, info) => {
-                  const rect = boardRef.current!.getBoundingClientRect();
-                  moveItem(item.id, (info.offset.x / rect.width) * 100, (info.offset.y / rect.height) * 100);
-                }}
+                enabled={mode === "select"}
+                boardRef={boardRef}
+                onRaise={() => raise(item.id)}
+                onMove={(dx, dy) => moveItem(item.id, dx, dy)}
                 onPointerDown={(e) => {
                   if (mode === "eraser") {
                     e.stopPropagation();
@@ -431,8 +387,8 @@ export default function ScrapbookBoard({ photos }: { photos: HobbyPhoto[] }) {
                       ? "Washi tape. Arrow keys move it."
                       : `Sticker: ${stickerArt[item.sticker].label}. Arrow keys move it.`
                 }
+                rotate={item.kind === "tape" ? item.angle : item.rot}
                 style={{
-                  rotate: item.kind === "tape" ? item.angle : item.rot,
                   width: item.kind === "tape" ? `${item.len / 10}%` : undefined,
                   transformOrigin: item.kind === "tape" ? "0 50%" : undefined,
                   cursor: mode === "select" ? "grab" : undefined,
@@ -444,16 +400,11 @@ export default function ScrapbookBoard({ photos }: { photos: HobbyPhoto[] }) {
                 ) : item.kind === "polaroid" ? (
                   <figure className="polaroid">
                     <img src={item.src} alt="" loading="lazy" decoding="async" draggable={false} />
-                    <figcaption className="font-hand">
-                      {item.caption && !item.caption.startsWith("TODO") ? item.caption : item.name}
-                    </figcaption>
                   </figure>
                 ) : (
-                  <svg className="sticker" viewBox="0 0 40 40" aria-hidden="true">
-                    {stickerArt[item.sticker].svg}
-                  </svg>
+                  <img className="sticker" src={stickerArt[item.sticker].src} alt="" draggable={false} />
                 )}
-              </motion.div>
+              </Movable>
             </div>
           );
         })}
@@ -489,7 +440,7 @@ export default function ScrapbookBoard({ photos }: { photos: HobbyPhoto[] }) {
                 setMode("sticker");
               }}
             >
-              <svg viewBox="0 0 40 40" aria-hidden="true">{stickerArt[k].svg}</svg>
+              <img src={stickerArt[k].src} alt="" className="tray-img" draggable={false} />
             </button>
           ))}
         </div>
